@@ -1,5 +1,9 @@
+import { useSelectProfileName } from "@/stores/selectors/profile.selectors";
+
 const ProfileName = () => {
-  return <p className="text-xl">Wassap, User</p>;
+  const profileName = useSelectProfileName();
+
+  return <p className="text-xl">Wassap, {profileName}</p>;
 };
 
 export default ProfileName;
