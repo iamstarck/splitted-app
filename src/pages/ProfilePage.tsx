@@ -4,8 +4,11 @@ import { UserIcon } from "lucide-react";
 import ProfileForm from "../features/profile/components/ProfileForm";
 import Footer from "../shared/components/Footer";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
+import { useSelectProfileName } from "@/stores/selectors/profile.selectors";
 
 const ProfilePage = () => {
+  const profileName = useSelectProfileName();
+
   return (
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center w-full max-w-2xl m-4 min-h-screen justify-between">
@@ -29,7 +32,9 @@ const ProfilePage = () => {
               <div className="w-full space-y-4">
                 <h2 className="text-xl">
                   Current Name:
-                  <span className="ml-2 text-xl font-semibold">{"User"}</span>
+                  <span className="ml-2 text-xl font-semibold">
+                    {profileName}
+                  </span>
                 </h2>
                 <ProfileForm />
               </div>
