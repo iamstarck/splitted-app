@@ -1,0 +1,13 @@
+name: CI Feature Branch
+
+on:
+  push:
+    branches:
+      - "feature/**"
+  pull_request:
+    branches:
+      - develop
+
+jobs:
+  ci:
+    uses: "./.github/workflows/ci-base.yml"
