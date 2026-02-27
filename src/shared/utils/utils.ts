@@ -9,3 +9,8 @@ export const getInitials = (name: string) => {
     .join("")
     .toUpperCase();
 };
+
+export const formatter = new Intl.NumberFormat(undefined, {
+  minimumFractionDigits: 0,
+  maximumFractionDigits: 2,
+});

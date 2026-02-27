@@ -3,6 +3,7 @@ import { ThemeProvider } from "./components/common/theme-provider";
 import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import NewBillPage from "./pages/NewBillPage";
+import { Toaster } from "./components/ui/sonner";
 
 const Routes = () => {
   const element = useRoutes([
@@ -18,6 +19,7 @@ const App = () => {
   return (
     <ThemeProvider defaultTheme="system" storageKey="splitted-theme">
       <Routes />
+      <Toaster />
     </ThemeProvider>
   );
 };
