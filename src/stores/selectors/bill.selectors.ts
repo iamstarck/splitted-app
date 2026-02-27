@@ -1,5 +1,7 @@
 import { useDataStore } from "../useDataStore";
 
+export const useBills = () => useDataStore((state) => state.bills);
+
 export const useCurrentBill = () => useDataStore((state) => state.currentBill);
 
 export const useSelectPeople = () =>

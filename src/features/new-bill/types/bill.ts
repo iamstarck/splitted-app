@@ -32,6 +32,7 @@ export type BillProps = {
   people: PersonProps[];
   items: ItemProps[];
   charges: ChargesProps;
+  createdAt: Date;
 };
 
 export type AmountPerPerson = {
@@ -52,4 +53,5 @@ export const initialBill = (): BillProps => ({
     servicePercent: 0,
     tipPercent: 0,
   },
+  createdAt: new Date(),
 });

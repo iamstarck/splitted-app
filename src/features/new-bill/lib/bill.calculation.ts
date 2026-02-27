@@ -114,3 +114,16 @@ export const buildBillSummary = (bill: BillProps): BillSummary => {
     hasUnassignedPeople,
   };
 };
+
+export const buildBillListItem = (bill: BillProps) => {
+  const summary = buildBillSummary(bill);
+
+  return {
+    id: bill.id,
+    title: bill.title,
+    currency: bill.currency,
+    createdAt: bill.createdAt,
+    total: summary.total.toNumber(),
+    people: bill.people,
+  };
+};

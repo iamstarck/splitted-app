@@ -53,7 +53,6 @@ const BillItemsSection = ({ currency }: { currency: currencyId }) => {
           <InputGroup>
             <InputGroupInput
               type="number"
-              placeholder="0"
               min={0}
               value={price ?? 0}
               onChange={(e) => setPrice(Number(e.target.value))}

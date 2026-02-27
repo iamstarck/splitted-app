@@ -17,6 +17,7 @@ import { useBillMetaForm } from "../hooks/useBillMetaForm";
 import { useMemo } from "react";
 import { buildBillSummary } from "../lib/bill.calculation";
 import { toast } from "sonner";
+import type { BillMetaFormValues } from "../lib/billMeta-validation";
 
 const NewBillForm = () => {
   const { form: billForm } = useBillMetaForm();
@@ -31,6 +32,7 @@ const NewBillForm = () => {
     return buildBillSummary(currentBill);
   }, [currentBill]);
 
+  const updateBillMeta = useDataStore((state) => state.updateBillMeta);
   const saveBill = useDataStore((state) => state.saveCurrentBill);
   const resetBill = useDataStore((state) => state.resetCurrentBill);
 
@@ -50,7 +52,8 @@ const NewBillForm = () => {
     name: "currency",
   });
 
-  const onSaveBill = () => {
+  const onSaveBill = (data: BillMetaFormValues) => {
+    updateBillMeta(data);
     saveBill();
     toast.success("Bill created successfully!", { position: "top-center" });
     resetBill();
