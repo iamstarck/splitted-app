@@ -4,6 +4,8 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import NewBillPage from "./pages/NewBillPage";
 import { Toaster } from "./components/ui/sonner";
+import { useDataStore } from "./stores/useDataStore";
+import { useEffect } from "react";
 
 const Routes = () => {
   const element = useRoutes([
@@ -16,6 +18,12 @@ const Routes = () => {
 };
 
 const App = () => {
+  const { loadDummyBills } = useDataStore();
+
+  useEffect(() => {
+    loadDummyBills();
+  }, [loadDummyBills]);
+
   return (
     <ThemeProvider defaultTheme="system" storageKey="splitted-theme">
       <Routes />

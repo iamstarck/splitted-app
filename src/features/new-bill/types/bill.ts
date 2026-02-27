@@ -1,4 +1,4 @@
-import { generateId } from "../lib/bill.mutations";
+import { generateId } from "@/shared/utils/utils";
 
 export const CURRENCIES = {
   $: "US Dollar",
@@ -32,6 +32,7 @@ export type BillProps = {
   people: PersonProps[];
   items: ItemProps[];
   charges: ChargesProps;
+  createdAt: Date;
 };
 
 export type AmountPerPerson = {
@@ -52,4 +53,5 @@ export const initialBill = (): BillProps => ({
     servicePercent: 0,
     tipPercent: 0,
   },
+  createdAt: new Date(),
 });
