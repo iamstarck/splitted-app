@@ -43,7 +43,7 @@ const HomePage = () => {
               <ProfileName />
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-4 max-md:gap-2">
               <ProfileAvatar />
               <ModeToggle />
             </div>
@@ -59,7 +59,7 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-6 text-center w-full">
-              <Button size={"lg"} className="w-md" asChild>
+              <Button size={"lg"} className="lg:w-md md:w-sm w-80" asChild>
                 <Link to={"/new"} className="flex items-center gap-1">
                   <PlusIcon />
                   Create New Bill
