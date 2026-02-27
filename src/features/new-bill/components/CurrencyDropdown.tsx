@@ -7,26 +7,45 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { CircleAlertIcon } from "lucide-react";
+import { Controller, type Control, type FieldErrors } from "react-hook-form";
+import type { BillMetaFormValues } from "../lib/billMeta-validation";
+import { CURRENCIES } from "../types/bill";
 
-const CurrencyDropdown = () => {
+interface CurrencyDropdownProps {
+  control: Control<BillMetaFormValues>;
+  errors?: FieldErrors<BillMetaFormValues>;
+}
+
+const CurrencyDropdown = ({ control, errors }: CurrencyDropdownProps) => {
   return (
     <Field className="grid w-full items-center gap-2">
       <FieldLabel className="text-base font-medium">Currency</FieldLabel>
 
-      <Select>
-        <SelectTrigger className="w-full">
-          <SelectValue placeholder="Select a currency" />
-        </SelectTrigger>
-        <SelectContent>
-          <SelectItem value="usd">$ - US Dollar</SelectItem>
-          <SelectItem value="rp">Rp - Rupiah</SelectItem>
-        </SelectContent>
-      </Select>
+      <Controller
+        control={control}
+        name="currency"
+        render={({ field }) => (
+          <Select value={field.value} onValueChange={field.onChange}>
+            <SelectTrigger className="w-full">
+              <SelectValue placeholder="Select a currency" />
+            </SelectTrigger>
+            <SelectContent>
+              {Object.entries(CURRENCIES).map(([id, label]) => (
+                <SelectItem key={id} value={id}>
+                  {id} - {label}
+                </SelectItem>
+              ))}
+            </SelectContent>
+          </Select>
+        )}
+      />
 
-      <FieldError className="inline-flex items-center gap-1 text-destructive">
-        <CircleAlertIcon size={14} />
-        Error message
-      </FieldError>
+      {errors?.currency && (
+        <FieldError className="inline-flex items-center gap-1 text-destructive">
+          <CircleAlertIcon size={14} />
+          {errors.currency.message}
+        </FieldError>
+      )}
     </Field>
   );
 };

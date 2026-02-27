@@ -1,5 +1,5 @@
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { getInitials } from "@/shared/utils/getInitials";
+import { getInitials } from "@/shared/utils/utils";
 import clsx from "clsx";
 
 interface AvatarInitialsProps {
