@@ -16,9 +16,7 @@ const BillPeopleSection = () => {
   const handleAddPerson = () => {
     if (!name.trim()) return;
 
-    console.log(useDataStore.getState().currentBill);
     addPerson(name);
-
     setName("");
   };
 

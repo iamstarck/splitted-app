@@ -16,12 +16,9 @@ import { useDataStore } from "@/stores/useDataStore";
 import { useBillMetaForm } from "../hooks/useBillMetaForm";
 import { useMemo } from "react";
 import { buildBillSummary } from "../lib/bill.calculation";
-import { useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 
 const NewBillForm = () => {
-  const navigate = useNavigate();
-
   const { form: billForm } = useBillMetaForm();
   const currentBill = useCurrentBill()!;
 
@@ -35,6 +32,7 @@ const NewBillForm = () => {
   }, [currentBill]);
 
   const saveBill = useDataStore((state) => state.saveCurrentBill);
+  const resetBill = useDataStore((state) => state.resetCurrentBill);
 
   const { isValid } = billForm.formState;
   const peopleJustOne = people.length === 1;
@@ -53,9 +51,10 @@ const NewBillForm = () => {
   });
 
   const onSaveBill = () => {
-    toast.success("Bill created successfully!", { position: "top-center" });
     saveBill();
-    navigate("/");
+    toast.success("Bill created successfully!", { position: "top-center" });
+    resetBill();
+    billForm.reset();
   };
 
   const showPlaceholder = people.length === 0 || items.length === 0;

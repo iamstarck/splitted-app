@@ -28,6 +28,8 @@ interface DataStore {
   assignItemToPeople: (itemId: string, personIds: string[]) => void;
 
   updatePeopleCharges: (charges: Partial<BillProps["charges"]>) => void;
+
+  resetCurrentBill: () => void;
 }
 
 export const useDataStore = create<DataStore>((set, get) => ({
@@ -106,4 +108,13 @@ export const useDataStore = create<DataStore>((set, get) => ({
         currentBill: updatePeopleCharges(state.currentBill, charges),
       };
     }),
+
+  resetCurrentBill: () => {
+    const { currentBill } = get();
+    if (!currentBill) return;
+
+    set(() => ({
+      currentBill: initialBill(),
+    }));
+  },
 }));
