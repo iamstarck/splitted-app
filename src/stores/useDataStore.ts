@@ -1,13 +1,14 @@
+import { dummyBills } from "@/dummyData";
 import {
   addItemToBill,
   addPersonToBill,
   assignItemToPeople,
-  generateId,
   removeItemFromBill,
   removePersonFromBill,
   updatePeopleCharges,
 } from "@/features/new-bill/lib/bill.mutations";
 import { initialBill, type BillProps } from "@/features/new-bill/types/bill";
+import { generateId } from "@/shared/utils/utils";
 import { create } from "zustand";
 
 interface DataStore {
@@ -33,6 +34,8 @@ interface DataStore {
 
   saveCurrentBill: () => void;
   resetCurrentBill: () => void;
+
+  loadDummyBills: () => void;
 }
 
 export const useDataStore = create<DataStore>((set, get) => ({
@@ -131,6 +134,12 @@ export const useDataStore = create<DataStore>((set, get) => ({
 
     set(() => ({
       currentBill: initialBill(),
+    }));
+  },
+
+  loadDummyBills: () => {
+    set(() => ({
+      bills: dummyBills,
     }));
   },
 }));

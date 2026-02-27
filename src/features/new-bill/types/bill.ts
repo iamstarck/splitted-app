@@ -1,4 +1,4 @@
-import { generateId } from "../lib/bill.mutations";
+import { generateId } from "@/shared/utils/utils";
 
 export const CURRENCIES = {
   $: "US Dollar",

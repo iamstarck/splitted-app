@@ -13,6 +13,7 @@ import {
 import BillListItem from "@/features/home/components/BillListItem";
 import HomeMenuButton from "@/features/home/components/HomeMenuButton";
 import ProfileName from "@/features/home/components/ProfileName";
+import { usePagination } from "@/features/home/utils/usePagination";
 import { buildBillListItem } from "@/features/new-bill/lib/bill.calculation";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
@@ -24,7 +25,13 @@ import { Link } from "react-router-dom";
 
 const HomePage = () => {
   const billsRaw = useBills();
-  const bills = useMemo(() => billsRaw.map(buildBillListItem), [billsRaw]);
+  const bills = useMemo(() => {
+    return billsRaw
+      .map(buildBillListItem)
+      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+  }, [billsRaw]);
+
+  const { page, setPage, totalPages, paginatedData } = usePagination(bills, 5);
 
   return (
     <div className="flex flex-col items-center">
@@ -62,7 +69,7 @@ const HomePage = () => {
               {bills.length > 0 ? (
                 <div className="space-y-4 w-full px-6">
                   <ItemGroup className="space-y-4">
-                    {bills.map((bill) => (
+                    {paginatedData.map((bill) => (
                       <BillListItem
                         key={bill.id}
                         title={bill.title}
@@ -74,33 +81,72 @@ const HomePage = () => {
                     ))}
                   </ItemGroup>
 
-                  <Pagination>
-                    <PaginationContent>
-                      <PaginationItem>
-                        <PaginationPrevious href="#" />
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">1</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#" isActive>
-                          2
-                        </PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationLink href="#">3</PaginationLink>
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationEllipsis />
-                      </PaginationItem>
-                      <PaginationItem>
-                        <PaginationNext href="#" />
-                      </PaginationItem>
-                    </PaginationContent>
-                  </Pagination>
+                  {totalPages > 1 && (
+                    <Pagination className="hover:cursor-pointer">
+                      <PaginationContent>
+                        <PaginationItem>
+                          <PaginationPrevious
+                            onClick={() => page > 1 && setPage((p) => p - 1)}
+                            className={
+                              page === 1
+                                ? "hover:cursor-default hover:bg-background dark:hover:bg-background dark:hover:text-foreground hover:text-foreground opacity-50"
+                                : ""
+                            }
+                          />
+                        </PaginationItem>
+
+                        {Array.from({ length: totalPages }).map((_, i) => {
+                          const pageNumber = i + 1;
+                          const isNearCurrent =
+                            pageNumber === 1 ||
+                            pageNumber === totalPages ||
+                            (pageNumber >= page - 1 && pageNumber <= page + 1);
+
+                          if (isNearCurrent) {
+                            return (
+                              <PaginationItem key={pageNumber}>
+                                <PaginationLink
+                                  isActive={page === pageNumber}
+                                  className={
+                                    page === pageNumber
+                                      ? "hover:cursor-default bg-accent hover:text-foreground"
+                                      : ""
+                                  }
+                                  onClick={() => setPage(pageNumber)}
+                                >
+                                  {pageNumber}
+                                </PaginationLink>
+                              </PaginationItem>
+                            );
+                          }
+
+                          if (
+                            (pageNumber === page - 2 && page > 3) ||
+                            (pageNumber === page + 2 && page < totalPages - 2)
+                          ) {
+                            return (
+                              <PaginationItem key={pageNumber}>
+                                <PaginationEllipsis />
+                              </PaginationItem>
+                            );
+                          }
+                        })}
+
+                        <PaginationItem>
+                          <PaginationNext
+                            onClick={() =>
+                              page < totalPages && setPage((p) => p + 1)
+                            }
+                            className={
+                              page === totalPages
+                                ? "hover:cursor-default hover:bg-background dark:hover:bg-background dark:hover:text-foreground hover:text-foreground opacity-50"
+                                : ""
+                            }
+                          />
+                        </PaginationItem>
+                      </PaginationContent>
+                    </Pagination>
+                  )}
                 </div>
               ) : (
                 <EmptyListPlaceholder
