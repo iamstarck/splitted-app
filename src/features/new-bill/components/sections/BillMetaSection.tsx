@@ -31,7 +31,7 @@ const BillMetaSection = ({ form }: BillMetaSectionProps) => {
 
         {errors.title && (
           <FieldError className="inline-flex items-center gap-1 text-destructive">
-            <CircleAlertIcon size={"14px"} /> Error message
+            <CircleAlertIcon size={"14px"} /> {errors.title.message}
           </FieldError>
         )}
       </Field>
