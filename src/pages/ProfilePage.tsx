@@ -16,7 +16,7 @@ const ProfilePage = () => {
           <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-4">
             <div className="flex items-center justify-between w-full">
               <BackButton />
-              <div className="flex items-center gap-4">
+              <div className="flex items-center gap-4 max-md:gap-2">
                 <ProfileAvatar />
                 <ModeToggle />
               </div>
