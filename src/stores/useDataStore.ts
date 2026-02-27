@@ -1,13 +1,14 @@
+import { dummyBills } from "@/dummyData";
 import {
   addItemToBill,
   addPersonToBill,
   assignItemToPeople,
-  generateId,
   removeItemFromBill,
   removePersonFromBill,
   updatePeopleCharges,
 } from "@/features/new-bill/lib/bill.mutations";
 import { initialBill, type BillProps } from "@/features/new-bill/types/bill";
+import { generateId } from "@/shared/utils/utils";
 import { create } from "zustand";
 
 interface DataStore {
@@ -17,7 +18,9 @@ interface DataStore {
 
   setProfileName: (name: string) => void;
 
-  saveCurrentBill: () => void;
+  updateBillMeta: (
+    data: Partial<Pick<BillProps, "title" | "currency">>,
+  ) => void;
 
   addPersonToBill: (name: string) => void;
   removePersonFromBill: (personId: string) => void;
@@ -29,7 +32,10 @@ interface DataStore {
 
   updatePeopleCharges: (charges: Partial<BillProps["charges"]>) => void;
 
+  saveCurrentBill: () => void;
   resetCurrentBill: () => void;
+
+  loadDummyBills: () => void;
 }
 
 export const useDataStore = create<DataStore>((set, get) => ({
@@ -39,21 +45,17 @@ export const useDataStore = create<DataStore>((set, get) => ({
 
   setProfileName: (profileName) => set({ profileName }),
 
-  saveCurrentBill: () => {
-    const { currentBill } = get();
-    if (!currentBill) return;
+  updateBillMeta: (data) =>
+    set((state) => {
+      if (!state.currentBill) return state;
 
-    set((state) => ({
-      bills: [
-        ...state.bills,
-        {
-          ...currentBill,
-          id: generateId(),
+      return {
+        currentBill: {
+          ...state.currentBill,
+          ...data,
         },
-      ],
-      currentBill: initialBill(),
-    }));
-  },
+      };
+    }),
 
   addPersonToBill: (name) =>
     set((state) => {
@@ -109,12 +111,35 @@ export const useDataStore = create<DataStore>((set, get) => ({
       };
     }),
 
+  saveCurrentBill: () => {
+    const { currentBill } = get();
+    if (!currentBill) return;
+
+    set((state) => ({
+      bills: [
+        ...state.bills,
+        {
+          ...currentBill,
+          id: generateId(),
+          createdAt: new Date(),
+        },
+      ],
+      currentBill: initialBill(),
+    }));
+  },
+
   resetCurrentBill: () => {
     const { currentBill } = get();
     if (!currentBill) return;
 
     set(() => ({
       currentBill: initialBill(),
+    }));
+  },
+
+  loadDummyBills: () => {
+    set(() => ({
+      bills: dummyBills,
     }));
   },
 }));

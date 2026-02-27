@@ -10,6 +10,8 @@ export const getInitials = (name: string) => {
     .toUpperCase();
 };
 
+export const generateId = () => crypto.randomUUID();
+
 export const formatter = new Intl.NumberFormat(undefined, {
   minimumFractionDigits: 0,
   maximumFractionDigits: 2,

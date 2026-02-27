@@ -1,6 +1,5 @@
+import { generateId } from "@/shared/utils/utils";
 import type { BillProps } from "../types/bill";
-
-export const generateId = () => crypto.randomUUID();
 
 export const addPersonToBill = (bill: BillProps, name: string): BillProps => {
   return {
