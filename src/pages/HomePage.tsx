@@ -28,7 +28,7 @@ const HomePage = () => {
   const bills = useMemo(() => {
     return billsRaw
       .map(buildBillListItem)
-      .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+      .sort((a, b) => b.date.getTime() - a.date.getTime());
   }, [billsRaw]);
 
   const { page, setPage, totalPages, paginatedData } = usePagination(bills, 5);
@@ -74,7 +74,7 @@ const HomePage = () => {
                         key={bill.id}
                         id={bill.id}
                         title={bill.title}
-                        createdAt={bill.createdAt}
+                        date={bill.date}
                         currency={bill.currency}
                         total={bill.total}
                         people={bill.people}

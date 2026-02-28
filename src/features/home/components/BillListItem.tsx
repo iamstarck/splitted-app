@@ -21,7 +21,7 @@ import { Link } from "react-router-dom";
 interface BillListItemProps {
   id: string;
   title: string;
-  createdAt: Date;
+  date: Date;
   currency: currencyId;
   total: number;
   people: PersonProps[];
@@ -30,7 +30,7 @@ interface BillListItemProps {
 const BillListItem = ({
   id,
   title,
-  createdAt,
+  date,
   currency,
   total,
   people,
@@ -41,7 +41,7 @@ const BillListItem = ({
         <div className="flex justify-between text-left gap-8">
           <div>
             <p className="text-lg font-bold leading-none">{title}</p>
-            <p className="text-base">{formatDate(createdAt)}</p>
+            <p className="text-base">{formatDate(date)}</p>
           </div>
 
           <p className="font-bold text-xl text-chart-1">
