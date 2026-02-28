@@ -122,7 +122,7 @@ export const buildBillListItem = (bill: BillProps) => {
     id: bill.id,
     title: bill.title,
     currency: bill.currency,
-    createdAt: bill.createdAt,
+    date: new Date(bill.date),
     total: summary.total.toNumber(),
     people: bill.people,
   };

@@ -14,6 +14,7 @@ import { useParams } from "react-router-dom";
 import { useBillById } from "@/stores/selectors/bill.selectors";
 import { useMemo } from "react";
 import { buildBillSummary } from "@/features/bill/lib/bill.calculation";
+import { formatDate } from "@/features/home/utils/formatTime";
 
 const BillDetailPage = () => {
   const { billId } = useParams();
@@ -23,6 +24,8 @@ const BillDetailPage = () => {
     if (!bill) return null;
     return buildBillSummary(bill);
   }, [bill]);
+
+  const hasNote = bill?.note?.trim() ?? "";
 
   return (
     <div className="flex flex-col items-center">
@@ -54,15 +57,29 @@ const BillDetailPage = () => {
         </header>
 
         <main className="flex flex-col justify-start items-center p-6 w-full min-h-screen">
-          <div className="space-y-10 w-full">
+          <div className="space-y-6 w-full">
             {!bill || !summary ? (
               <p>Bill not found</p>
             ) : (
               <>
-                <div className="space-y-1">
-                  <h2 className="text-xl font-semibold">Bill Title</h2>
-                  <p>{bill.title}</p>
+                <div>
+                  <h2 className="text-xl font-semibold">
+                    Bill Name: {bill.title}
+                  </h2>
+                  <p className="font-semibold">
+                    Date:{" "}
+                    <span className="font-normal">
+                      {formatDate(new Date(bill.date))}
+                    </span>
+                  </p>
                 </div>
+
+                {hasNote && (
+                  <div>
+                    <h2 className="text-xl font-semibold">Note</h2>
+                    <p className="whitespace-pre-line">{bill.note}</p>
+                  </div>
+                )}
 
                 <div className="space-y-4">
                   <h2 className="text-xl font-semibold">Bill Summary</h2>

@@ -53,7 +53,11 @@ const NewBillForm = () => {
   });
 
   const onSaveBill = (data: BillMetaFormValues) => {
-    updateBillMeta(data);
+    console.log("Note value", data.note);
+    updateBillMeta({
+      ...data,
+      date: data.date.toISOString(),
+    });
     saveBill();
     toast.success("Bill created successfully!", { position: "top-center" });
     resetBill();

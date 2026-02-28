@@ -1,5 +1,5 @@
-import type { BillProps } from "./features/bill/types/bill";
-import { generateId } from "./shared/utils/utils";
+import { generateId } from "@/shared/utils/utils";
+import { BillProps } from "./features/bill/types/bill";
 
 export const dummyBills: BillProps[] = [
   {
@@ -15,7 +15,8 @@ export const dummyBills: BillProps[] = [
       { id: "i2", name: "Wine", price: 25, assignedPersonIds: ["p2"] },
     ],
     charges: { taxPercent: 10, servicePercent: 5, tipPercent: 10 },
-    createdAt: new Date("2026-02-01"),
+    date: new Date("2026-02-01T10:15:30.000Z").toISOString(),
+    note: "Transfer to account 123456789 (Bank XYZ) under John Doe",
   },
   {
     id: generateId(),
@@ -35,7 +36,8 @@ export const dummyBills: BillProps[] = [
       { id: "i4", name: "Es Teh", price: 5000, assignedPersonIds: ["p4"] },
     ],
     charges: { taxPercent: 0, servicePercent: 0, tipPercent: 0 },
-    createdAt: new Date("2026-02-02"),
+    date: new Date("2026-02-02T12:45:10.000Z").toISOString(),
+    note: "Paid via QRIS",
   },
   {
     id: generateId(),
@@ -50,7 +52,7 @@ export const dummyBills: BillProps[] = [
       { id: "i6", name: "Cappuccino", price: 5, assignedPersonIds: ["p6"] },
     ],
     charges: { taxPercent: 8, servicePercent: 0, tipPercent: 10 },
-    createdAt: new Date("2026-02-03"),
+    date: new Date("2026-02-03T08:20:45.000Z").toISOString(),
   },
   {
     id: generateId(),
@@ -70,7 +72,8 @@ export const dummyBills: BillProps[] = [
       { id: "i8", name: "Soft Drink", price: 3, assignedPersonIds: ["p7"] },
     ],
     charges: { taxPercent: 5, servicePercent: 0, tipPercent: 5 },
-    createdAt: new Date("2026-02-04"),
+    date: new Date("2026-02-04T19:05:00.000Z").toISOString(),
+    note: "Split evenly between Frank and Grace",
   },
   {
     id: generateId(),
@@ -85,7 +88,8 @@ export const dummyBills: BillProps[] = [
       { id: "i10", name: "Green Tea", price: 2, assignedPersonIds: ["p10"] },
     ],
     charges: { taxPercent: 7, servicePercent: 3, tipPercent: 10 },
-    createdAt: new Date("2026-02-05"),
+    date: new Date("2026-02-05T14:17:19.849Z").toISOString(),
+    note: "Payment via PayPal john.doe@example.com",
   },
   {
     id: generateId(),
@@ -105,7 +109,7 @@ export const dummyBills: BillProps[] = [
       { id: "i12", name: "Es Jeruk", price: 8000, assignedPersonIds: ["p12"] },
     ],
     charges: { taxPercent: 0, servicePercent: 0, tipPercent: 0 },
-    createdAt: new Date("2026-02-06"),
+    date: new Date("2026-02-06T21:30:00.000Z").toISOString(),
   },
   {
     id: generateId(),
@@ -120,7 +124,7 @@ export const dummyBills: BillProps[] = [
       { id: "i14", name: "Orange Juice", price: 4, assignedPersonIds: ["p14"] },
     ],
     charges: { taxPercent: 6, servicePercent: 2, tipPercent: 5 },
-    createdAt: new Date("2026-02-07"),
+    date: new Date("2026-02-07T07:55:00.000Z").toISOString(),
   },
   {
     id: generateId(),
@@ -145,7 +149,7 @@ export const dummyBills: BillProps[] = [
       },
     ],
     charges: { taxPercent: 12, servicePercent: 5, tipPercent: 15 },
-    createdAt: new Date("2026-02-08"),
+    date: new Date("2026-02-08T18:40:00.000Z").toISOString(),
   },
   {
     id: generateId(),
@@ -170,7 +174,7 @@ export const dummyBills: BillProps[] = [
       },
     ],
     charges: { taxPercent: 0, servicePercent: 0, tipPercent: 0 },
-    createdAt: new Date("2026-02-09"),
+    date: new Date("2026-02-09T11:25:00.000Z").toISOString(),
   },
   {
     id: generateId(),
@@ -190,6 +194,6 @@ export const dummyBills: BillProps[] = [
       { id: "i20", name: "Fries", price: 5, assignedPersonIds: ["p20"] },
     ],
     charges: { taxPercent: 8, servicePercent: 0, tipPercent: 10 },
-    createdAt: new Date("2026-02-10"),
+    date: new Date("2026-02-10T16:10:00.000Z").toISOString(),
   },
 ];
