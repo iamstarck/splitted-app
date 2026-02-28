@@ -9,7 +9,7 @@ import {
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 import AvatarInitials from "@/shared/components/AvatarInitials";
 import { XIcon } from "lucide-react";
-import type { currencyId, ItemProps } from "../types/bill";
+import type { currencyId, ItemProps } from "../../types/bill";
 import { useDataStore } from "@/stores/useDataStore";
 import { formatter } from "@/shared/utils/utils";
 import {

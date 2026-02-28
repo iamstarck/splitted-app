@@ -5,13 +5,21 @@ import {
   ItemFooter,
 } from "@/components/ui/item";
 import { Button } from "@/components/ui/button";
-import { PencilIcon, Trash2Icon } from "lucide-react";
+import { EllipsisVerticalIcon, EyeIcon } from "lucide-react";
 import AvatarInitials from "@/shared/components/AvatarInitials";
 import { formatDate } from "../utils/formatTime";
-import type { currencyId, PersonProps } from "@/features/new-bill/types/bill";
+import type { currencyId, PersonProps } from "@/features/bill/types/bill";
 import { formatter } from "@/shared/utils/utils";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { Link } from "react-router-dom";
 
 interface BillListItemProps {
+  id: string;
   title: string;
   createdAt: Date;
   currency: currencyId;
@@ -20,6 +28,7 @@ interface BillListItemProps {
 }
 
 const BillListItem = ({
+  id,
   title,
   createdAt,
   currency,
@@ -27,13 +36,14 @@ const BillListItem = ({
   people,
 }: BillListItemProps) => {
   return (
-    <Item variant={"muted"}>
+    <Item variant={"muted"} className="shadow-xs">
       <ItemContent className="gap-4">
         <div className="flex justify-between text-left gap-8">
           <div>
             <p className="text-lg font-bold leading-none">{title}</p>
             <p className="text-base">{formatDate(createdAt)}</p>
           </div>
+
           <p className="font-bold text-xl text-chart-1">
             {currency}
             {formatter.format(total)}
@@ -47,13 +57,23 @@ const BillListItem = ({
         </div>
       </ItemContent>
       <ItemFooter>
-        <ItemActions className="w-full justify-around">
-          <Button variant={"link"} className="text-base">
-            <PencilIcon /> Edit
+        <ItemActions className="w-full justify-end gap-3">
+          <Button variant={"secondary"} size={"icon"} asChild>
+            <Link to={`/detail/${id}`}>
+              <EyeIcon />
+            </Link>
           </Button>
-          <Button variant={"link"} className="text-destructive text-base">
-            <Trash2Icon /> Delete
-          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button variant={"outline"} size={"icon"}>
+                <EllipsisVerticalIcon />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem>Delete</DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </ItemActions>
       </ItemFooter>
     </Item>

@@ -6,8 +6,8 @@ import {
   removeItemFromBill,
   removePersonFromBill,
   updatePeopleCharges,
-} from "@/features/new-bill/lib/bill.mutations";
-import { initialBill, type BillProps } from "@/features/new-bill/types/bill";
+} from "@/features/bill/lib/bill.mutations";
+import { initialBill, type BillProps } from "@/features/bill/types/bill";
 import { generateId } from "@/shared/utils/utils";
 import { create } from "zustand";
 

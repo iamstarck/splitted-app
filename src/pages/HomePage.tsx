@@ -14,7 +14,7 @@ import BillListItem from "@/features/home/components/BillListItem";
 import HomeMenuButton from "@/features/home/components/HomeMenuButton";
 import ProfileName from "@/features/home/components/ProfileName";
 import { usePagination } from "@/features/home/utils/usePagination";
-import { buildBillListItem } from "@/features/new-bill/lib/bill.calculation";
+import { buildBillListItem } from "@/features/bill/lib/bill.calculation";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
 import Footer from "@/shared/components/Footer";
@@ -72,6 +72,7 @@ const HomePage = () => {
                     {paginatedData.map((bill) => (
                       <BillListItem
                         key={bill.id}
+                        id={bill.id}
                         title={bill.title}
                         createdAt={bill.createdAt}
                         currency={bill.currency}
