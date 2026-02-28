@@ -19,7 +19,7 @@ interface DataStore {
   setProfileName: (name: string) => void;
 
   updateBillMeta: (
-    data: Partial<Pick<BillProps, "title" | "currency">>,
+    data: Partial<Pick<BillProps, "title" | "currency" | "date" | "note">>,
   ) => void;
 
   addPersonToBill: (name: string) => void;
@@ -121,7 +121,6 @@ export const useDataStore = create<DataStore>((set, get) => ({
         {
           ...currentBill,
           id: generateId(),
-          createdAt: new Date(),
         },
       ],
       currentBill: initialBill(),

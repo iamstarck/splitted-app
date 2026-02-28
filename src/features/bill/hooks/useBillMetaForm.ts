@@ -10,6 +10,7 @@ export const useBillMetaForm = () => {
     resolver: zodResolver(billMetaSchema),
     defaultValues: {
       title: "",
+      date: new Date(),
       currency: "$",
     },
 
