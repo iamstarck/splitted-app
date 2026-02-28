@@ -8,8 +8,8 @@ import {
 } from "@/components/ui/select";
 import { CircleAlertIcon } from "lucide-react";
 import { Controller, type Control, type FieldErrors } from "react-hook-form";
-import type { BillMetaFormValues } from "../lib/billMeta-validation";
-import { CURRENCIES } from "../types/bill";
+import type { BillMetaFormValues } from "../../lib/billMeta-validation";
+import { CURRENCIES } from "../../types/bill";
 
 interface CurrencyDropdownProps {
   control: Control<BillMetaFormValues>;

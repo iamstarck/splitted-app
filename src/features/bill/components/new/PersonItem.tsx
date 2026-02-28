@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Item, ItemActions } from "@/components/ui/item";
 import AvatarInitials from "@/shared/components/AvatarInitials";
 import { XIcon } from "lucide-react";
-import type { PersonProps } from "../types/bill";
+import type { PersonProps } from "../../types/bill";
 import { useDataStore } from "@/stores/useDataStore";
 
 const PersonItem = ({ person }: { person: PersonProps }) => {

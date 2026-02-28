@@ -1,5 +1,5 @@
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
-import BillSplittedSummary from "./BillSplittedSummary";
+import BillSplittedSummary from "../common/BillSplittedSummary";
 import BillChargesSection from "./sections/BillChargesSection";
 import BillItemsSection from "./sections/BillItemsSection";
 import BillMetaSection from "./sections/BillMetaSection";
@@ -13,11 +13,11 @@ import {
 } from "@/stores/selectors/bill.selectors";
 import { useWatch } from "react-hook-form";
 import { useDataStore } from "@/stores/useDataStore";
-import { useBillMetaForm } from "../hooks/useBillMetaForm";
+import { useBillMetaForm } from "../../hooks/useBillMetaForm";
 import { useMemo } from "react";
-import { buildBillSummary } from "../lib/bill.calculation";
+import { buildBillSummary } from "../../lib/bill.calculation";
 import { toast } from "sonner";
-import type { BillMetaFormValues } from "../lib/billMeta-validation";
+import type { BillMetaFormValues } from "../../lib/billMeta-validation";
 
 const NewBillForm = () => {
   const { form: billForm } = useBillMetaForm();
@@ -88,7 +88,7 @@ const NewBillForm = () => {
       )}
 
       {!showPlaceholder && !peopleJustOne && (
-        <BillSplittedSummary currency={currency} />
+        <BillSplittedSummary bill={currentBill} />
       )}
 
       <Button className="w-full" disabled={isButtonDisabled}>

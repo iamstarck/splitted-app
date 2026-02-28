@@ -21,3 +21,8 @@ export const useSelectItemPricePerPerson = (itemId: string) => {
     return item.price / item.assignedPersonIds.length;
   });
 };
+
+export const useBillById = (billId?: string) =>
+  useDataStore(
+    (state) => state.bills.find((bill) => bill.id === billId) ?? null,
+  );
