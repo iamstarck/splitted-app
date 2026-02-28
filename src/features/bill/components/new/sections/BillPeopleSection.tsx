@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ItemGroup } from "@/components/ui/item";
-import PersonItem from "@/features/new-bill/components/PersonItem";
+import PersonItem from "../PersonItem";
 import { useSelectPeople } from "@/stores/selectors/bill.selectors";
 import { useDataStore } from "@/stores/useDataStore";
 import { PlusIcon, UsersIcon } from "lucide-react";

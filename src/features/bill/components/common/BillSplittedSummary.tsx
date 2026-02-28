@@ -1,20 +1,15 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ItemGroup } from "@/components/ui/item";
-import PersonBillBreakdownItem from "@/features/new-bill/components/PersonBillBreakdownItem";
+import PersonBillBreakdownItem from "../new/PersonBillBreakdownItem";
 import { formatter } from "@/shared/utils/utils";
-import { useCurrentBill } from "@/stores/selectors/bill.selectors";
 import { useMemo } from "react";
-import { buildBillSummary } from "../lib/bill.calculation";
-import type { currencyId } from "../types/bill";
+import { buildBillSummary } from "../../lib/bill.calculation";
+import type { BillProps } from "../../types/bill";
 
-const BillSplittedSummary = ({ currency }: { currency: currencyId }) => {
-  const currentBill = useCurrentBill()!;
-
+const BillSplittedSummary = ({ bill }: { bill: BillProps }) => {
   const summary = useMemo(() => {
-    if (!useCurrentBill) return null;
-
-    return buildBillSummary(currentBill);
-  }, [currentBill]);
+    return buildBillSummary(bill);
+  }, [bill]);
   if (!summary) return null;
 
   return (
@@ -24,7 +19,7 @@ const BillSplittedSummary = ({ currency }: { currency: currencyId }) => {
           <div className="flex justify-between">
             <p>Subtotal</p>
             <span>
-              {currency}
+              {bill.currency}
               {formatter.format(summary.subtotal.toNumber())}
             </span>
           </div>
@@ -50,7 +45,7 @@ const BillSplittedSummary = ({ currency }: { currency: currencyId }) => {
         <div className="flex justify-between">
           <p className="text-lg font-bold">Total</p>
           <p className="text-xl font-bold">
-            {currency}
+            {bill.currency}
             {formatter.format(summary.total.toNumber())}
           </p>
         </div>
@@ -86,7 +81,7 @@ const BillSplittedSummary = ({ currency }: { currency: currencyId }) => {
                   subtotal: person.subtotal.toNumber(),
                   total: person.total.toNumber(),
                 }}
-                currency={currency}
+                currency={bill.currency}
                 items={summary.groupedByPerson[person.personId] ?? []}
               />
             ))}

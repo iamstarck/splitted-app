@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { CircleAlertIcon } from "lucide-react";
 import CurrencyDropdown from "../CurrencyDropdown";
 import type { UseFormReturn } from "react-hook-form";
-import type { BillMetaFormValues } from "../../lib/billMeta-validation";
+import type { BillMetaFormValues } from "../../../lib/billMeta-validation";
 
 interface BillMetaSectionProps {
   form: UseFormReturn<BillMetaFormValues>;

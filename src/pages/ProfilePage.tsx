@@ -13,7 +13,7 @@ const ProfilePage = () => {
     <div className="flex flex-col items-center">
       <div className="flex flex-col items-center w-full max-w-2xl m-4 min-h-screen justify-between">
         <div className="w-full">
-          <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-4">
+          <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-6">
             <div className="flex items-center justify-between w-full">
               <BackButton />
               <div className="flex items-center gap-4 max-md:gap-2">

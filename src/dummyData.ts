@@ -1,4 +1,4 @@
-import type { BillProps } from "./features/new-bill/types/bill";
+import type { BillProps } from "./features/bill/types/bill";
 import { generateId } from "./shared/utils/utils";
 
 export const dummyBills: BillProps[] = [
