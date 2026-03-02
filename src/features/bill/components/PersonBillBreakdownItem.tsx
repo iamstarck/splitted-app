@@ -1,6 +1,6 @@
 import { Item, ItemContent, ItemHeader } from "@/components/ui/item";
 import AvatarInitials from "@/shared/components/AvatarInitials";
-import type { AmountPerPerson, currencyId, ItemProps } from "../../types/bill";
+import type { AmountPerPerson, currencyId, ItemProps } from "../types/bill";
 import { formatter } from "@/shared/utils/utils";
 
 type PersonBillBreakdownItemProps = {
