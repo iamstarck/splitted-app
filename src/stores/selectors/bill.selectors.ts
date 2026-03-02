@@ -4,6 +4,9 @@ export const useBills = () => useDataStore((state) => state.bills);
 
 export const useCurrentBill = () => useDataStore((state) => state.currentBill);
 
+export const useSetCurrentBillById = () =>
+  useDataStore((state) => state.setCurrentBillById);
+
 export const useSelectPeople = () =>
   useDataStore((state) => state.currentBill?.people);
 

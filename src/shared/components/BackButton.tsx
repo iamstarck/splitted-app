@@ -1,13 +1,10 @@
 import { Button } from "@/components/ui/button";
 import { ArrowLeftIcon } from "lucide-react";
-import { Link } from "react-router-dom";
 
-const BackButton = () => {
+const BackButton = ({ onClick }: { onClick?: () => void }) => {
   return (
-    <Button variant="outline" size={"lg"} asChild>
-      <Link to="/">
-        <ArrowLeftIcon className="scale-150" />
-      </Link>
+    <Button variant="outline" size={"lg"} type="button" onClick={onClick}>
+      <ArrowLeftIcon className="scale-150" />
     </Button>
   );
 };

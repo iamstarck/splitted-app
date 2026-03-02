@@ -4,9 +4,9 @@ import HomePage from "./pages/HomePage";
 import ProfilePage from "./pages/ProfilePage";
 import NewBillPage from "./pages/NewBillPage";
 import { Toaster } from "./components/ui/sonner";
-import { useDataStore } from "./stores/useDataStore";
-import { useEffect, useLayoutEffect, type ReactNode } from "react";
+import { useLayoutEffect, type ReactNode } from "react";
 import BillDetailPage from "./pages/BillDetailPage";
+import EditBillPage from "./pages/EditBillPage";
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -24,18 +24,13 @@ const Routes = () => {
     { path: "/profile", element: <ProfilePage /> },
     { path: "/new", element: <NewBillPage /> },
     { path: "/detail/:billId", element: <BillDetailPage /> },
+    { path: "/edit/:billId", element: <EditBillPage /> },
   ]);
 
   return element;
 };
 
 const App = () => {
-  const { loadDummyBills } = useDataStore();
-
-  useEffect(() => {
-    loadDummyBills();
-  }, [loadDummyBills]);
-
   return (
     <ThemeProvider defaultTheme="system" storageKey="splitted-theme">
       <Wrapper>

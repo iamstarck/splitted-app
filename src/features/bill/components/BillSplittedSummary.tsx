@@ -1,10 +1,10 @@
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { ItemGroup } from "@/components/ui/item";
-import PersonBillBreakdownItem from "../new/PersonBillBreakdownItem";
+import PersonBillBreakdownItem from "./PersonBillBreakdownItem";
 import { formatter } from "@/shared/utils/utils";
 import { useMemo } from "react";
-import { buildBillSummary } from "../../lib/bill.calculation";
-import type { BillProps } from "../../types/bill";
+import { buildBillSummary } from "../lib/bill.calculation";
+import type { BillProps } from "../types/bill";
 
 const BillSplittedSummary = ({ bill }: { bill: BillProps }) => {
   const summary = useMemo(() => {

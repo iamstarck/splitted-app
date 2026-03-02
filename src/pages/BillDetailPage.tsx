@@ -1,7 +1,7 @@
 import { ModeToggle } from "@/components/common/ModeToggle";
 import BackButton from "../shared/components/BackButton";
 import Footer from "../shared/components/Footer";
-import BillSplittedSummary from "@/features/bill/components/common/BillSplittedSummary";
+import BillSplittedSummary from "@/features/bill/components/BillSplittedSummary";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon, EllipsisVerticalIcon, Share2Icon } from "lucide-react";
 import {
@@ -10,15 +10,28 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useBillById } from "@/stores/selectors/bill.selectors";
-import { useMemo } from "react";
+import { useEffect, useMemo } from "react";
 import { buildBillSummary } from "@/features/bill/lib/bill.calculation";
 import { formatDate } from "@/features/home/utils/formatTime";
 
 const BillDetailPage = () => {
   const { billId } = useParams();
+  const navigate = useNavigate();
+
   const bill = useBillById(billId);
+
+  useEffect(() => {
+    if (!billId) {
+      navigate("/");
+      return;
+    }
+    if (!bill) {
+      navigate("/");
+      return;
+    }
+  }, [billId, bill, navigate]);
 
   const summary = useMemo(() => {
     if (!bill) return null;
@@ -32,12 +45,14 @@ const BillDetailPage = () => {
       <div className="flex flex-col items-center w-full max-w-2xl m-4 justify-between">
         <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-6">
           <div className="flex items-center justify-between w-full">
-            <BackButton />
+            <BackButton onClick={() => navigate("/")} />
             <ModeToggle />
           </div>
 
           <div className="flex justify-between items-center">
-            <h1 className="text-4xl font-bold">Bill Detail</h1>
+            <h1 className="lg:text-4xl max-md:text-3xl font-bold">
+              Bill Detail
+            </h1>
             {(bill || summary) && (
               <div className="flex justify-end">
                 <DropdownMenu>
@@ -47,7 +62,9 @@ const BillDetailPage = () => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem>Edit</DropdownMenuItem>
+                    <DropdownMenuItem asChild>
+                      <Link to={`/edit/${billId}`}>Edit</Link>
+                    </DropdownMenuItem>
                     <DropdownMenuItem>Delete</DropdownMenuItem>
                   </DropdownMenuContent>
                 </DropdownMenu>
@@ -59,7 +76,7 @@ const BillDetailPage = () => {
         <main className="flex flex-col justify-start items-center p-6 w-full min-h-screen">
           <div className="space-y-6 w-full">
             {!bill || !summary ? (
-              <p>Bill not found</p>
+              <p>Loading bill data...</p>
             ) : (
               <>
                 <div>
