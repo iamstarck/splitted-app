@@ -29,3 +29,6 @@ export const useBillById = (billId?: string) =>
   useDataStore(
     (state) => state.bills.find((bill) => bill.id === billId) ?? null,
   );
+
+export const useDeleteBillById = () =>
+  useDataStore((state) => state.deleteBillById);

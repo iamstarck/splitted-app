@@ -17,6 +17,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link } from "react-router-dom";
+import { useDeleteBillById } from "@/stores/selectors/bill.selectors";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 interface BillListItemProps {
   id: string;
@@ -35,6 +48,13 @@ const BillListItem = ({
   total,
   people,
 }: BillListItemProps) => {
+  const deleteBillById = useDeleteBillById();
+
+  const handleDeleteBill = (billId: string) => {
+    deleteBillById(billId);
+    toast.success("Bill deleted successfully!", { position: "top-center" });
+  };
+
   return (
     <Item variant={"muted"} className="shadow-xs">
       <ItemContent className="gap-4">
@@ -73,7 +93,31 @@ const BillListItem = ({
               <DropdownMenuItem asChild>
                 <Link to={`/edit/${id}`}>Edit</Link>
               </DropdownMenuItem>
-              <DropdownMenuItem>Delete</DropdownMenuItem>
+
+              <AlertDialog>
+                <AlertDialogTrigger asChild>
+                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                    Delete
+                  </DropdownMenuItem>
+                </AlertDialogTrigger>
+                <AlertDialogContent>
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Delete bill?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      This will permanently delete this bill.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel>Cancel</AlertDialogCancel>
+                    <AlertDialogAction
+                      variant={"destructive"}
+                      onClick={() => handleDeleteBill(id)}
+                    >
+                      Delete
+                    </AlertDialogAction>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
             </DropdownMenuContent>
           </DropdownMenu>
         </ItemActions>
