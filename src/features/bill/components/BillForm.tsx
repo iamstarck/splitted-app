@@ -167,9 +167,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
             <BillMetaSection form={billForm} />
             <BillPeopleSection />
             <BillItemsSection currency={currency} />
-            <div className="hidden">
-              <BillChargesSection />
-            </div>
+            <BillChargesSection />
             {peopleJustOne && items.length > 0 && (
               <p className="text-destructive text-center">
                 ⚠️ Why using this app if just split for one person?
@@ -182,7 +180,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
               />
             )}
             {!showPlaceholder && !peopleJustOne && (
-              <BillSplittedSummary bill={currentBill} />
+              <BillSplittedSummary bill={currentBill} currency={currency} />
             )}
             {mode === "create" && (
               <Button className="w-full" disabled={isButtonDisabled}>
