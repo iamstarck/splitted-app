@@ -22,12 +22,9 @@ const calculateSubtotal = (bill: BillProps) => {
 };
 
 const calculateCharges = (bill: BillProps, subtotal: Decimal) => {
-  const { taxPercent, servicePercent, tipPercent } = bill.charges;
+  const { taxPercent, servicePercent } = bill.charges;
 
-  const percentTotal = new Decimal(taxPercent)
-    .plus(servicePercent)
-    .plus(tipPercent)
-    .div(100);
+  const percentTotal = new Decimal(taxPercent).plus(servicePercent).div(100);
 
   return subtotal.mul(percentTotal);
 };
@@ -80,33 +77,59 @@ export const buildBillSummary = (bill: BillProps): BillSummary => {
   });
 
   const perPerson = basePerPerson.map((p) => {
-    if (subtotal.equals(0)) return p;
+    if (subtotal.equals(0)) {
+      return {
+        ...p,
+        subtotal: p.subtotal.toDecimalPlaces(2),
+        total: p.total.toDecimalPlaces(2),
+      };
+    }
 
     const ratio = p.subtotal.div(subtotal);
-    const chargeShare = charges.mul(ratio);
+    const rawChargeShare = charges.mul(ratio);
+
+    const roundedSubtotal = p.subtotal.toDecimalPlaces(2);
+    const roundedChargesShare = rawChargeShare.toDecimalPlaces(2);
 
     return {
       ...p,
-      total: p.subtotal.plus(chargeShare),
+      subtotal: roundedSubtotal,
+      total: p.subtotal.plus(roundedChargesShare),
     };
   });
+
+  const totalRounded = total.toDecimalPlaces(2);
 
   const assignedTotal = perPerson.reduce(
     (sum, p) => sum.plus(p.total),
     new Decimal(0),
   );
 
+  const diff = totalRounded.minus(assignedTotal);
+
+  if (!diff.isZero() && perPerson.length > 0) {
+    perPerson[0] = {
+      ...perPerson[0],
+      total: perPerson[0].total.plus(diff),
+    };
+  }
+
+  const finalAssignedTotal = perPerson.reduce(
+    (sum, p) => sum.plus(p.total),
+    new Decimal(0),
+  );
+
   const allAssigned = isAllItemsAssigned(bill);
-  const isBalanced = isSplitBalanced(total, assignedTotal);
+  const isBalanced = isSplitBalanced(totalRounded, finalAssignedTotal);
 
   const hasUnassignedPeople = Object.values(groupedByPerson).some(
     (items) => items.length === 0,
   );
 
   return {
-    subtotal,
-    charges,
-    total,
+    subtotal: subtotal.toDecimalPlaces(2),
+    charges: charges.toDecimalPlaces(2),
+    total: totalRounded,
     perPerson,
     groupedByPerson,
     allAssigned,

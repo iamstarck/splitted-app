@@ -22,7 +22,6 @@ export type ItemProps = {
 export type ChargesProps = {
   taxPercent: number;
   servicePercent: number;
-  tipPercent: number;
 };
 
 export type BillProps = {
@@ -54,6 +53,5 @@ export const initialBill = (): BillProps => ({
   charges: {
     taxPercent: 0,
     servicePercent: 0,
-    tipPercent: 0,
   },
 });

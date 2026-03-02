@@ -4,13 +4,21 @@ import PersonBillBreakdownItem from "./PersonBillBreakdownItem";
 import { formatter } from "@/shared/utils/utils";
 import { useMemo } from "react";
 import { buildBillSummary } from "../lib/bill.calculation";
-import type { BillProps } from "../types/bill";
+import type { BillProps, currencyId } from "../types/bill";
 
-const BillSplittedSummary = ({ bill }: { bill: BillProps }) => {
+type BillSplittedSummaryProps = {
+  bill: BillProps;
+  currency: currencyId;
+};
+
+const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
   const summary = useMemo(() => {
     return buildBillSummary(bill);
   }, [bill]);
+
   if (!summary) return null;
+
+  const { taxPercent, servicePercent } = bill.charges;
 
   return (
     <Card className="w-full">
@@ -19,33 +27,39 @@ const BillSplittedSummary = ({ bill }: { bill: BillProps }) => {
           <div className="flex justify-between">
             <p>Subtotal</p>
             <span>
-              {bill.currency}
+              {currency}
               {formatter.format(summary.subtotal.toNumber())}
             </span>
           </div>
-          {/* <div className="flex justify-between">
-            <p>
-              Tax (<span>2</span>%)
-            </p>
-            <span>Rp15000</span>
-          </div>
-          <div className="flex justify-between">
-            <p>
-              Service (<span>2</span>%)
-            </p>
-            <span>Rp15000</span>
-          </div>
-          <div className="flex justify-between">
-            <p>
-              Tip (<span>4</span>%)
-            </p>
-            <span>Rp5000</span>
-          </div> */}
+
+          {taxPercent > 0 && (
+            <div className="flex justify-between">
+              <p>Tax ({taxPercent}%)</p>
+              <span>
+                {currency}
+                {formatter.format(
+                  summary.subtotal.mul(taxPercent).div(100).toNumber(),
+                )}
+              </span>
+            </div>
+          )}
+
+          {servicePercent > 0 && (
+            <div className="flex justify-between">
+              <p>Service ({servicePercent}%)</p>
+              <span>
+                {currency}
+                {formatter.format(
+                  summary.subtotal.mul(servicePercent).div(100).toNumber(),
+                )}
+              </span>
+            </div>
+          )}
         </div>
         <div className="flex justify-between">
           <p className="text-lg font-bold">Total</p>
           <p className="text-xl font-bold">
-            {bill.currency}
+            {currency}
             {formatter.format(summary.total.toNumber())}
           </p>
         </div>
@@ -81,7 +95,7 @@ const BillSplittedSummary = ({ bill }: { bill: BillProps }) => {
                   subtotal: person.subtotal.toNumber(),
                   total: person.total.toNumber(),
                 }}
-                currency={bill.currency}
+                currency={currency}
                 items={summary.groupedByPerson[person.personId] ?? []}
               />
             ))}
