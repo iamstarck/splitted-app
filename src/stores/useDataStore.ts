@@ -1,4 +1,3 @@
-import { dummyBills } from "@/dummyData";
 import {
   addItemToBill,
   addPersonToBill,
@@ -10,6 +9,7 @@ import {
 import { initialBill, type BillProps } from "@/features/bill/types/bill";
 import { generateId } from "@/shared/utils/utils";
 import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 interface DataStore {
   profileName: string;
@@ -33,112 +33,138 @@ interface DataStore {
   updatePeopleCharges: (charges: Partial<BillProps["charges"]>) => void;
 
   saveCurrentBill: () => void;
-  resetCurrentBill: () => void;
 
-  loadDummyBills: () => void;
+  setCurrentBillById: (id: string) => void;
+  updateExistingBill: () => void;
+
+  resetCurrentBill: () => void;
 }
 
-export const useDataStore = create<DataStore>((set, get) => ({
-  profileName: "User",
-  currentBill: initialBill(),
-  bills: [],
-
-  setProfileName: (profileName) => set({ profileName }),
-
-  updateBillMeta: (data) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: {
-          ...state.currentBill,
-          ...data,
-        },
-      };
-    }),
-
-  addPersonToBill: (name) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: addPersonToBill(state.currentBill, name),
-      };
-    }),
-
-  removePersonFromBill: (personId) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: removePersonFromBill(state.currentBill, personId),
-      };
-    }),
-
-  addItemToBill: (name, price) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: addItemToBill(state.currentBill, name, price),
-      };
-    }),
-
-  removeItemFromBill: (itemId) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: removeItemFromBill(state.currentBill, itemId),
-      };
-    }),
-
-  assignItemToPeople: (itemId, personIds) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: assignItemToPeople(state.currentBill, itemId, personIds),
-      };
-    }),
-
-  updatePeopleCharges: (charges) =>
-    set((state) => {
-      if (!state.currentBill) return state;
-
-      return {
-        currentBill: updatePeopleCharges(state.currentBill, charges),
-      };
-    }),
-
-  saveCurrentBill: () => {
-    const { currentBill } = get();
-    if (!currentBill) return;
-
-    set((state) => ({
-      bills: [
-        ...state.bills,
-        {
-          ...currentBill,
-          id: generateId(),
-        },
-      ],
+export const useDataStore = create<DataStore>()(
+  persist<DataStore>(
+    (set, get) => ({
+      profileName: "User",
       currentBill: initialBill(),
-    }));
-  },
+      bills: [],
 
-  resetCurrentBill: () => {
-    const { currentBill } = get();
-    if (!currentBill) return;
+      setProfileName: (profileName) => set({ profileName }),
 
-    set(() => ({
-      currentBill: initialBill(),
-    }));
-  },
+      updateBillMeta: (data) =>
+        set((state) => {
+          if (!state.currentBill) return state;
 
-  loadDummyBills: () => {
-    set(() => ({
-      bills: dummyBills,
-    }));
-  },
-}));
+          return {
+            currentBill: {
+              ...state.currentBill,
+              ...data,
+            },
+          };
+        }),
+
+      addPersonToBill: (name) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: addPersonToBill(state.currentBill, name),
+          };
+        }),
+
+      removePersonFromBill: (personId) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: removePersonFromBill(state.currentBill, personId),
+          };
+        }),
+
+      addItemToBill: (name, price) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: addItemToBill(state.currentBill, name, price),
+          };
+        }),
+
+      removeItemFromBill: (itemId) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: removeItemFromBill(state.currentBill, itemId),
+          };
+        }),
+
+      assignItemToPeople: (itemId, personIds) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: assignItemToPeople(
+              state.currentBill,
+              itemId,
+              personIds,
+            ),
+          };
+        }),
+
+      updatePeopleCharges: (charges) =>
+        set((state) => {
+          if (!state.currentBill) return state;
+
+          return {
+            currentBill: updatePeopleCharges(state.currentBill, charges),
+          };
+        }),
+
+      saveCurrentBill: () => {
+        const { currentBill } = get();
+        if (!currentBill) return;
+
+        set((state) => ({
+          bills: [
+            ...state.bills,
+            {
+              ...currentBill,
+              id: generateId(),
+            },
+          ],
+          currentBill: initialBill(),
+        }));
+      },
+
+      setCurrentBillById: (id) =>
+        set((state) => {
+          const bill = state.bills.find((bill) => bill.id === id);
+          if (!bill) return state;
+
+          return {
+            currentBill: structuredClone(bill),
+          };
+        }),
+
+      updateExistingBill: () => {
+        const { currentBill } = get();
+        if (!currentBill) return;
+
+        set((state) => ({
+          bills: state.bills.map((bill) =>
+            bill.id === currentBill.id ? currentBill : bill,
+          ),
+        }));
+      },
+
+      resetCurrentBill: () => {
+        const { currentBill } = get();
+        if (!currentBill) return;
+
+        set(() => ({
+          currentBill: initialBill(),
+        }));
+      },
+    }),
+    { name: "splitted-storage" },
+  ),
+);

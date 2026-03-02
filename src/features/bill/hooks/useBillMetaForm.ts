@@ -5,13 +5,17 @@ import {
 } from "../lib/billMeta-validation";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-export const useBillMetaForm = () => {
+export const useBillMetaForm = (
+  initialValues?: Partial<BillMetaFormValues>,
+) => {
   const form = useForm<BillMetaFormValues>({
     resolver: zodResolver(billMetaSchema),
     defaultValues: {
       title: "",
       date: new Date(),
       currency: "$",
+      note: "",
+      ...initialValues,
     },
 
     mode: "onChange",

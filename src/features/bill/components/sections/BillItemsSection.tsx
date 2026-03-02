@@ -6,9 +6,9 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group";
 import { ItemGroup } from "@/components/ui/item";
-import BillItem from "@/features/bill/components/new/BillItem";
+import BillItem from "../BillItem";
 import { CoffeeIcon, PlusIcon } from "lucide-react";
-import type { currencyId } from "../../../types/bill";
+import type { currencyId } from "../../types/bill";
 import { useSelectBillItems } from "@/stores/selectors/bill.selectors";
 import { useDataStore } from "@/stores/useDataStore";
 import { useState } from "react";
