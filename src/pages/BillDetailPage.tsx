@@ -149,7 +149,7 @@ const BillDetailPage = () => {
                 <div className="space-y-4">
                   <h2 className="text-xl font-semibold">Bill Summary</h2>
 
-                  <BillSplittedSummary bill={bill} />
+                  <BillSplittedSummary bill={bill} currency={bill.currency} />
                 </div>
 
                 <div className="flex flex-col">

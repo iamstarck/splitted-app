@@ -14,6 +14,8 @@ const PersonBillBreakdownItem = ({
   currency,
   items,
 }: PersonBillBreakdownItemProps) => {
+  const chargeShare = person.total - person.subtotal;
+
   return (
     <Item variant={"muted"}>
       <ItemHeader>
@@ -50,16 +52,17 @@ const PersonBillBreakdownItem = ({
           </div>
         </div>
 
-        {/* <div>
-          <div className="flex justify-between ml-10">
-            <p className="text-sm">Tax:</p>
-            <p className="text-sm">{currency}100</p>
+        {chargeShare > 0 && (
+          <div>
+            <div className="flex justify-between ml-10">
+              <p className="text-sm">Additional Charges:</p>
+              <p className="text-sm">
+                {currency}
+                {formatter.format(chargeShare)}
+              </p>
+            </div>
           </div>
-          <div className="flex justify-between ml-10">
-            <p className="text-sm">Tip:</p>
-            <p className="text-sm">{currency}2.000</p>
-          </div>
-        </div> */}
+        )}
       </ItemContent>
     </Item>
   );
