@@ -5,8 +5,11 @@ import ProfileForm from "../features/profile/components/ProfileForm";
 import Footer from "../shared/components/Footer";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import { useSelectProfileName } from "@/stores/selectors/profile.selectors";
+import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
+  const navigate = useNavigate();
+
   const profileName = useSelectProfileName();
 
   return (
@@ -15,7 +18,7 @@ const ProfilePage = () => {
         <div className="w-full">
           <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-6">
             <div className="flex items-center justify-between w-full">
-              <BackButton />
+              <BackButton onClick={() => navigate("/")} />
               <div className="flex items-center gap-4 max-md:gap-2">
                 <ProfileAvatar />
                 <ModeToggle />

@@ -70,7 +70,9 @@ const BillListItem = ({
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Edit</DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link to={`/edit/${id}`}>Edit</Link>
+              </DropdownMenuItem>
               <DropdownMenuItem>Delete</DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
