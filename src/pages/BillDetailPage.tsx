@@ -11,10 +11,25 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useBillById } from "@/stores/selectors/bill.selectors";
+import {
+  useBillById,
+  useDeleteBillById,
+} from "@/stores/selectors/bill.selectors";
 import { useEffect, useMemo } from "react";
 import { buildBillSummary } from "@/features/bill/lib/bill.calculation";
 import { formatDate } from "@/features/home/utils/formatTime";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 const BillDetailPage = () => {
   const { billId } = useParams();
@@ -39,6 +54,15 @@ const BillDetailPage = () => {
   }, [bill]);
 
   const hasNote = bill?.note?.trim() ?? "";
+
+  const deleteBillById = useDeleteBillById();
+
+  const handleDeleteBill = (billId?: string) => {
+    if (!billId) return;
+
+    deleteBillById(billId);
+    toast.success("Bill deleted successfully!", { position: "top-center" });
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -65,7 +89,31 @@ const BillDetailPage = () => {
                     <DropdownMenuItem asChild>
                       <Link to={`/edit/${billId}`}>Edit</Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>Delete</DropdownMenuItem>
+
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                          Delete
+                        </DropdownMenuItem>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Delete bill?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This will permanently delete this bill.
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction
+                            variant={"destructive"}
+                            onClick={() => handleDeleteBill(billId)}
+                          >
+                            Delete
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </DropdownMenuContent>
                 </DropdownMenu>
               </div>

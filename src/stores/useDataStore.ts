@@ -33,6 +33,7 @@ interface DataStore {
   updatePeopleCharges: (charges: Partial<BillProps["charges"]>) => void;
 
   saveCurrentBill: () => void;
+  deleteBillById: (billId: string) => void;
 
   setCurrentBillById: (id: string) => void;
   updateExistingBill: () => void;
@@ -134,6 +135,11 @@ export const useDataStore = create<DataStore>()(
           currentBill: initialBill(),
         }));
       },
+
+      deleteBillById: (billId) =>
+        set((state) => ({
+          bills: state.bills.filter((bill) => bill.id !== billId),
+        })),
 
       setCurrentBillById: (id) =>
         set((state) => {
