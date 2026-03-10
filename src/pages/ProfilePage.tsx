@@ -4,13 +4,13 @@ import { UserIcon } from "lucide-react";
 import ProfileForm from "../features/profile/components/ProfileForm";
 import Footer from "../shared/components/Footer";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
-import { useSelectProfileName } from "@/stores/selectors/profile.selectors";
+import { useSelectProfile } from "@/stores/selectors/profile.selectors";
 import { useNavigate } from "react-router-dom";
 
 const ProfilePage = () => {
   const navigate = useNavigate();
 
-  const profileName = useSelectProfileName();
+  const profileName = useSelectProfile().name;
 
   return (
     <div className="flex flex-col items-center">

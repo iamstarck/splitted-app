@@ -1,8 +1,8 @@
 import AvatarInitials from "@/shared/components/AvatarInitials";
-import { useSelectProfileName } from "@/stores/selectors/profile.selectors";
+import { useSelectProfile } from "@/stores/selectors/profile.selectors";
 
 const ProfileAvatar = () => {
-  const profileName = useSelectProfileName();
+  const profileName = useSelectProfile().name;
 
   return <AvatarInitials name={profileName} className="h-12 w-12" />;
 };

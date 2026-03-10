@@ -4,7 +4,6 @@ interface EmptyListPlaceholderProps {
   message: string;
   subMessage?: string;
   icon: ReactNode;
-  iconSize?: string | number;
 }
 
 const EmptyListPlaceholder = ({
@@ -13,7 +12,7 @@ const EmptyListPlaceholder = ({
   icon: Icon,
 }: EmptyListPlaceholderProps) => {
   return (
-    <div className="flex flex-col items-center text-muted-foreground gap-2 select-none py-16">
+    <div className="flex flex-col items-center text-muted-foreground gap-2 select-none py-16 text-center">
       {Icon}
       <div>
         <p className="font-semibold">{message}</p>
