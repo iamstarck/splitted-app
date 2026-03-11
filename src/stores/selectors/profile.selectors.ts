@@ -1,4 +1,3 @@
 import { useDataStore } from "../useDataStore";
 
-export const useSelectProfileName = () =>
-  useDataStore((state) => state.profileName);
+export const useSelectProfile = () => useDataStore((state) => state.profile);
