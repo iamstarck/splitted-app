@@ -7,6 +7,7 @@ import { Toaster } from "./components/ui/sonner";
 import { useLayoutEffect, type ReactNode } from "react";
 import BillDetailPage from "./pages/BillDetailPage";
 import EditBillPage from "./pages/EditBillPage";
+import FriendListPage from "./pages/FriendListPage";
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -22,6 +23,7 @@ const Routes = () => {
   const element = useRoutes([
     { path: "/", element: <HomePage /> },
     { path: "/profile", element: <ProfilePage /> },
+    { path: "/friends", element: <FriendListPage /> },
     { path: "/new", element: <NewBillPage /> },
     { path: "/detail/:billId", element: <BillDetailPage /> },
     { path: "/edit/:billId", element: <EditBillPage /> },

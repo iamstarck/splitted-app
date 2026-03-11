@@ -19,7 +19,7 @@ import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
 import Footer from "@/shared/components/Footer";
 import { useBills } from "@/stores/selectors/bill.selectors";
-import { ListIcon, PlusIcon, UserIcon } from "lucide-react";
+import { ListIcon, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 
@@ -55,6 +55,11 @@ const HomePage = () => {
                 text="Profile"
                 icon={<UserIcon />}
                 pageRef="profile"
+              />
+              <HomeMenuButton
+                text="Friends"
+                icon={<UsersIcon />}
+                pageRef="friends"
               />
             </div>
 
@@ -152,8 +157,8 @@ const HomePage = () => {
               ) : (
                 <EmptyListPlaceholder
                   icon={<ListIcon size={90} />}
-                  message="No saved bill yet"
-                  subMessage="Create your first bill"
+                  message="Zero bills here"
+                  subMessage="Boss move or just freeloading?"
                 />
               )}
             </div>
