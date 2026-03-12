@@ -22,6 +22,7 @@ import { useBills } from "@/stores/selectors/bill.selectors";
 import { ListIcon, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import AppLogo from "@/assets/splittedLogo.svg?react";
 
 const HomePage = () => {
   const billsRaw = useBills();
@@ -39,7 +40,7 @@ const HomePage = () => {
         <div className="w-full">
           <header className="flex items-start p-6 max-w-2xl justify-between w-full">
             <div>
-              <h1 className="text-4xl font-bold select-none">Splitted</h1>
+              <AppLogo className="h-14 w-fit fill-primary" />
               <ProfileName />
             </div>
 
@@ -77,12 +78,8 @@ const HomePage = () => {
                     {paginatedData.map((bill) => (
                       <BillListItem
                         key={bill.id}
-                        id={bill.id}
-                        title={bill.title}
-                        date={bill.date}
-                        currency={bill.currency}
-                        total={bill.total}
-                        people={bill.people}
+                        bill={bill}
+                        rawBill={billsRaw.find((b) => b.id === bill.id)!}
                       />
                     ))}
                   </ItemGroup>
