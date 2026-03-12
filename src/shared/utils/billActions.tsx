@@ -8,7 +8,7 @@ const copyBillNoteToClipboard = async (bill: BillProps) => {
   try {
     if (!bill?.note) return;
 
-    const textToCopy = `${bill.note}\n\nsplit with Splitted\nhttps://splitted.vercel.app/`;
+    const textToCopy = `${bill.note}\n\nSplit with Splitted\nhttps://splitted.vercel.app/`;
 
     await navigator.clipboard.writeText(textToCopy);
     toast.info("Note copied to clipboard", { position: "top-center" });
