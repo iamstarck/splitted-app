@@ -70,7 +70,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
             </span>
           </div>
 
-          {taxPercent && (
+          {taxPercent > 0 && (
             <div className="flex justify-between">
               <p className="inline-flex items-center gap-2 font-medium">
                 Tax ({taxPercent}%)
@@ -85,7 +85,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
             </div>
           )}
 
-          {servicePercent && (
+          {servicePercent > 0 && (
             <div className="flex justify-between">
               <p className="inline-flex items-center gap-2 font-medium">
                 Service ({servicePercent}%)
