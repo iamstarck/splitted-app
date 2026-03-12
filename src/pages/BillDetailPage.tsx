@@ -3,7 +3,7 @@ import BackButton from "../shared/components/BackButton";
 import Footer from "../shared/components/Footer";
 import BillSplittedSummary from "@/features/bill/components/BillSplittedSummary";
 import { Button } from "@/components/ui/button";
-import { DownloadIcon, EllipsisVerticalIcon, Share2Icon } from "lucide-react";
+import { DownloadIcon, EllipsisVerticalIcon } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -30,6 +30,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
+import { downloadBill } from "@/shared/utils/billActions";
 
 const BillDetailPage = () => {
   const { billId } = useParams();
@@ -158,17 +159,18 @@ const BillDetailPage = () => {
                       variant={"ghost"}
                       size={"lg"}
                       className="flex items-center gap-1"
+                      onClick={() => downloadBill(bill)}
                     >
                       <DownloadIcon /> Download
                     </Button>
 
-                    <Button
+                    {/* <Button
                       variant={"ghost"}
                       size={"lg"}
                       className="flex items-center gap-1"
                     >
                       <Share2Icon /> Share
-                    </Button>
+                    </Button> */}
                   </div>
                 </div>
               </>
