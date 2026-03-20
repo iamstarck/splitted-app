@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 export const useCamera = () => {
   const videoRef = useRef<HTMLVideoElement | null>(null);
+  const streamRef = useRef<MediaStream | null>(null);
 
   const [cameraState, setCameraState] = useState<"idle" | "active" | "error">(
     "idle",
@@ -10,20 +11,34 @@ export const useCamera = () => {
   const [selectedCamera, setSelectedCamera] = useState<string>("");
 
   useEffect(() => {
-    let stream: MediaStream;
-    const videoElement = videoRef.current;
+    const init = async () => {
+      const devices = await navigator.mediaDevices.enumerateDevices();
+      const cams = devices.filter((d) => d.kind === "videoinput");
 
+      setCameraList(cams);
+
+      if (cams.length > 0) {
+        setSelectedCamera(cams[0].deviceId);
+      }
+    };
+
+    init();
+  }, []);
+
+  useEffect(() => {
     const startCamera = async (deviceId?: string) => {
       try {
-        if (stream) {
-          stream.getTracks().forEach((t) => t.stop());
-        }
+        streamRef.current?.getTracks().forEach((t) => t.stop());
 
-        stream = await navigator.mediaDevices.getUserMedia({
+        const videoElement = videoRef.current;
+
+        const stream = await navigator.mediaDevices.getUserMedia({
           video: deviceId
             ? { deviceId: { exact: deviceId } }
             : { facingMode: "environment" },
         });
+
+        streamRef.current = stream;
 
         if (videoElement) {
           videoElement.srcObject = stream;
@@ -36,22 +51,12 @@ export const useCamera = () => {
       }
     };
 
-    const init = async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const cams = devices.filter((d) => d.kind === "videoinput");
-      setCameraList(cams);
-
-      if (cams.length > 0 && !selectedCamera) {
-        setSelectedCamera(cams[0].deviceId);
-        startCamera(cams[0].deviceId);
-      }
-    };
-
-    init();
-    if (selectedCamera) startCamera(selectedCamera);
+    if (selectedCamera) {
+      startCamera(selectedCamera);
+    }
 
     return () => {
-      stream?.getTracks().forEach((t) => t.stop());
+      streamRef.current?.getTracks().forEach((t) => t.stop());
     };
   }, [selectedCamera]);
 

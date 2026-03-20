@@ -3,7 +3,6 @@ import BackButton from "@/shared/components/BackButton";
 import Footer from "@/shared/components/Footer";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Spinner } from "@/components/ui/spinner";
 import CameraView from "@/features/scan/components/CameraView";
 import { useCamera } from "@/features/scan/hooks/useCamera";
 import { useOCR } from "@/features/scan/hooks/useOCR";
@@ -21,7 +20,16 @@ const ScanBillPage = () => {
   } = useCamera();
 
   const [image, setImage] = useState<string | null>(null);
-  const { text, isProcessing } = useOCR(image);
+  const [isProcessing, setIsProcessing] = useState(false);
+  const { text } = useOCR(image, () => setIsProcessing(false));
+
+  const handleCapture = () => {
+    const img = capture();
+    if (!img) return;
+
+    setImage(img);
+    setIsProcessing(true);
+  };
 
   return (
     <div className="flex flex-col items-center">
@@ -45,13 +53,14 @@ const ScanBillPage = () => {
             cameraList={cameraList}
             selectedCamera={selectedCamera}
             setSelectedCamera={setSelectedCamera}
-            onCapture={() => setImage(capture())}
+            onCapture={handleCapture}
+            isProcessing={isProcessing}
           />
 
           <section>
             <h2 className="text-2xl font-semibold">Scan Result</h2>
 
-            {isProcessing ? <Spinner className="size-6" /> : <pre>{text}</pre>}
+            <pre>{text}</pre>
           </section>
         </main>
 
