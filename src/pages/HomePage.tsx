@@ -19,7 +19,13 @@ import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
 import Footer from "@/shared/components/Footer";
 import { useBills } from "@/stores/selectors/bill.selectors";
-import { ListIcon, PlusIcon, UserIcon, UsersIcon } from "lucide-react";
+import {
+  CameraIcon,
+  ListIcon,
+  PlusIcon,
+  UserIcon,
+  UsersIcon,
+} from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import AppLogo from "@/assets/splittedLogo.svg?react";
@@ -65,12 +71,21 @@ const HomePage = () => {
             </div>
 
             <div className="flex flex-col items-center justify-center gap-6 text-center w-full">
-              <Button size={"lg"} className="lg:w-md md:w-sm w-80" asChild>
-                <Link to={"/new"} className="flex items-center gap-1">
-                  <PlusIcon />
-                  Create New Bill
-                </Link>
-              </Button>
+              <div className="grid grid-cols-2 gap-4 w-full">
+                <Button size={"lg"} className="w-full" asChild>
+                  <Link to={"/new"} className="flex items-center gap-1">
+                    <PlusIcon />
+                    Create New Bill
+                  </Link>
+                </Button>
+
+                <Button size={"lg"} className="w-full" asChild>
+                  <Link to={"/scan-bill"} className="flex items-center gap-1">
+                    <CameraIcon />
+                    Scan Bill
+                  </Link>
+                </Button>
+              </div>
 
               {bills.length > 0 ? (
                 <div className="space-y-4 w-full px-6">
