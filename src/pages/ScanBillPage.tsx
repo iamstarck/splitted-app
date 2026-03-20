@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import CameraView from "@/features/scan/components/CameraView";
 import { useCamera } from "@/features/scan/hooks/useCamera";
 import { useOCR } from "@/features/scan/hooks/useOCR";
+import { parseReceipt } from "@/features/scan/utils/ScanTextUtils";
 
 const ScanBillPage = () => {
   const navigate = useNavigate();
@@ -30,6 +31,8 @@ const ScanBillPage = () => {
     setImage(img);
     setIsProcessing(true);
   };
+
+  const parsed = text ? parseReceipt(text) : null;
 
   return (
     <div className="flex flex-col items-center">
@@ -58,9 +61,13 @@ const ScanBillPage = () => {
           />
 
           <section>
-            <h2 className="text-2xl font-semibold">Scan Result</h2>
-
+            <h2 className="text-2xl font-semibold">RAW OCR</h2>
             <pre>{text}</pre>
+          </section>
+
+          <section>
+            <h2 className="text-2xl font-semibold">Parsed Result</h2>
+            {parsed && <pre>{JSON.stringify(parsed, null, 2)}</pre>}
           </section>
         </main>
 
