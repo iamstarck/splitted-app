@@ -75,7 +75,7 @@ const HomePage = () => {
                 <Button size={"lg"} className="w-full" asChild>
                   <Link to={"/new"} className="flex items-center gap-1">
                     <PlusIcon />
-                    Create New Bill
+                    Create Bill
                   </Link>
                 </Button>
 

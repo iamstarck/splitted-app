@@ -12,13 +12,26 @@ export const useCamera = () => {
 
   useEffect(() => {
     const init = async () => {
-      const devices = await navigator.mediaDevices.enumerateDevices();
-      const cams = devices.filter((d) => d.kind === "videoinput");
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: "environment" },
+        });
 
-      setCameraList(cams);
+        streamRef.current = stream;
 
-      if (cams.length > 0) {
-        setSelectedCamera(cams[0].deviceId);
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play();
+        }
+
+        const devices = await navigator.mediaDevices.enumerateDevices();
+        const cams = devices.filter((d) => d.kind === "videoinput");
+
+        setCameraList(cams);
+        setSelectedCamera(cams[0].deviceId || "");
+        setCameraState("active");
+      } catch {
+        setCameraState("error");
       }
     };
 
