@@ -4,7 +4,7 @@ import BillMetaSection from "./sections/BillMetaSection";
 import BillPeopleSection from "./sections/BillPeopleSection";
 import BillItemsSection from "./sections/BillItemsSection";
 import BillChargesSection from "./sections/BillChargesSection";
-import { ReceiptIcon, SaveIcon } from "lucide-react";
+import { ReceiptIcon, SaveIcon, Share2Icon } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   useCurrentBill,
@@ -14,7 +14,7 @@ import {
 import { useWatch } from "react-hook-form";
 import { useDataStore } from "@/stores/useDataStore";
 import { useBillMetaForm } from "../hooks/useBillMetaForm";
-import { useMemo } from "react";
+import { useMemo, useRef, useState } from "react";
 import { buildBillSummary } from "../lib/bill.calculation";
 import { toast } from "sonner";
 import type { BillMetaFormValues } from "../lib/billMeta-validation";
@@ -22,6 +22,9 @@ import { useNavigate } from "react-router-dom";
 import BackButton from "@/shared/components/BackButton";
 import { ModeToggle } from "@/components/common/ModeToggle";
 import Footer from "@/shared/components/Footer";
+import HelpGuide from "@/shared/components/HelpGuide";
+import PageTransition from "@/shared/animations/PageTransition";
+import { motion } from "framer-motion";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -33,6 +36,14 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { generateShareImage, shareBillAsImage } from "@/shared/utils/billActions";
+import type { BillProps } from "../types/bill";
 
 type BillFormProps = {
   mode: "create" | "edit";
@@ -61,7 +72,6 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
 
   const summary = useMemo(() => {
     if (!currentBill) return null;
-
     return buildBillSummary(currentBill);
   }, [currentBill]);
 
@@ -93,6 +103,27 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
     name: "currency",
   });
 
+  // ---- Share dialog state ----
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [shareImageUrl, setShareImageUrl] = useState<string | null>(null);
+  const [shareLoading, setShareLoading] = useState(false);
+  const savedBillRef = useRef<BillProps | null>(null);
+
+  const openShareDialog = async (bill: BillProps) => {
+    setShareDialogOpen(true);
+    setShareLoading(true);
+    setShareImageUrl(null);
+    savedBillRef.current = bill;
+    const url = await generateShareImage(bill);
+    setShareImageUrl(url);
+    setShareLoading(false);
+  };
+
+  const handleShareDownload = async () => {
+    if (!savedBillRef.current) return;
+    await shareBillAsImage(savedBillRef.current);
+  };
+
   const onSaveBill = (data: BillMetaFormValues) => {
     updateBillMeta({
       ...data,
@@ -104,23 +135,34 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
         updateExistingBill();
         toast.success("Bill updated successfully!", { position: "top-center" });
         navigate(`/detail/${currentBill.id}`);
+        resetBill();
+        billForm.reset();
         break;
 
-      case "create":
+      case "create": {
+        // Capture bill snapshot BEFORE reset for share dialog
+        const snapshot: BillProps = {
+          ...currentBill,
+          ...data,
+          date: data.date.toISOString(),
+        };
+
         saveCurrentBill();
-        toast.success("Bill created successfully!", { position: "top-center" });
+        toast.success("Split bill berhasil dibuat!", { position: "top-center" });
+        
+        billForm.reset();
+        openShareDialog(snapshot);
         break;
+      }
     }
-
-    resetBill();
-    billForm.reset();
   };
 
   const showPlaceholder = people.length === 0 || items.length === 0;
 
   return (
+    <PageTransition>
     <div className="flex flex-col items-center">
-      <div className="flex flex-col items-center w-full max-w-2xl m-4 justify-between">
+      <div className="flex flex-col items-center w-full max-w-2xl justify-between">
         <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-6">
           <div className="flex items-center justify-between w-full">
             {mode === "edit" ? (
@@ -150,7 +192,10 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
             ) : (
               <BackButton onClick={() => navigate("/")} />
             )}
-            <ModeToggle />
+            <div className="flex items-center gap-4 max-md:gap-2">
+              <HelpGuide />
+              <ModeToggle />
+            </div>
           </div>
 
           <div>
@@ -159,15 +204,28 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
           </div>
         </header>
 
-        <main className="flex flex-col justify-center items-center p-6 w-full">
+        <motion.main
+          className="flex flex-col justify-center items-center p-6 w-full"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.15 }}
+        >
           <form
             className="flex flex-col items-center gap-8 w-full max-w-2xl"
             onSubmit={billForm.handleSubmit(onSaveBill)}
           >
-            <BillMetaSection form={billForm} />
-            <BillPeopleSection />
-            <BillItemsSection currency={currency} />
-            <BillChargesSection />
+            <div id="tour-meta-section" className="w-full">
+              <BillMetaSection form={billForm} />
+            </div>
+            <div id="tour-people-section" className="w-full relative">
+              <BillPeopleSection />
+            </div>
+            <div id="tour-items-section" className="w-full relative">
+              <BillItemsSection form={billForm} currency={currency} />
+            </div>
+            <div id="tour-charges-section" className="w-full relative">
+              <BillChargesSection />
+            </div>
             {peopleJustOne && items.length > 0 && (
               <p className="text-destructive text-center">
                 ⚠️ Why using this app if just split for one person?
@@ -180,11 +238,14 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
               />
             )}
             {!showPlaceholder && !peopleJustOne && (
-              <BillSplittedSummary bill={currentBill} currency={currency} />
+              <div id="tour-summary" className="w-full relative">
+                <BillSplittedSummary bill={currentBill} currency={currency} />
+              </div>
             )}
             {mode === "create" && (
               <Button className="w-full" disabled={isButtonDisabled}>
-                <SaveIcon /> Save Bill
+                <ReceiptIcon />
+                Create Split Bill
               </Button>
             )}
             {mode === "edit" && (
@@ -233,11 +294,72 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
               </div>
             )}
           </form>
-        </main>
+        </motion.main>
 
         <Footer />
       </div>
+
+      {/* ---- Share Dialog ---- */}
+      <Dialog open={shareDialogOpen} onOpenChange={(open) => {
+        setShareDialogOpen(open);
+        if (!open) navigate("/");
+      }}>
+        <DialogContent className="max-w-sm max-h-[90vh] flex flex-col p-0 overflow-hidden">
+          <div className="p-6 overflow-y-auto flex-1 h-full custom-scrollbar">
+            <DialogHeader className="mb-4">
+              <DialogTitle>Split Bill Berhasil! 🎉</DialogTitle>
+            </DialogHeader>
+
+            <p className="text-sm text-muted-foreground mb-4">
+              Bagikan ringkasan split bill ini kepada teman-temanmu.
+            </p>
+
+            {/* Preview Container */}
+            <div className="flex justify-center rounded-lg overflow-hidden border border-border bg-white mb-6">
+              {shareLoading && (
+                <div className="flex items-center justify-center h-48 text-sm text-muted-foreground">
+                  Membuat pratinjau...
+                </div>
+              )}
+              {!shareLoading && shareImageUrl && (
+                <img
+                  src={shareImageUrl}
+                  alt="Share preview"
+                  className="w-full h-auto object-contain"
+                />
+              )}
+              {!shareLoading && !shareImageUrl && (
+                <div className="flex items-center justify-center h-48 text-sm text-destructive">
+                  Gagal membuat pratinjau.
+                </div>
+              )}
+            </div>
+
+            <div className="flex flex-col gap-3">
+              <Button
+                className="w-full"
+                onClick={handleShareDownload}
+                disabled={shareLoading || !shareImageUrl}
+              >
+                <Share2Icon className="mr-2 h-4 w-4" />
+                Bagikan / Simpan Gambar
+              </Button>
+              <Button
+                variant="outline"
+                className="w-full"
+                onClick={() => {
+                  setShareDialogOpen(false);
+                  navigate("/");
+                }}
+              >
+                Selesai
+              </Button>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
+    </PageTransition>
   );
 };
 

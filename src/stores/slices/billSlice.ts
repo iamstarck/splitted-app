@@ -33,6 +33,7 @@ export interface BillSlice {
   deleteBillById: (billId: string) => void;
 
   setCurrentBillById: (id: string) => void;
+  setCurrentBill: (bill: BillProps) => void;
   updateExistingBill: () => void;
 
   resetCurrentBill: () => void;
@@ -141,6 +142,11 @@ export const createBillSlice: StateCreator<DataStore, [], [], BillSlice> = (
         currentBill: structuredClone(bill),
       };
     }),
+
+  setCurrentBill: (bill) =>
+    set(() => ({
+      currentBill: bill,
+    })),
 
   updateExistingBill: () => {
     const { currentBill } = get();

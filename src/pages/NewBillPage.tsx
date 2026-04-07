@@ -1,13 +1,17 @@
 import BillForm from "@/features/bill/components/BillForm";
 import { useDataStore } from "@/stores/useDataStore";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const NewBillPage = () => {
   const resetBill = useDataStore((state) => state.resetCurrentBill);
+  const location = useLocation();
 
   useEffect(() => {
-    resetBill();
-  }, [resetBill]);
+    if (!location.state?.fromScan) {
+      resetBill();
+    }
+  }, [resetBill, location.state]);
 
   return (
     <BillForm

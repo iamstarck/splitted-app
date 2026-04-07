@@ -1,6 +1,7 @@
 import { ModeToggle } from "@/components/common/ModeToggle";
 import BackButton from "../shared/components/BackButton";
 import Footer from "../shared/components/Footer";
+import HelpGuide from "@/shared/components/HelpGuide";
 import BillSplittedSummary from "@/features/bill/components/BillSplittedSummary";
 import { Button } from "@/components/ui/button";
 import { DownloadIcon, EllipsisVerticalIcon } from "lucide-react";
@@ -31,6 +32,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { toast } from "sonner";
 import { downloadBill } from "@/shared/utils/billActions";
+import PageTransition from "@/shared/animations/PageTransition";
+import { motion } from "framer-motion";
 
 const BillDetailPage = () => {
   const { billId } = useParams();
@@ -66,12 +69,16 @@ const BillDetailPage = () => {
   };
 
   return (
+    <PageTransition>
     <div className="flex flex-col items-center">
-      <div className="flex flex-col items-center w-full max-w-2xl m-4 justify-between">
+      <div className="flex flex-col items-center w-full max-w-2xl justify-between">
         <header className="flex flex-col p-6 max-w-2xl justify-between w-full gap-6">
           <div className="flex items-center justify-between w-full">
             <BackButton onClick={() => navigate("/")} />
-            <ModeToggle />
+            <div className="flex items-center gap-4 max-md:gap-2">
+              <HelpGuide />
+              <ModeToggle />
+            </div>
           </div>
 
           <div className="flex justify-between items-center">
@@ -122,7 +129,12 @@ const BillDetailPage = () => {
           </div>
         </header>
 
-        <main className="flex flex-col justify-start items-center p-6 w-full min-h-screen">
+        <motion.main
+          className="flex flex-col justify-start items-center p-6 w-full min-h-screen"
+          initial={{ opacity: 0, y: 4 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.15 }}
+        >
           <div className="space-y-6 w-full">
             {!bill || !summary ? (
               <p>Loading bill data...</p>
@@ -176,11 +188,12 @@ const BillDetailPage = () => {
               </>
             )}
           </div>
-        </main>
+        </motion.main>
 
         <Footer />
       </div>
     </div>
+    </PageTransition>
   );
 };
 
