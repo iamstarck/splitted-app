@@ -11,25 +11,25 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import BillListItem from "@/features/home/components/BillListItem";
+import HomeMenuButton from "@/features/home/components/HomeMenuButton";
 import ProfileName from "@/features/home/components/ProfileName";
 import { usePagination } from "@/features/home/utils/usePagination";
 import { buildBillListItem } from "@/features/bill/lib/bill.calculation";
 import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
 import Footer from "@/shared/components/Footer";
-import HelpGuide from "@/shared/components/HelpGuide";
 import { useBills } from "@/stores/selectors/bill.selectors";
-import {
-  CameraIcon,
-  ListIcon,
-  PlusIcon,
-} from "lucide-react";
+import { CameraIcon, ListIcon, PlusIcon, UsersIcon } from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import AppLogo from "@/assets/splittedLogo.svg?react";
 import PageTransition from "@/shared/animations/PageTransition";
-import { StaggerContainer, StaggerItem } from "@/shared/animations/StaggerAnimation";
 import { motion } from "framer-motion";
+import HelpGuide from "@/shared/components/HelpGuide";
+import {
+  StaggerContainer,
+  StaggerItem,
+} from "@/shared/animations/StaggerAnimation";
 
 const HomePage = () => {
   const billsRaw = useBills();
@@ -44,7 +44,7 @@ const HomePage = () => {
   return (
     <PageTransition>
       <div className="flex flex-col items-center">
-        <div className="flex flex-col items-center w-full max-w-2xl min-h-screen justify-between">
+        <div className="flex flex-col items-center w-full max-w-2xl m-4 min-h-screen justify-between">
           <div className="w-full">
             <header className="flex items-start p-6 max-w-2xl justify-between w-full">
               <div>
@@ -53,9 +53,9 @@ const HomePage = () => {
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
-                  <AppLogo className="h-14 w-auto fill-primary" />
+                  <AppLogo className="h-14 w-fit fill-primary" />
+                  <ProfileName />
                 </motion.div>
-                <ProfileName />
               </div>
 
               <div className="flex items-center gap-4 max-md:gap-2">
@@ -66,21 +66,52 @@ const HomePage = () => {
             </header>
 
             <main className="flex flex-col justify-center items-center p-6 w-full gap-6">
+              <div className="flex gap-4">
+                <motion.div
+                  id="tour-friends-list"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.15,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <HomeMenuButton
+                    text="Friends"
+                    icon={<UsersIcon />}
+                    pageRef="friends"
+                  />
+                </motion.div>
+              </div>
+
               <motion.div
                 className="grid grid-cols-2 gap-4 w-full"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.15, duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+                transition={{
+                  delay: 0.2,
+                  duration: 0.6,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
               >
                 <Button size={"lg"} className="w-full" asChild>
-                  <Link to={"/new"} id="tour-create-bill" className="flex items-center gap-1">
+                  <Link
+                    to={"/new"}
+                    id="tour-create-bill"
+                    className="flex items-center gap-1"
+                  >
                     <PlusIcon />
                     Create Bill
                   </Link>
                 </Button>
 
                 <Button size={"lg"} className="w-full" asChild>
-                  <Link to={"/scan-bill"} id="tour-scan-bill" className="flex items-center gap-1">
+                  <Link
+                    to={"/scan-bill"}
+                    id="tour-scan-bill"
+                    className="flex items-center gap-1"
+                  >
                     <CameraIcon />
                     Scan Bill
                   </Link>
@@ -122,7 +153,8 @@ const HomePage = () => {
                             const isNearCurrent =
                               pageNumber === 1 ||
                               pageNumber === totalPages ||
-                              (pageNumber >= page - 1 && pageNumber <= page + 1);
+                              (pageNumber >= page - 1 &&
+                                pageNumber <= page + 1);
 
                             if (isNearCurrent) {
                               return (

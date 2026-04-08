@@ -58,6 +58,16 @@ const HelpGuide = () => {
             align: "center",
           },
         },
+        {
+          element: "#tour-friends-list",
+          popover: {
+            title: "Your Friends",
+            description:
+              "Manage your friends list. Adding friends here makes it easier to select them quickly when splitting a bill later.",
+            side: "bottom",
+            align: "center",
+          },
+        },
         profileStep,
         themeStep,
       ];
@@ -154,7 +164,7 @@ const HelpGuide = () => {
 
     const driverObj = driver({
       showProgress: true,
-      animate: false,
+      animate: true,
       popoverClass: "driverjs-theme",
       smoothScroll: false,
       nextBtnText: "Next",
