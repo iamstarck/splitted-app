@@ -100,12 +100,13 @@ const HomePage = () => {
                     ease: [0.22, 1, 0.36, 1],
                   }}
                 >
-                  <HomeMenuButton
-                    text="Groups"
-                    icon={<Users2Icon />}
-                    pageRef=""
-                    className="opacity-50 hover:cursor-no-drop"
-                  />
+                  <Button
+                    variant={"outline"}
+                    className="flex flex-col items-center gap-2 h-full w-fit opacity-50 hover:cursor-no-drop"
+                  >
+                    <Users2Icon />
+                    Groups
+                  </Button>
                 </motion.div>
               </div>
 
