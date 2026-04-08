@@ -86,7 +86,8 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
     items.length === 0 ||
     !summary ||
     !summary.allAssigned ||
-    !summary.isBalanced;
+    !summary.isBalanced ||
+    summary.hasUnassignedPeople;
 
   const currency = useWatch({
     control: billForm.control,
