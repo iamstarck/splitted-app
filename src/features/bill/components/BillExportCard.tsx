@@ -114,7 +114,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
       <div className="flex flex-col gap-2">
         <p className="inline-flex items-center gap-2">
           Split with
-          <AppLogo className="h-8 w-fit fill-foreground" />
+          <AppLogo className="h-8 w-auto fill-foreground" />
         </p>
         <a
           href="https://splitted.vercel.app/"

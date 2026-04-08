@@ -1,7 +1,7 @@
 import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
 import { CircleAlertIcon } from "lucide-react";
-import CurrencyDropdown from "../CurrencyDropdown";
+
 import { Controller, type UseFormReturn } from "react-hook-form";
 import type { BillMetaFormValues } from "../../lib/billMeta-validation";
 import {
@@ -19,7 +19,6 @@ interface BillMetaSectionProps {
 }
 
 const BillMetaSection = ({ form }: BillMetaSectionProps) => {
-  const billForm = form;
   const {
     control,
     register,
@@ -96,7 +95,6 @@ const BillMetaSection = ({ form }: BillMetaSectionProps) => {
         />
       </Field>
 
-      <CurrencyDropdown control={billForm.control} errors={errors} />
 
       <Field>
         <FieldLabel htmlFor="bill-note" className="text-base">
