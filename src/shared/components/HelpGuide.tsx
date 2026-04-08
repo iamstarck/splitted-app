@@ -20,8 +20,9 @@ const HelpGuide = () => {
     const themeStep: DriveStep = {
       element: "#tour-theme",
       popover: {
-        title: "Theme",
-        description: "Toggle between light and dark modes.",
+        title: "Mood Setter",
+        description:
+          "Switch to dark mode if your eyes (or your soul) need a break.",
         side: "bottom",
         align: "start",
       },
@@ -30,8 +31,9 @@ const HelpGuide = () => {
     const profileStep: DriveStep = {
       element: "#tour-profile",
       popover: {
-        title: "Profile",
-        description: "Click your avatar to manage your profile settings.",
+        title: "The Accountant",
+        description:
+          "Tap here to manage your profile. Try to use a name your friends actually recognize.",
         side: "bottom",
         align: "start",
       },
@@ -42,8 +44,9 @@ const HelpGuide = () => {
         {
           element: "#tour-create-bill",
           popover: {
-            title: "Create Bill",
-            description: "Start here to manually create a new split bill.",
+            title: "The Reckoning",
+            description:
+              "Kick off a new split from scratch. Type in the damage and make sure no one 'forgets' their share this time. Boss move.",
             side: "bottom",
             align: "center",
           },
@@ -51,9 +54,9 @@ const HelpGuide = () => {
         {
           element: "#tour-scan-bill",
           popover: {
-            title: "Scan Receipt",
+            title: "The Easy Way (Soon!)",
             description:
-              "Use camera or upload an image. Our OCR reads the items for you!",
+              "Dreaming of just snapping a photo? Our AI is still in training. For now, keep those thumbs moving!",
             side: "bottom",
             align: "center",
           },
@@ -61,9 +64,19 @@ const HelpGuide = () => {
         {
           element: "#tour-friends-list",
           popover: {
-            title: "Your Friends",
+            title: "The Buddies",
             description:
-              "Manage your friends list. Adding friends here makes it easier to select them quickly when splitting a bill later.",
+              "Your master list of debtors. Add your buddies here first before you can group them up.",
+            side: "bottom",
+            align: "center",
+          },
+        },
+        {
+          element: "#tour-friends-group",
+          popover: {
+            title: "The Gang (Soon!)",
+            description:
+              "Group your favorite freeloaders so you don't have to pick them one by one. Patience, it's coming soon!",
             side: "bottom",
             align: "center",
           },
@@ -76,44 +89,45 @@ const HelpGuide = () => {
         {
           element: "#tour-meta-section",
           popover: {
-            title: "Bill Info",
-            description: "Enter the title, date, currency, and any notes.",
+            title: "Name the Disaster",
+            description:
+              "Give this bill a solid information so you don't forget why you're suddenly broke.",
             side: "top",
           },
         },
         {
           element: "#tour-people-section",
           popover: {
-            title: "Add People",
+            title: "The Suspects",
             description:
-              "Select from friends or type a new name to add someone to this bill.",
+              "Who's in? Add your friends to the list before they try to sneak away.",
             side: "top",
           },
         },
         {
           element: "#tour-items-section",
           popover: {
-            title: "Add Items",
+            title: "The Damage",
             description:
-              "List the items and their prices. Then tap on the people to assign who pays what.",
+              "List the items and pin them to whoever actually ate them. No freeloading!",
             side: "top",
           },
         },
         {
           element: "#tour-charges-section",
           popover: {
-            title: "Tax & Service",
+            title: "Hidden Fees",
             description:
-              "Input extra charges. They are automatically proportioned to everyone.",
+              "Tax and service charges. Add them here so everyone shares the pain.",
             side: "top",
           },
         },
         {
           element: "#tour-summary",
           popover: {
-            title: "Result Summary",
+            title: "The Verdict",
             description:
-              "Check out the final calculated splits per person here.",
+              "The math is done. Now no one can use the 'I forgot my wallet' excuse.",
             side: "top",
           },
         },
@@ -122,9 +136,9 @@ const HelpGuide = () => {
       steps = [
         {
           popover: {
-            title: "Camera & Upload",
+            title: "Hold it Right There",
             description:
-              "Point your camera at a receipt and hold steady, or switch to gallery to upload an existing receipt photo. Our system will extract the item names and prices.",
+              "Keep your hands steady. If the receipt is a mess, just upload a photo from your gallery.",
           },
         },
       ];
@@ -132,9 +146,9 @@ const HelpGuide = () => {
       steps = [
         {
           popover: {
-            title: "Your Profile",
+            title: "Identity Check",
             description:
-              "Update your display name here. Your initials are used for your avatar.",
+              "Update your display name here. Make it something your friends will actually recognize.",
           },
         },
       ];
@@ -142,9 +156,9 @@ const HelpGuide = () => {
       steps = [
         {
           popover: {
-            title: "Your Friends",
+            title: "The Inner Circle",
             description:
-              "Manage your friends list. Adding friends here makes it easier to select them quickly when splitting a bill later.",
+              "Manage your buddies. Remember: one friend, one slot. Don't try to clone them.",
           },
         },
       ];
@@ -152,9 +166,9 @@ const HelpGuide = () => {
       steps = [
         {
           popover: {
-            title: "Bill Summary",
+            title: "The Proof",
             description:
-              "This is the final summary. You can see who owes what. Use the top right menu to edit or delete the bill, or download it using the button below.",
+              "Here's the breakdown. Share it with the group as solid evidence of who owes what.",
           },
         },
       ];

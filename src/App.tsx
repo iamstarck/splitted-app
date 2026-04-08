@@ -8,7 +8,6 @@ import { useLayoutEffect, type ReactNode } from "react";
 import BillDetailPage from "./pages/BillDetailPage";
 import EditBillPage from "./pages/EditBillPage";
 import FriendListPage from "./pages/FriendListPage";
-import ScanBillPage from "./pages/ScanBillPage";
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
@@ -23,10 +22,10 @@ const Wrapper = ({ children }: { children: ReactNode }) => {
 const Routes = () => {
   const element = useRoutes([
     { path: "/", element: <HomePage /> },
+    { path: "*", element: <HomePage /> },
     { path: "/profile", element: <ProfilePage /> },
     { path: "/friends", element: <FriendListPage /> },
     { path: "/new", element: <NewBillPage /> },
-    { path: "/scan-bill", element: <ScanBillPage /> },
     { path: "/detail/:billId", element: <BillDetailPage /> },
     { path: "/edit/:billId", element: <EditBillPage /> },
   ]);

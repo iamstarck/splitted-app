@@ -19,7 +19,13 @@ import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
 import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
 import Footer from "@/shared/components/Footer";
 import { useBills } from "@/stores/selectors/bill.selectors";
-import { CameraIcon, ListIcon, PlusIcon, UsersIcon } from "lucide-react";
+import {
+  CameraIcon,
+  ListIcon,
+  PlusIcon,
+  Users2Icon,
+  UsersIcon,
+} from "lucide-react";
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
 import AppLogo from "@/assets/splittedLogo.svg?react";
@@ -83,6 +89,24 @@ const HomePage = () => {
                     pageRef="friends"
                   />
                 </motion.div>
+
+                <motion.div
+                  id="tour-friends-group"
+                  initial={{ opacity: 0, y: 16 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{
+                    delay: 0.15,
+                    duration: 0.5,
+                    ease: [0.22, 1, 0.36, 1],
+                  }}
+                >
+                  <HomeMenuButton
+                    text="Groups"
+                    icon={<Users2Icon />}
+                    pageRef=""
+                    className="opacity-50 hover:cursor-no-drop"
+                  />
+                </motion.div>
               </div>
 
               <motion.div
@@ -106,15 +130,13 @@ const HomePage = () => {
                   </Link>
                 </Button>
 
-                <Button size={"lg"} className="w-full" asChild>
-                  <Link
-                    to={"/scan-bill"}
-                    id="tour-scan-bill"
-                    className="flex items-center gap-1"
-                  >
-                    <CameraIcon />
-                    Scan Bill
-                  </Link>
+                <Button
+                  size={"lg"}
+                  id="tour-scan-bill"
+                  className="w-full opacity-50 hover:cursor-no-drop flex items-center gap-1"
+                >
+                  <CameraIcon />
+                  Scan Bill
                 </Button>
               </motion.div>
 
