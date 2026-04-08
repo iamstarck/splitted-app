@@ -1,10 +1,5 @@
-import { motion, type Variants } from "framer-motion";
-import type { ReactNode } from "react";
-
-/**
- * Utility for staggered list animations.
- * Wrap a list container with StaggerContainer and each item with StaggerItem.
- */
+import { motion, Variants } from "motion/react";
+import { ReactNode } from "react";
 
 type StaggerContainerProps = {
   children: ReactNode;
@@ -12,17 +7,7 @@ type StaggerContainerProps = {
   staggerDelay?: number;
 };
 
-export const staggerContainerVariants: Variants = {
-  initial: {},
-  animate: {
-    transition: {
-      staggerChildren: 0.03,
-      delayChildren: 0.02,
-    },
-  },
-};
-
-export const staggerItemVariants: Variants = {
+const staggerItemVariants: Variants = {
   initial: { opacity: 0, y: 4 },
   animate: {
     opacity: 1,
