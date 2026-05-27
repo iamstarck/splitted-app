@@ -1,41 +1,51 @@
-import { Button } from "@/components/ui/button";
+import { useDataStore } from "@/stores/useDataStore"
+import { currencyId, ItemProps } from "../types/bill"
+import {
+  useSelectItemPricePerPerson,
+  useSelectPeople
+} from "@/stores/selectors/bill.selectors"
+import Decimal from "decimal.js"
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemHeader,
-  ItemTitle,
-} from "@/components/ui/item";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import { XIcon } from "lucide-react";
-import type { currencyId, ItemProps } from "../types/bill";
-import { useDataStore } from "@/stores/useDataStore";
-import { formatter } from "@/shared/utils/utils";
-import {
-  useSelectItemPricePerPerson,
-  useSelectPeople,
-} from "@/stores/selectors/bill.selectors";
+  ItemTitle
+} from "@/components/ui/item"
+import { formatter } from "@/shared/utils/utils"
+import { Button } from "@/components/ui/button"
+import { XIcon } from "lucide-react"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import AvatarInitials from "@/shared/components/AvatarInitials"
 
 interface BillItemProps {
-  currency?: currencyId;
-  item: ItemProps;
+  currency?: currencyId
+  item: ItemProps
 }
 
 const BillItem = ({ currency, item }: BillItemProps) => {
-  const removeItem = useDataStore((state) => state.removeItemFromBill);
-  const assignItemToPeople = useDataStore((state) => state.assignItemToPeople);
+  const removeItem = useDataStore(state => state.removeItemFromBill)
+  const assignItemToPeople = useDataStore(state => state.assignItemToPeople)
 
-  const people = useSelectPeople() ?? [];
-  const pricePerPerson = useSelectItemPricePerPerson(item.id);
+  const people = useSelectPeople() ?? []
+  const pricePerPerson = useSelectItemPricePerPerson(item.id)
+
+  const itemTotal = new Decimal(item.price || 0)
+    .mul(item.amount || 1)
+    .toNumber()
 
   return (
     <Item variant={"muted"}>
       <ItemHeader className="items-start">
         <div>
           <ItemTitle>{item.name}</ItemTitle>
-          <p className="font-semibold text-lg text-accent-foreground">
-            {currency} {formatter.format(item.price)}
+          <p className="text-lg text-accent-foreground">
+            {currency}
+            {formatter.format(item.price || 0)} x {item.amount || 1} ={" "}
+            <span className="font-semibold text-lg">
+              {currency}
+              {formatter.format(itemTotal)}
+            </span>
           </p>
         </div>
         <ItemActions>
@@ -58,9 +68,9 @@ const BillItem = ({ currency, item }: BillItemProps) => {
             spacing={2}
             className="flex-wrap"
             value={item.assignedPersonIds}
-            onValueChange={(values) => assignItemToPeople(item.id, values)}
+            onValueChange={values => assignItemToPeople(item.id, values)}
           >
-            {people.map((person) => (
+            {people.map(person => (
               <ToggleGroupItem
                 key={person.id}
                 value={person.id}
@@ -87,7 +97,7 @@ const BillItem = ({ currency, item }: BillItemProps) => {
         </ItemContent>
       )}
     </Item>
-  );
-};
+  )
+}
 
-export default BillItem;
+export default BillItem

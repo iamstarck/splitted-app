@@ -1,25 +1,25 @@
-import { formatDate } from "@/features/home/utils/formatTime";
-import { BillProps, currencyId } from "../types/bill";
-import { useMemo } from "react";
-import { buildBillSummary } from "../lib/bill.calculation";
-import { LinkIcon } from "lucide-react";
-import AppLogo from "@/assets/splittedLogo.svg?react";
-import { formatter } from "@/shared/utils/utils";
-import PersonBillExportItem from "./PersonBillExportItem";
+import { formatDate } from "@/features/home/utils/formatTime"
+import { BillProps, currencyId } from "../types/bill"
+import { useMemo } from "react"
+import { buildBillSummary } from "../lib/bill.calculation"
+import { LinkIcon } from "lucide-react"
+import AppLogo from "@/assets/splittedLogo.svg?react"
+import { formatter } from "@/shared/utils/utils"
+import PersonBillExportItem from "./PersonBillExportItem"
 
 type BillExportCardProps = {
-  bill: BillProps;
-  currency: currencyId;
-};
+  bill: BillProps
+  currency: currencyId
+}
 
 const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
   const summary = useMemo(() => {
-    return buildBillSummary(bill);
-  }, [bill]);
+    return buildBillSummary(bill)
+  }, [bill])
 
-  if (!summary) return null;
+  if (!summary) return null
 
-  const { taxPercent, servicePercent } = bill.charges;
+  const { taxPercent, servicePercent } = bill.charges
 
   return (
     <div className="flex flex-col items-center gap-11 w-full">
@@ -41,13 +41,13 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
         <h2 className="text-xl font-semibold tracking-tight">WHO PAYS WHAT</h2>
 
         <div className="space-y-4 w-full pb-6 border-b-2 border-dashed border-foreground">
-          {summary.perPerson.map((person) => (
+          {summary.perPerson.map(person => (
             <PersonBillExportItem
               key={person.personId}
               person={{
                 ...person,
                 subtotal: person.subtotal.toNumber(),
-                total: person.total.toNumber(),
+                total: person.total.toNumber()
               }}
               currency={currency}
               items={summary.groupedByPerson[person.personId] ?? []}
@@ -79,7 +79,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
                 {" "}
                 {currency}
                 {formatter.format(
-                  summary.subtotal.mul(taxPercent).div(100).toNumber(),
+                  summary.subtotal.mul(taxPercent).div(100).toNumber()
                 )}
               </span>
             </div>
@@ -93,7 +93,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
               <span className="text-lg font-medium">
                 {currency}
                 {formatter.format(
-                  summary.subtotal.mul(servicePercent).div(100).toNumber(),
+                  summary.subtotal.mul(servicePercent).div(100).toNumber()
                 )}
               </span>
             </div>
@@ -114,7 +114,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
       <div className="flex flex-col gap-2">
         <p className="inline-flex items-center gap-2">
           Split with
-          <AppLogo className="h-8 w-fit fill-foreground" />
+          <AppLogo className="h-8 w-auto fill-foreground" />
         </p>
         <a
           href="https://splitted.vercel.app/"
@@ -126,7 +126,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
         </a>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default BillExportCard;
+export default BillExportCard

@@ -1,3 +1,3 @@
-import { useDataStore } from "../useDataStore";
+import { useDataStore } from "../useDataStore"
 
-export const useSelectProfile = () => useDataStore((state) => state.profile);
+export const useSelectProfile = () => useDataStore(state => state.profile)

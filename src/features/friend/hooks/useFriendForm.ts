@@ -1,19 +1,19 @@
-import { useForm } from "react-hook-form";
+import { useForm } from "react-hook-form"
 import {
   FriendNameFormValues,
-  friendNameSchema,
-} from "../lib/friend-validation";
-import { zodResolver } from "@hookform/resolvers/zod";
+  friendNameSchema
+} from "../lib/friend-validation"
+import { zodResolver } from "@hookform/resolvers/zod"
 
 export const useFriendForm = () => {
   const defaultValues: FriendNameFormValues = {
-    friendName: "",
-  };
+    friendName: ""
+  }
 
   const form = useForm<FriendNameFormValues>({
     resolver: zodResolver(friendNameSchema),
-    defaultValues,
-  });
+    defaultValues
+  })
 
-  return { form };
-};
+  return { form }
+}

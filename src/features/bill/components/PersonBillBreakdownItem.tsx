@@ -1,20 +1,21 @@
-import { Item, ItemContent, ItemHeader } from "@/components/ui/item";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import type { AmountPerPerson, currencyId, ItemProps } from "../types/bill";
-import { formatter } from "@/shared/utils/utils";
+import { Item, ItemContent, ItemHeader } from "@/components/ui/item"
+import { AmountPerPerson, currencyId } from "../types/bill"
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import { formatter } from "@/shared/utils/utils"
+import { ItemBreakdown } from "../lib/bill.calculation"
 
 type PersonBillBreakdownItemProps = {
-  person: AmountPerPerson;
-  currency?: currencyId;
-  items: ItemProps[];
-};
+  person: AmountPerPerson
+  currency?: currencyId
+  items: ItemBreakdown[]
+}
 
 const PersonBillBreakdownItem = ({
   person,
   currency,
-  items,
+  items
 }: PersonBillBreakdownItemProps) => {
-  const chargeShare = person.total - person.subtotal;
+  const chargeShare = person.total - person.subtotal
 
   return (
     <Item variant={"muted"}>
@@ -35,7 +36,7 @@ const PersonBillBreakdownItem = ({
         <div className="space-y-2">
           <div className="flex justify-between ml-10">
             <p className="text-sm">Items:</p>
-            <p className="text-sm">
+            <p className="text-md">
               {currency}
               {formatter.format(person.subtotal)}
             </p>
@@ -43,9 +44,13 @@ const PersonBillBreakdownItem = ({
 
           <div className="ml-10">
             <ol className="list-decimal list-inside">
-              {items.map((item) => (
+              {items.map(item => (
                 <li key={item.id} className="text-sm font-medium text-primary">
-                  {item.name}
+                  <span>{item.name}</span>
+                  <span className="float-right">
+                    {currency}
+                    {formatter.format(item.splitPrice.toNumber())}
+                  </span>
                 </li>
               ))}
             </ol>
@@ -65,7 +70,7 @@ const PersonBillBreakdownItem = ({
         )}
       </ItemContent>
     </Item>
-  );
-};
+  )
+}
 
-export default PersonBillBreakdownItem;
+export default PersonBillBreakdownItem

@@ -1,11 +1,11 @@
-import { StateCreator } from "zustand";
-import { DataStore } from "../useDataStore";
-import { PersonProps } from "@/features/bill/types/bill";
-import { generateId } from "@/shared/utils/utils";
+import { StateCreator } from "zustand"
+import { DataStore } from "../useDataStore"
+import { PersonProps } from "@/features/bill/types/bill"
+import { generateId } from "@/shared/utils/utils"
 
 export interface ProfileSlice {
-  profile: PersonProps;
-  setProfileName: (name: string) => void;
+  profile: PersonProps
+  setProfileName: (name: string) => void
 }
 
 export const createProfileSlice: StateCreator<
@@ -13,17 +13,17 @@ export const createProfileSlice: StateCreator<
   [],
   [],
   ProfileSlice
-> = (set) => ({
+> = set => ({
   profile: {
     id: generateId(),
-    name: "User",
+    name: "User"
   },
 
-  setProfileName: (profileName) =>
-    set((state) => ({
+  setProfileName: profileName =>
+    set(state => ({
       profile: {
         ...state.profile,
-        name: profileName,
-      },
-    })),
-});
+        name: profileName
+      }
+    }))
+})

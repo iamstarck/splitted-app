@@ -1,19 +1,19 @@
-import { Field, FieldError, FieldLabel } from "@/components/ui/field";
+import { Field, FieldError, FieldLabel } from "@/components/ui/field"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { CircleAlertIcon } from "lucide-react";
-import { Controller, type Control, type FieldErrors } from "react-hook-form";
-import type { BillMetaFormValues } from "../lib/billMeta-validation";
-import { CURRENCIES } from "../types/bill";
+  SelectValue
+} from "@/components/ui/select"
+import { CircleAlertIcon } from "lucide-react"
+import { Controller, type Control, type FieldErrors } from "react-hook-form"
+import type { BillMetaFormValues } from "../lib/billMeta-validation"
+import { CURRENCIES } from "../types/bill"
 
 interface CurrencyDropdownProps {
-  control: Control<BillMetaFormValues>;
-  errors?: FieldErrors<BillMetaFormValues>;
+  control: Control<BillMetaFormValues>
+  errors?: FieldErrors<BillMetaFormValues>
 }
 
 const CurrencyDropdown = ({ control, errors }: CurrencyDropdownProps) => {
@@ -47,7 +47,7 @@ const CurrencyDropdown = ({ control, errors }: CurrencyDropdownProps) => {
         </FieldError>
       )}
     </Field>
-  );
-};
+  )
+}
 
-export default CurrencyDropdown;
+export default CurrencyDropdown

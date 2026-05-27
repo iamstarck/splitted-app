@@ -1,26 +1,26 @@
-import { Button } from "@/components/ui/button";
-import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { useDataStore } from "@/stores/useDataStore";
-import { CircleAlertIcon } from "lucide-react";
-import { useProfileForm } from "../hooks/useProfileForm";
-import type { ProfileNameFormValues } from "../lib/profile-validation";
+import { Button } from "@/components/ui/button"
+import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { useDataStore } from "@/stores/useDataStore"
+import { CircleAlertIcon } from "lucide-react"
+import { useProfileForm } from "../hooks/useProfileForm"
+import type { ProfileNameFormValues } from "../lib/profile-validation"
 
 const ProfileForm = () => {
-  const setProfileName = useDataStore((state) => state.setProfileName);
+  const setProfileName = useDataStore(state => state.setProfileName)
 
-  const { form } = useProfileForm();
+  const { form } = useProfileForm()
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = form;
+    formState: { errors }
+  } = form
 
   const handleChangeProfile = (values: ProfileNameFormValues) => {
-    if (!values.profileName.trim()) return;
+    if (!values.profileName.trim()) return
 
-    setProfileName(values.profileName);
-  };
+    setProfileName(values.profileName)
+  }
 
   return (
     <form className="w-full" onSubmit={handleSubmit(handleChangeProfile)}>
@@ -46,7 +46,7 @@ const ProfileForm = () => {
         </FieldSet>
       </div>
     </form>
-  );
-};
+  )
+}
 
-export default ProfileForm;
+export default ProfileForm

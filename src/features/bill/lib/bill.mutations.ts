@@ -1,5 +1,5 @@
-import { generateId } from "@/shared/utils/utils";
-import type { BillProps } from "../types/bill";
+import { generateId } from "@/shared/utils/utils"
+import type { BillProps } from "../types/bill"
 
 export const addPersonToBill = (bill: BillProps, name: string): BillProps => {
   return {
@@ -8,30 +8,31 @@ export const addPersonToBill = (bill: BillProps, name: string): BillProps => {
       ...bill.people,
       {
         id: generateId(),
-        name,
-      },
-    ],
-  };
-};
+        name
+      }
+    ]
+  }
+}
 
 export const removePersonFromBill = (
   bill: BillProps,
-  personId: string,
+  personId: string
 ): BillProps => {
   return {
     ...bill,
-    people: bill.people.filter((person) => person.id !== personId),
-    items: bill.items.map((item) => ({
+    people: bill.people.filter(person => person.id !== personId),
+    items: bill.items.map(item => ({
       ...item,
-      assignedPersonIds: item.assignedPersonIds.filter((id) => id !== personId),
-    })),
-  };
-};
+      assignedPersonIds: item.assignedPersonIds.filter(id => id !== personId)
+    }))
+  }
+}
 
 export const addItemToBill = (
   bill: BillProps,
   itemName: string,
   itemPrice: number,
+  itemAmount: number
 ): BillProps => {
   return {
     ...bill,
@@ -41,44 +42,45 @@ export const addItemToBill = (
         id: generateId(),
         name: itemName,
         price: itemPrice,
-        assignedPersonIds: [],
-      },
-    ],
-  };
-};
+        amount: itemAmount,
+        assignedPersonIds: []
+      }
+    ]
+  }
+}
 
 export const removeItemFromBill = (
   bill: BillProps,
-  itemId: string,
+  itemId: string
 ): BillProps => {
   return {
     ...bill,
-    items: bill.items.filter((item) => item.id !== itemId),
-  };
-};
+    items: bill.items.filter(item => item.id !== itemId)
+  }
+}
 
 export const assignItemToPeople = (
   bill: BillProps,
   itemId: string,
-  personIds: string[],
+  personIds: string[]
 ): BillProps => {
   return {
     ...bill,
-    items: bill.items.map((item) =>
-      item.id === itemId ? { ...item, assignedPersonIds: personIds } : item,
-    ),
-  };
-};
+    items: bill.items.map(item =>
+      item.id === itemId ? { ...item, assignedPersonIds: personIds } : item
+    )
+  }
+}
 
 export const updatePeopleCharges = (
   bill: BillProps,
-  charges: Partial<BillProps["charges"]>,
+  charges: Partial<BillProps["charges"]>
 ): BillProps => {
   return {
     ...bill,
     charges: {
       ...bill.charges,
-      ...charges,
-    },
-  };
-};
+      ...charges
+    }
+  }
+}
