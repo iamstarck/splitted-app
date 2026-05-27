@@ -1,24 +1,24 @@
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { ItemGroup } from "@/components/ui/item";
-import PersonBillBreakdownItem from "./PersonBillBreakdownItem";
-import { formatter } from "@/shared/utils/utils";
-import { useMemo } from "react";
-import { buildBillSummary } from "../lib/bill.calculation";
-import type { BillProps, currencyId } from "../types/bill";
+import { Card, CardContent, CardHeader } from "@/components/ui/card"
+import { ItemGroup } from "@/components/ui/item"
+import PersonBillBreakdownItem from "./PersonBillBreakdownItem"
+import { formatter } from "@/shared/utils/utils"
+import { useMemo } from "react"
+import { buildBillSummary } from "../lib/bill.calculation"
+import type { BillProps, currencyId } from "../types/bill"
 
 type BillSplittedSummaryProps = {
-  bill: BillProps;
-  currency: currencyId;
-};
+  bill: BillProps
+  currency: currencyId
+}
 
 const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
   const summary = useMemo(() => {
-    return buildBillSummary(bill);
-  }, [bill]);
+    return buildBillSummary(bill)
+  }, [bill])
 
-  if (!summary) return null;
+  if (!summary) return null
 
-  const { taxPercent, servicePercent } = bill.charges;
+  const { taxPercent, servicePercent } = bill.charges
 
   return (
     <Card className="w-full">
@@ -38,7 +38,7 @@ const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
               <span>
                 {currency}
                 {formatter.format(
-                  summary.subtotal.mul(taxPercent).div(100).toNumber(),
+                  summary.subtotal.mul(taxPercent).div(100).toNumber()
                 )}
               </span>
             </div>
@@ -50,7 +50,7 @@ const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
               <span>
                 {currency}
                 {formatter.format(
-                  summary.subtotal.mul(servicePercent).div(100).toNumber(),
+                  summary.subtotal.mul(servicePercent).div(100).toNumber()
                 )}
               </span>
             </div>
@@ -87,13 +87,13 @@ const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
         <div className="pt-4 border-t-2 space-y-2">
           <p className="font-semibold">Per Person Breakdown</p>
           <ItemGroup className="space-y-3">
-            {summary?.perPerson.map((person) => (
+            {summary?.perPerson.map(person => (
               <PersonBillBreakdownItem
                 key={person.personId}
                 person={{
                   ...person,
                   subtotal: person.subtotal.toNumber(),
-                  total: person.total.toNumber(),
+                  total: person.total.toNumber()
                 }}
                 currency={currency}
                 items={summary.groupedByPerson[person.personId] ?? []}
@@ -103,7 +103,7 @@ const BillSplittedSummary = ({ bill, currency }: BillSplittedSummaryProps) => {
         </div>
       </CardContent>
     </Card>
-  );
-};
+  )
+}
 
-export default BillSplittedSummary;
+export default BillSplittedSummary

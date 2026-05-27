@@ -1,19 +1,19 @@
-import { MinusIcon } from "lucide-react";
-import { AmountPerPerson, currencyId, ItemProps } from "../types/bill";
-import { formatter } from "@/shared/utils/utils";
+import { MinusIcon } from "lucide-react"
+import { AmountPerPerson, currencyId, ItemProps } from "../types/bill"
+import { formatter } from "@/shared/utils/utils"
 
 type PersonBillExportItemProps = {
-  person: AmountPerPerson;
-  currency?: currencyId;
-  items: ItemProps[];
-};
+  person: AmountPerPerson
+  currency?: currencyId
+  items: ItemProps[]
+}
 
 const PersonBillExportItem = ({
   person,
   currency,
-  items,
+  items
 }: PersonBillExportItemProps) => {
-  const chargeShare = person.total - person.subtotal;
+  const chargeShare = person.total - person.subtotal
 
   return (
     <div className="space-y-4 not-last:pb-6 not-last:border-b not-last:border-dashed not-last:border-foreground">
@@ -36,7 +36,7 @@ const PersonBillExportItem = ({
           </span>
         </p>
         <ol className="list-decimal list-inside">
-          {items.map((item) => (
+          {items.map(item => (
             <li key={item.id}>{item.name}</li>
           ))}
         </ol>
@@ -54,7 +54,7 @@ const PersonBillExportItem = ({
         </div>
       )}
     </div>
-  );
-};
+  )
+}
 
-export default PersonBillExportItem;
+export default PersonBillExportItem

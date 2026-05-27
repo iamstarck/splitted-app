@@ -1,23 +1,23 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { Label } from "@/components/ui/label";
-import { TimePickerInput } from "./time-picker-input";
-import { TimePeriodSelect } from "./period-select";
-import { Period } from "./time-picker-utils";
+import * as React from "react"
+import { Label } from "@/components/ui/label"
+import { TimePickerInput } from "./time-picker-input"
+import { TimePeriodSelect } from "./period-select"
+import { Period } from "./time-picker-utils"
 
 interface TimePickerProps {
-  date: Date | undefined;
-  setDate: (date: Date | undefined) => void;
+  date: Date | undefined
+  setDate: (date: Date | undefined) => void
 }
 
 export function TimePicker12({ date, setDate }: TimePickerProps) {
-  const period: Period = date && date.getHours() >= 12 ? "PM" : "AM";
+  const period: Period = date && date.getHours() >= 12 ? "PM" : "AM"
 
-  const minuteRef = React.useRef<HTMLInputElement>(null);
-  const hourRef = React.useRef<HTMLInputElement>(null);
-  const secondRef = React.useRef<HTMLInputElement>(null);
-  const periodRef = React.useRef<HTMLButtonElement>(null);
+  const minuteRef = React.useRef<HTMLInputElement>(null)
+  const hourRef = React.useRef<HTMLInputElement>(null)
+  const secondRef = React.useRef<HTMLInputElement>(null)
+  const periodRef = React.useRef<HTMLButtonElement>(null)
 
   return (
     <div className="flex items-start gap-2">
@@ -57,5 +57,5 @@ export function TimePicker12({ date, setDate }: TimePickerProps) {
         onLeftFocus={() => secondRef.current?.focus()}
       />
     </div>
-  );
+  )
 }

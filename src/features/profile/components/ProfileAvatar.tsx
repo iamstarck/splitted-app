@@ -1,10 +1,10 @@
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import { useSelectProfile } from "@/stores/selectors/profile.selectors";
-import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import { useSelectProfile } from "@/stores/selectors/profile.selectors"
+import { Link } from "react-router-dom"
+import { motion } from "framer-motion"
 
 const ProfileAvatar = () => {
-  const profileName = useSelectProfile().name;
+  const profileName = useSelectProfile().name
 
   return (
     <div id="tour-profile">
@@ -14,11 +14,14 @@ const ProfileAvatar = () => {
           whileTap={{ scale: 0.95 }}
           transition={{ type: "spring", stiffness: 400, damping: 17 }}
         >
-          <AvatarInitials name={profileName} className="h-12 w-12 cursor-pointer" />
+          <AvatarInitials
+            name={profileName}
+            className="h-12 w-12 cursor-pointer"
+          />
         </motion.div>
       </Link>
     </div>
-  );
-};
+  )
+}
 
-export default ProfileAvatar;
+export default ProfileAvatar

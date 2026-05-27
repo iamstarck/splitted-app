@@ -29,13 +29,16 @@ To run this application locally, you will need a Mindee API Key to use the "Scan
 ### 1. Pre-requisites
 
 Ensure you have Node.js and npm installed.
+
 - [Node.js](https://nodejs.org/en/)
 
 ### 2. Getting the Mindee API Key
+
 1. Go to [Mindee](https://mindee.com/) and create a free account.
 2. Navigate to your Developer Dashboard and create a new API Key with receipt parsing capabilities.
 
 ### 3. Environment Variables
+
 Create a file named `.env` in the root of your project directory. Provide the API key inside this file for the Vercel serverless function to utilize:
 
 ```env
@@ -63,12 +66,14 @@ The app should now be live on `http://localhost:3000` or higher!
 
 This project's deployment goes naturally with [Vercel](https://vercel.com).
 To deploy it yourself:
+
 1. Initialize a Git repository and push this to GitHub.
 2. Link your Vercel account to the repository.
 3. **CRITICAL**: Go to your Vercel Project Settings -> Environment Variables. Add `MINDEE_API_KEY` setting the value to your Mindee key.
 4. Click Deploy.
 
 ## 📝 Recent Version Changes
+
 - Fixed interactive step-by-step guide lagging by making snapping transitions seamless.
 - Standardized UI spacing and design aesthetics.
 - Quick Friend Management from dropdown select.

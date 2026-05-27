@@ -1,5 +1,5 @@
-import { useDataStore } from "../useDataStore";
+import { useDataStore } from "../useDataStore"
 
 export const useSelectGroups = () => {
-  return useDataStore((state) => state.groups);
-};
+  return useDataStore(state => state.groups)
+}

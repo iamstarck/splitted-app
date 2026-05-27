@@ -1,15 +1,15 @@
-import { MoonIcon, SunIcon } from "lucide-react";
-import { Button } from "../ui/button";
-import { useTheme } from "./theme-context";
+import { MoonIcon, SunIcon } from "lucide-react"
+import { Button } from "../ui/button"
+import { useTheme } from "./theme-context"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "../ui/dropdown-menu";
+  DropdownMenuTrigger
+} from "../ui/dropdown-menu"
 
 export function ModeToggle() {
-  const { setTheme } = useTheme();
+  const { setTheme } = useTheme()
 
   return (
     <div id="tour-theme">
@@ -34,5 +34,5 @@ export function ModeToggle() {
         </DropdownMenuContent>
       </DropdownMenu>
     </div>
-  );
+  )
 }

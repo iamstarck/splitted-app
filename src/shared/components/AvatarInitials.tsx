@@ -1,10 +1,10 @@
-import { Avatar, AvatarFallback } from "@/components/ui/avatar";
-import { getInitials } from "@/shared/utils/utils";
-import clsx from "clsx";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar"
+import { getInitials } from "@/shared/utils/utils"
+import clsx from "clsx"
 
 interface AvatarInitialsProps {
-  name: string;
-  className?: string;
+  name: string
+  className?: string
 }
 
 const AvatarInitials = ({ name, className }: AvatarInitialsProps) => {
@@ -12,7 +12,7 @@ const AvatarInitials = ({ name, className }: AvatarInitialsProps) => {
     <Avatar className={clsx(className ?? "")}>
       <AvatarFallback>{getInitials(name)}</AvatarFallback>
     </Avatar>
-  );
-};
+  )
+}
 
-export default AvatarInitials;
+export default AvatarInitials

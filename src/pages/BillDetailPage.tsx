@@ -1,24 +1,24 @@
-import { ModeToggle } from "@/components/common/ModeToggle";
-import BackButton from "../shared/components/BackButton";
-import Footer from "../shared/components/Footer";
-import HelpGuide from "@/shared/components/HelpGuide";
-import BillSplittedSummary from "@/features/bill/components/BillSplittedSummary";
-import { Button } from "@/components/ui/button";
-import { DownloadIcon, EllipsisVerticalIcon } from "lucide-react";
+import { ModeToggle } from "@/components/common/ModeToggle"
+import BackButton from "../shared/components/BackButton"
+import Footer from "../shared/components/Footer"
+import HelpGuide from "@/shared/components/HelpGuide"
+import BillSplittedSummary from "@/features/bill/components/BillSplittedSummary"
+import { Button } from "@/components/ui/button"
+import { DownloadIcon, EllipsisVerticalIcon } from "lucide-react"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Link, useNavigate, useParams } from "react-router-dom";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { Link, useNavigate, useParams } from "react-router-dom"
 import {
   useBillById,
-  useDeleteBillById,
-} from "@/stores/selectors/bill.selectors";
-import { useEffect, useMemo } from "react";
-import { buildBillSummary } from "@/features/bill/lib/bill.calculation";
-import { formatDate } from "@/features/home/utils/formatTime";
+  useDeleteBillById
+} from "@/stores/selectors/bill.selectors"
+import { useEffect, useMemo } from "react"
+import { buildBillSummary } from "@/features/bill/lib/bill.calculation"
+import { formatDate } from "@/features/home/utils/formatTime"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -28,45 +28,45 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
-import { downloadBill } from "@/shared/utils/billActions";
-import PageTransition from "@/shared/animations/PageTransition";
-import { motion } from "motion/react";
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
+import { toast } from "sonner"
+import { downloadBill } from "@/shared/utils/billActions"
+import PageTransition from "@/shared/animations/PageTransition"
+import { motion } from "motion/react"
 
 const BillDetailPage = () => {
-  const { billId } = useParams();
-  const navigate = useNavigate();
+  const { billId } = useParams()
+  const navigate = useNavigate()
 
-  const bill = useBillById(billId);
+  const bill = useBillById(billId)
 
   useEffect(() => {
     if (!billId) {
-      navigate("/");
-      return;
+      navigate("/")
+      return
     }
     if (!bill) {
-      navigate("/");
-      return;
+      navigate("/")
+      return
     }
-  }, [billId, bill, navigate]);
+  }, [billId, bill, navigate])
 
   const summary = useMemo(() => {
-    if (!bill) return null;
-    return buildBillSummary(bill);
-  }, [bill]);
+    if (!bill) return null
+    return buildBillSummary(bill)
+  }, [bill])
 
-  const hasNote = bill?.note?.trim() ?? "";
+  const hasNote = bill?.note?.trim() ?? ""
 
-  const deleteBillById = useDeleteBillById();
+  const deleteBillById = useDeleteBillById()
 
   const handleDeleteBill = (billId?: string) => {
-    if (!billId) return;
+    if (!billId) return
 
-    deleteBillById(billId);
-    toast.success("Bill deleted successfully!", { position: "top-center" });
-  };
+    deleteBillById(billId)
+    toast.success("Bill deleted successfully!", { position: "top-center" })
+  }
 
   return (
     <PageTransition>
@@ -100,9 +100,7 @@ const BillDetailPage = () => {
 
                       <AlertDialog>
                         <AlertDialogTrigger asChild>
-                          <DropdownMenuItem
-                            onSelect={(e) => e.preventDefault()}
-                          >
+                          <DropdownMenuItem onSelect={e => e.preventDefault()}>
                             Delete
                           </DropdownMenuItem>
                         </AlertDialogTrigger>
@@ -196,7 +194,7 @@ const BillDetailPage = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default BillDetailPage;
+export default BillDetailPage

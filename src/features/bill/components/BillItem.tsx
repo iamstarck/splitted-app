@@ -1,33 +1,33 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@/components/ui/button"
 import {
   Item,
   ItemActions,
   ItemContent,
   ItemHeader,
-  ItemTitle,
-} from "@/components/ui/item";
-import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import { XIcon } from "lucide-react";
-import type { currencyId, ItemProps } from "../types/bill";
-import { useDataStore } from "@/stores/useDataStore";
-import { formatter } from "@/shared/utils/utils";
+  ItemTitle
+} from "@/components/ui/item"
+import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import { XIcon } from "lucide-react"
+import type { currencyId, ItemProps } from "../types/bill"
+import { useDataStore } from "@/stores/useDataStore"
+import { formatter } from "@/shared/utils/utils"
 import {
   useSelectItemPricePerPerson,
-  useSelectPeople,
-} from "@/stores/selectors/bill.selectors";
+  useSelectPeople
+} from "@/stores/selectors/bill.selectors"
 
 interface BillItemProps {
-  currency?: currencyId;
-  item: ItemProps;
+  currency?: currencyId
+  item: ItemProps
 }
 
 const BillItem = ({ currency, item }: BillItemProps) => {
-  const removeItem = useDataStore((state) => state.removeItemFromBill);
-  const assignItemToPeople = useDataStore((state) => state.assignItemToPeople);
+  const removeItem = useDataStore(state => state.removeItemFromBill)
+  const assignItemToPeople = useDataStore(state => state.assignItemToPeople)
 
-  const people = useSelectPeople() ?? [];
-  const pricePerPerson = useSelectItemPricePerPerson(item.id);
+  const people = useSelectPeople() ?? []
+  const pricePerPerson = useSelectItemPricePerPerson(item.id)
 
   return (
     <Item variant={"muted"}>
@@ -58,9 +58,9 @@ const BillItem = ({ currency, item }: BillItemProps) => {
             spacing={2}
             className="flex-wrap"
             value={item.assignedPersonIds}
-            onValueChange={(values) => assignItemToPeople(item.id, values)}
+            onValueChange={values => assignItemToPeople(item.id, values)}
           >
-            {people.map((person) => (
+            {people.map(person => (
               <ToggleGroupItem
                 key={person.id}
                 value={person.id}
@@ -87,7 +87,7 @@ const BillItem = ({ currency, item }: BillItemProps) => {
         </ItemContent>
       )}
     </Item>
-  );
-};
+  )
+}
 
-export default BillItem;
+export default BillItem

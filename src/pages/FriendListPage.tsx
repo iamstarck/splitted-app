@@ -1,29 +1,29 @@
-import { ModeToggle } from "@/components/common/ModeToggle";
-import { ItemGroup } from "@/components/ui/item";
-import { ScrollArea } from "@/components/ui/scroll-area";
-import PersonItem from "@/shared/components/PersonItem";
-import FriendForm from "@/features/friend/components/FriendForm";
-import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
-import BackButton from "@/shared/components/BackButton";
-import HelpGuide from "@/shared/components/HelpGuide";
-import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
-import { useSelectFriend } from "@/stores/selectors/friend.selectors";
-import { useDataStore } from "@/stores/useDataStore";
-import { UsersIcon } from "lucide-react";
-import Footer from "@/shared/components/Footer";
-import { useNavigate } from "react-router-dom";
-import PageTransition from "@/shared/animations/PageTransition";
+import { ModeToggle } from "@/components/common/ModeToggle"
+import { ItemGroup } from "@/components/ui/item"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import PersonItem from "@/shared/components/PersonItem"
+import FriendForm from "@/features/friend/components/FriendForm"
+import ProfileAvatar from "@/features/profile/components/ProfileAvatar"
+import BackButton from "@/shared/components/BackButton"
+import HelpGuide from "@/shared/components/HelpGuide"
+import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder"
+import { useSelectFriend } from "@/stores/selectors/friend.selectors"
+import { useDataStore } from "@/stores/useDataStore"
+import { UsersIcon } from "lucide-react"
+import Footer from "@/shared/components/Footer"
+import { useNavigate } from "react-router-dom"
+import PageTransition from "@/shared/animations/PageTransition"
 import {
   StaggerContainer,
-  StaggerItem,
-} from "@/shared/animations/StaggerAnimation";
-import { motion } from "motion/react";
+  StaggerItem
+} from "@/shared/animations/StaggerAnimation"
+import { motion } from "motion/react"
 
 const FriendListPage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const friendList = useSelectFriend();
-  const deleteFriend = useDataStore((state) => state.removeFriend);
+  const friendList = useSelectFriend()
+  const deleteFriend = useDataStore(state => state.removeFriend)
 
   return (
     <PageTransition>
@@ -46,7 +46,7 @@ const FriendListPage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
                   duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1] as const,
+                  ease: [0.22, 1, 0.36, 1] as const
                 }}
               >
                 <UsersIcon size={"36px"} /> Friends
@@ -65,7 +65,7 @@ const FriendListPage = () => {
                 {friendList.length > 0 ? (
                   <ScrollArea className="flex flex-col w-full max-h-150 pr-4  overflow-y-auto">
                     <StaggerContainer className="space-y-2 w-full">
-                      {friendList.map((friend) => (
+                      {friendList.map(friend => (
                         <StaggerItem key={friend.id}>
                           <ItemGroup>
                             <PersonItem
@@ -92,7 +92,7 @@ const FriendListPage = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default FriendListPage;
+export default FriendListPage

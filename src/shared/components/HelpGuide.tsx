@@ -1,21 +1,21 @@
-import { useLocation } from "react-router-dom";
-import { HelpCircleIcon } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { driver, DriveStep } from "driver.js";
+import { useLocation } from "react-router-dom"
+import { HelpCircleIcon } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { driver, DriveStep } from "driver.js"
 
 const HelpGuide = () => {
-  const location = useLocation();
+  const location = useLocation()
 
   const startTour = () => {
-    const isHome = location.pathname === "/";
-    const isNewBill = location.pathname === "/new";
-    const isEditBill = location.pathname.startsWith("/edit/");
-    const isScanBill = location.pathname === "/scan-bill";
-    const isProfile = location.pathname === "/profile";
-    const isFriends = location.pathname === "/friends";
-    const isBillDetail = location.pathname.startsWith("/bill/");
+    const isHome = location.pathname === "/"
+    const isNewBill = location.pathname === "/new"
+    const isEditBill = location.pathname.startsWith("/edit/")
+    const isScanBill = location.pathname === "/scan-bill"
+    const isProfile = location.pathname === "/profile"
+    const isFriends = location.pathname === "/friends"
+    const isBillDetail = location.pathname.startsWith("/bill/")
 
-    let steps: DriveStep[] = [];
+    let steps: DriveStep[] = []
 
     const themeStep: DriveStep = {
       element: "#tour-theme",
@@ -24,9 +24,9 @@ const HelpGuide = () => {
         description:
           "Switch to dark mode if your eyes (or your soul) need a break.",
         side: "bottom",
-        align: "start",
-      },
-    };
+        align: "start"
+      }
+    }
 
     const profileStep: DriveStep = {
       element: "#tour-profile",
@@ -35,9 +35,9 @@ const HelpGuide = () => {
         description:
           "Tap here to manage your profile. Try to use a name your friends actually recognize.",
         side: "bottom",
-        align: "start",
-      },
-    };
+        align: "start"
+      }
+    }
 
     if (isHome) {
       steps = [
@@ -48,8 +48,8 @@ const HelpGuide = () => {
             description:
               "Kick off a new split from scratch. Type in the damage and make sure no one 'forgets' their share this time. Boss move.",
             side: "bottom",
-            align: "center",
-          },
+            align: "center"
+          }
         },
         {
           element: "#tour-scan-bill",
@@ -58,8 +58,8 @@ const HelpGuide = () => {
             description:
               "Dreaming of just snapping a photo? Our AI is still in training. For now, keep those thumbs moving!",
             side: "bottom",
-            align: "center",
-          },
+            align: "center"
+          }
         },
         {
           element: "#tour-friends-list",
@@ -68,8 +68,8 @@ const HelpGuide = () => {
             description:
               "Your master list of debtors. Add your buddies here first before you can group them up.",
             side: "bottom",
-            align: "center",
-          },
+            align: "center"
+          }
         },
         {
           element: "#tour-friends-group",
@@ -78,12 +78,12 @@ const HelpGuide = () => {
             description:
               "Group your favorite freeloaders so you don't have to pick them one by one. Patience, it's coming soon!",
             side: "bottom",
-            align: "center",
-          },
+            align: "center"
+          }
         },
         profileStep,
-        themeStep,
-      ];
+        themeStep
+      ]
     } else if (isNewBill || isEditBill) {
       steps = [
         {
@@ -92,8 +92,8 @@ const HelpGuide = () => {
             title: "Name the Disaster",
             description:
               "Give this bill a solid information so you don't forget why you're suddenly broke.",
-            side: "top",
-          },
+            side: "top"
+          }
         },
         {
           element: "#tour-people-section",
@@ -101,8 +101,8 @@ const HelpGuide = () => {
             title: "The Suspects",
             description:
               "Who's in? Add your friends to the list before they try to sneak away.",
-            side: "top",
-          },
+            side: "top"
+          }
         },
         {
           element: "#tour-items-section",
@@ -110,8 +110,8 @@ const HelpGuide = () => {
             title: "The Damage",
             description:
               "List the items and pin them to whoever actually ate them. No freeloading!",
-            side: "top",
-          },
+            side: "top"
+          }
         },
         {
           element: "#tour-charges-section",
@@ -119,8 +119,8 @@ const HelpGuide = () => {
             title: "Hidden Fees",
             description:
               "Tax and service charges. Add them here so everyone shares the pain.",
-            side: "top",
-          },
+            side: "top"
+          }
         },
         {
           element: "#tour-summary",
@@ -128,52 +128,52 @@ const HelpGuide = () => {
             title: "The Verdict",
             description:
               "The math is done. Now no one can use the 'I forgot my wallet' excuse.",
-            side: "top",
-          },
-        },
-      ];
+            side: "top"
+          }
+        }
+      ]
     } else if (isScanBill) {
       steps = [
         {
           popover: {
             title: "Hold it Right There",
             description:
-              "Keep your hands steady. If the receipt is a mess, just upload a photo from your gallery.",
-          },
-        },
-      ];
+              "Keep your hands steady. If the receipt is a mess, just upload a photo from your gallery."
+          }
+        }
+      ]
     } else if (isProfile) {
       steps = [
         {
           popover: {
             title: "Identity Check",
             description:
-              "Update your display name here. Make it something your friends will actually recognize.",
-          },
-        },
-      ];
+              "Update your display name here. Make it something your friends will actually recognize."
+          }
+        }
+      ]
     } else if (isFriends) {
       steps = [
         {
           popover: {
             title: "The Inner Circle",
             description:
-              "Manage your buddies. Remember: one friend, one slot. Don't try to clone them.",
-          },
-        },
-      ];
+              "Manage your buddies. Remember: one friend, one slot. Don't try to clone them."
+          }
+        }
+      ]
     } else if (isBillDetail) {
       steps = [
         {
           popover: {
             title: "The Proof",
             description:
-              "Here's the breakdown. Share it with the group as solid evidence of who owes what.",
-          },
-        },
-      ];
+              "Here's the breakdown. Share it with the group as solid evidence of who owes what."
+          }
+        }
+      ]
     } else {
-      steps = [profileStep, themeStep];
+      steps = [profileStep, themeStep]
     }
 
     const driverObj = driver({
@@ -184,15 +184,15 @@ const HelpGuide = () => {
       nextBtnText: "Next",
       prevBtnText: "Previous",
       doneBtnText: "Done",
-      steps: steps.filter((step) => {
-        if (!step.element) return true;
+      steps: steps.filter(step => {
+        if (!step.element) return true
 
-        return document.querySelector(step.element as string) !== null;
-      }),
-    });
+        return document.querySelector(step.element as string) !== null
+      })
+    })
 
-    driverObj.drive();
-  };
+    driverObj.drive()
+  }
 
   return (
     <Button
@@ -204,7 +204,7 @@ const HelpGuide = () => {
     >
       <HelpCircleIcon className="h-4 w-4" />
     </Button>
-  );
-};
+  )
+}
 
-export default HelpGuide;
+export default HelpGuide

@@ -1,20 +1,20 @@
-import { Item, ItemContent, ItemHeader } from "@/components/ui/item";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import type { AmountPerPerson, currencyId, ItemProps } from "../types/bill";
-import { formatter } from "@/shared/utils/utils";
+import { Item, ItemContent, ItemHeader } from "@/components/ui/item"
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import type { AmountPerPerson, currencyId, ItemProps } from "../types/bill"
+import { formatter } from "@/shared/utils/utils"
 
 type PersonBillBreakdownItemProps = {
-  person: AmountPerPerson;
-  currency?: currencyId;
-  items: ItemProps[];
-};
+  person: AmountPerPerson
+  currency?: currencyId
+  items: ItemProps[]
+}
 
 const PersonBillBreakdownItem = ({
   person,
   currency,
-  items,
+  items
 }: PersonBillBreakdownItemProps) => {
-  const chargeShare = person.total - person.subtotal;
+  const chargeShare = person.total - person.subtotal
 
   return (
     <Item variant={"muted"}>
@@ -43,7 +43,7 @@ const PersonBillBreakdownItem = ({
 
           <div className="ml-10">
             <ol className="list-decimal list-inside">
-              {items.map((item) => (
+              {items.map(item => (
                 <li key={item.id} className="text-sm font-medium text-primary">
                   {item.name}
                 </li>
@@ -65,7 +65,7 @@ const PersonBillBreakdownItem = ({
         )}
       </ItemContent>
     </Item>
-  );
-};
+  )
+}
 
-export default PersonBillBreakdownItem;
+export default PersonBillBreakdownItem

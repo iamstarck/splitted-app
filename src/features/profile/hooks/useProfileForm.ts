@@ -1,19 +1,19 @@
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod"
 import {
   profileNameSchema,
-  type ProfileNameFormValues,
-} from "../lib/profile-validation";
-import { useForm } from "react-hook-form";
+  type ProfileNameFormValues
+} from "../lib/profile-validation"
+import { useForm } from "react-hook-form"
 
 export const useProfileForm = () => {
   const defaultValues: ProfileNameFormValues = {
-    profileName: "",
-  };
+    profileName: ""
+  }
 
   const form = useForm<ProfileNameFormValues>({
     resolver: zodResolver(profileNameSchema),
-    defaultValues,
-  });
+    defaultValues
+  })
 
-  return { form };
-};
+  return { form }
+}

@@ -1,19 +1,19 @@
-import { ModeToggle } from "@/components/common/ModeToggle";
-import BackButton from "../shared/components/BackButton";
-import HelpGuide from "@/shared/components/HelpGuide";
-import { UserIcon } from "lucide-react";
-import ProfileForm from "../features/profile/components/ProfileForm";
-import Footer from "../shared/components/Footer";
-import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
-import { useSelectProfile } from "@/stores/selectors/profile.selectors";
-import { useNavigate } from "react-router-dom";
-import PageTransition from "@/shared/animations/PageTransition";
-import { motion } from "motion/react";
+import { ModeToggle } from "@/components/common/ModeToggle"
+import BackButton from "../shared/components/BackButton"
+import HelpGuide from "@/shared/components/HelpGuide"
+import { UserIcon } from "lucide-react"
+import ProfileForm from "../features/profile/components/ProfileForm"
+import Footer from "../shared/components/Footer"
+import ProfileAvatar from "@/features/profile/components/ProfileAvatar"
+import { useSelectProfile } from "@/stores/selectors/profile.selectors"
+import { useNavigate } from "react-router-dom"
+import PageTransition from "@/shared/animations/PageTransition"
+import { motion } from "motion/react"
 
 const ProfilePage = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
-  const profileName = useSelectProfile().name;
+  const profileName = useSelectProfile().name
 
   return (
     <PageTransition>
@@ -36,7 +36,7 @@ const ProfilePage = () => {
                 animate={{ opacity: 1, x: 0 }}
                 transition={{
                   duration: 0.4,
-                  ease: [0.22, 1, 0.36, 1] as const,
+                  ease: [0.22, 1, 0.36, 1] as const
                 }}
               >
                 <UserIcon size={"36px"} /> Your Profile
@@ -67,7 +67,7 @@ const ProfilePage = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

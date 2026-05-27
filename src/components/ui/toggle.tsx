@@ -1,11 +1,11 @@
-"use client";
+"use client"
 
-import * as React from "react";
-import { type VariantProps } from "class-variance-authority";
-import { Toggle as TogglePrimitive } from "radix-ui";
+import * as React from "react"
+import { type VariantProps } from "class-variance-authority"
+import { Toggle as TogglePrimitive } from "radix-ui"
 
-import { cn } from "@/lib/utils";
-import { toggleVariants } from "../common/toggleVariants";
+import { cn } from "@/lib/utils"
+import { toggleVariants } from "../common/toggleVariants"
 
 function Toggle({
   className,
@@ -20,7 +20,7 @@ function Toggle({
       className={cn(toggleVariants({ variant, size, className }))}
       {...props}
     />
-  );
+  )
 }
 
-export { Toggle };
+export { Toggle }

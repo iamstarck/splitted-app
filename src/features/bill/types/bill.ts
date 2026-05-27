@@ -1,46 +1,46 @@
-import { generateId } from "@/shared/utils/utils";
+import { generateId } from "@/shared/utils/utils"
 
 export const CURRENCIES = {
   $: "US Dollar",
-  Rp: "Rupiah",
-} as const;
+  Rp: "Rupiah"
+} as const
 
-export type currencyId = keyof typeof CURRENCIES;
+export type currencyId = keyof typeof CURRENCIES
 
 export type PersonProps = {
-  id: string;
-  name: string;
-};
+  id: string
+  name: string
+}
 
 export type ItemProps = {
-  id: string;
-  name: string;
-  price: number;
-  assignedPersonIds: string[];
-};
+  id: string
+  name: string
+  price: number
+  assignedPersonIds: string[]
+}
 
 export type ChargesProps = {
-  taxPercent: number;
-  servicePercent: number;
-};
+  taxPercent: number
+  servicePercent: number
+}
 
 export type BillProps = {
-  id: string;
-  title: string;
-  date: string;
-  currency: currencyId;
-  note?: string;
-  people: PersonProps[];
-  items: ItemProps[];
-  charges: ChargesProps;
-};
+  id: string
+  title: string
+  date: string
+  currency: currencyId
+  note?: string
+  people: PersonProps[]
+  items: ItemProps[]
+  charges: ChargesProps
+}
 
 export type AmountPerPerson = {
-  personId: string;
-  name: string;
-  subtotal: number;
-  total: number;
-};
+  personId: string
+  name: string
+  subtotal: number
+  total: number
+}
 
 export const initialBill = (): BillProps => ({
   id: generateId(),
@@ -52,6 +52,6 @@ export const initialBill = (): BillProps => ({
   items: [],
   charges: {
     taxPercent: 0,
-    servicePercent: 0,
-  },
-});
+    servicePercent: 0
+  }
+})

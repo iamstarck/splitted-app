@@ -1,24 +1,24 @@
-import { ModeToggle } from "@/components/common/ModeToggle";
-import BackButton from "@/shared/components/BackButton";
-import Footer from "@/shared/components/Footer";
-import HelpGuide from "@/shared/components/HelpGuide";
-import { useState, useCallback } from "react";
-import { useNavigate } from "react-router-dom";
-import CameraView from "@/features/scan/components/CameraView";
-import { useCamera } from "@/features/scan/hooks/useCamera";
-import { useOCR } from "@/features/scan/hooks/useOCR";
-import { preprocessImage } from "@/features/scan/utils/imagePreprocessor";
-import { Button } from "@/components/ui/button";
-import { useDataStore } from "@/stores/useDataStore";
-import { initialBill } from "@/features/bill/types/bill";
-import { generateId } from "@/shared/utils/utils";
-import PageTransition from "@/shared/animations/PageTransition";
-import { motion } from "motion/react";
+import { ModeToggle } from "@/components/common/ModeToggle"
+import BackButton from "@/shared/components/BackButton"
+import Footer from "@/shared/components/Footer"
+import HelpGuide from "@/shared/components/HelpGuide"
+import { useState, useCallback } from "react"
+import { useNavigate } from "react-router-dom"
+import CameraView from "@/features/scan/components/CameraView"
+import { useCamera } from "@/features/scan/hooks/useCamera"
+import { useOCR } from "@/features/scan/hooks/useOCR"
+import { preprocessImage } from "@/features/scan/utils/imagePreprocessor"
+import { Button } from "@/components/ui/button"
+import { useDataStore } from "@/stores/useDataStore"
+import { initialBill } from "@/features/bill/types/bill"
+import { generateId } from "@/shared/utils/utils"
+import PageTransition from "@/shared/animations/PageTransition"
+import { motion } from "motion/react"
 
 const ScanBillPage = () => {
-  const navigate = useNavigate();
-  const [mode, setMode] = useState<"camera" | "upload">("camera");
-  const setCurrentBill = useDataStore((state) => state.setCurrentBill);
+  const navigate = useNavigate()
+  const [mode, setMode] = useState<"camera" | "upload">("camera")
+  const setCurrentBill = useDataStore(state => state.setCurrentBill)
 
   const {
     videoRef,
@@ -28,75 +28,77 @@ const ScanBillPage = () => {
     selectedCamera,
     startCamera,
     switchCamera,
-    capture,
-  } = useCamera();
+    capture
+  } = useCamera()
 
-  const [image, setImage] = useState<string | null>(null);
-  const [isProcessing, setIsProcessing] = useState(false);
-  const handleDone = useCallback(() => setIsProcessing(false), []);
+  const [image, setImage] = useState<string | null>(null)
+  const [isProcessing, setIsProcessing] = useState(false)
+  const handleDone = useCallback(() => setIsProcessing(false), [])
 
-  const { data: parsed, progress, loadingMessage, status } = useOCR(
-    image,
-    handleDone,
-  );
+  const {
+    data: parsed,
+    progress,
+    loadingMessage,
+    status
+  } = useOCR(image, handleDone)
 
   const processImage = async (raw: string) => {
-    setIsProcessing(true);
+    setIsProcessing(true)
     try {
-      const processed = await preprocessImage(raw);
-      setImage(processed);
+      const processed = await preprocessImage(raw)
+      setImage(processed)
     } catch {
-      setImage(raw);
+      setImage(raw)
     }
-  };
+  }
 
   const handleCapture = async () => {
-    const img = capture();
-    if (!img) return;
-    await processImage(img);
-  };
+    const img = capture()
+    if (!img) return
+    await processImage(img)
+  }
 
   const handleUpload = (file: File) => {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      const raw = e.target?.result as string;
-      if (raw) await processImage(raw);
-    };
-    reader.readAsDataURL(file);
-  };
+    const reader = new FileReader()
+    reader.onload = async e => {
+      const raw = e.target?.result as string
+      if (raw) await processImage(raw)
+    }
+    reader.readAsDataURL(file)
+  }
 
   const handleCreateBill = () => {
-    if (!parsed) return;
+    if (!parsed) return
 
-    const newBill = initialBill();
-    newBill.title = "Scanned Receipt";
+    const newBill = initialBill()
+    newBill.title = "Scanned Receipt"
 
     if (parsed.items && parsed.items.length > 0) {
-      newBill.items = parsed.items.map((item) => ({
+      newBill.items = parsed.items.map(item => ({
         id: generateId(),
         name: item.name,
         price: item.price,
-        assignedPersonIds: [],
-      }));
+        assignedPersonIds: []
+      }))
     }
 
     const subtotal =
       parsed.subtotal ||
       parsed.items?.reduce((acc, item) => acc + item.price, 0) ||
-      0;
+      0
 
     if (subtotal > 0) {
       if (parsed.tax) {
         newBill.charges.taxPercent = Number(
-          ((parsed.tax / subtotal) * 100).toFixed(2),
-        );
+          ((parsed.tax / subtotal) * 100).toFixed(2)
+        )
       }
       // Service charges are less consistently separated in standard receipts, but handled if exists
     }
 
-    setCurrentBill(newBill);
-    navigate("/new", { state: { fromScan: true } });
-  };
+    setCurrentBill(newBill)
+    navigate("/new", { state: { fromScan: true } })
+  }
 
   return (
     <PageTransition>
@@ -216,7 +218,7 @@ const ScanBillPage = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default ScanBillPage;
+export default ScanBillPage

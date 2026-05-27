@@ -1,29 +1,29 @@
-import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field";
-import { Input } from "@/components/ui/input";
-import { CircleAlertIcon } from "lucide-react";
+import { Field, FieldError, FieldLabel, FieldSet } from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import { CircleAlertIcon } from "lucide-react"
 
-import { Controller, type UseFormReturn } from "react-hook-form";
-import type { BillMetaFormValues } from "../../lib/billMeta-validation";
+import { Controller, type UseFormReturn } from "react-hook-form"
+import type { BillMetaFormValues } from "../../lib/billMeta-validation"
 import {
   Popover,
   PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover";
-import { Button } from "@/components/ui/button";
-import { Calendar } from "@/components/ui/calendar";
-import { TimePicker12 } from "@/components/ui/time-picker/time-picker-12h";
-import { Textarea } from "@/components/ui/textarea";
+  PopoverTrigger
+} from "@/components/ui/popover"
+import { Button } from "@/components/ui/button"
+import { Calendar } from "@/components/ui/calendar"
+import { TimePicker12 } from "@/components/ui/time-picker/time-picker-12h"
+import { Textarea } from "@/components/ui/textarea"
 
 interface BillMetaSectionProps {
-  form: UseFormReturn<BillMetaFormValues>;
+  form: UseFormReturn<BillMetaFormValues>
 }
 
 const BillMetaSection = ({ form }: BillMetaSectionProps) => {
   const {
     control,
     register,
-    formState: { errors },
-  } = form;
+    formState: { errors }
+  } = form
 
   return (
     <FieldSet className="space-y-3 w-full">
@@ -53,7 +53,7 @@ const BillMetaSection = ({ form }: BillMetaSectionProps) => {
           control={control}
           name="date"
           render={({ field }) => {
-            const selectedDate = field.value ?? undefined;
+            const selectedDate = field.value ?? undefined
 
             return (
               <div className="flex items-start gap-2">
@@ -75,26 +75,25 @@ const BillMetaSection = ({ form }: BillMetaSectionProps) => {
                     <Calendar
                       mode="single"
                       selected={field.value}
-                      onSelect={(date) => {
-                        if (date) field.onChange(date);
+                      onSelect={date => {
+                        if (date) field.onChange(date)
                       }}
                     />
                   </PopoverContent>
                 </Popover>
                 <TimePicker12
                   date={selectedDate}
-                  setDate={(newDate) => {
+                  setDate={newDate => {
                     if (newDate) {
-                      field.onChange(newDate);
+                      field.onChange(newDate)
                     }
                   }}
                 />
               </div>
-            );
+            )
           }}
         />
       </Field>
-
 
       <Field>
         <FieldLabel htmlFor="bill-note" className="text-base">
@@ -108,7 +107,7 @@ const BillMetaSection = ({ form }: BillMetaSectionProps) => {
         />
       </Field>
     </FieldSet>
-  );
-};
+  )
+}
 
-export default BillMetaSection;
+export default BillMetaSection

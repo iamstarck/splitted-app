@@ -2,26 +2,26 @@ import {
   Item,
   ItemActions,
   ItemContent,
-  ItemFooter,
-} from "@/components/ui/item";
-import { Button } from "@/components/ui/button";
-import { EllipsisVerticalIcon, EyeIcon } from "lucide-react";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import { formatDate } from "../utils/formatTime";
+  ItemFooter
+} from "@/components/ui/item"
+import { Button } from "@/components/ui/button"
+import { EllipsisVerticalIcon, EyeIcon } from "lucide-react"
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import { formatDate } from "../utils/formatTime"
 import type {
   BillProps,
   currencyId,
-  PersonProps,
-} from "@/features/bill/types/bill";
-import { formatter } from "@/shared/utils/utils";
+  PersonProps
+} from "@/features/bill/types/bill"
+import { formatter } from "@/shared/utils/utils"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Link } from "react-router-dom";
-import { useDeleteBillById } from "@/stores/selectors/bill.selectors";
+  DropdownMenuTrigger
+} from "@/components/ui/dropdown-menu"
+import { Link } from "react-router-dom"
+import { useDeleteBillById } from "@/stores/selectors/bill.selectors"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -31,31 +31,31 @@ import {
   AlertDialogFooter,
   AlertDialogHeader,
   AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
-import { toast } from "sonner";
-import { downloadBill } from "@/shared/utils/billActions";
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
+import { toast } from "sonner"
+import { downloadBill } from "@/shared/utils/billActions"
 
 type BillListItemModel = {
-  id: string;
-  title: string;
-  date: Date;
-  currency: currencyId;
-  total: number;
-  people: PersonProps[];
-};
+  id: string
+  title: string
+  date: Date
+  currency: currencyId
+  total: number
+  people: PersonProps[]
+}
 interface BillListItemProps {
-  bill: BillListItemModel;
-  rawBill: BillProps;
+  bill: BillListItemModel
+  rawBill: BillProps
 }
 
 const BillListItem = ({ bill, rawBill }: BillListItemProps) => {
-  const deleteBillById = useDeleteBillById();
+  const deleteBillById = useDeleteBillById()
 
   const handleDeleteBill = (billId: string) => {
-    deleteBillById(billId);
-    toast.success("Bill deleted successfully!", { position: "top-center" });
-  };
+    deleteBillById(billId)
+    toast.success("Bill deleted successfully!", { position: "top-center" })
+  }
 
   return (
     <Item variant={"muted"} className="shadow-xs">
@@ -73,7 +73,7 @@ const BillListItem = ({ bill, rawBill }: BillListItemProps) => {
         </div>
 
         <div className="*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale">
-          {bill.people.map((person) => (
+          {bill.people.map(person => (
             <AvatarInitials key={person.id} name={person.name} />
           ))}
         </div>
@@ -102,7 +102,7 @@ const BillListItem = ({ bill, rawBill }: BillListItemProps) => {
 
               <AlertDialog>
                 <AlertDialogTrigger asChild>
-                  <DropdownMenuItem onSelect={(e) => e.preventDefault()}>
+                  <DropdownMenuItem onSelect={e => e.preventDefault()}>
                     Delete
                   </DropdownMenuItem>
                 </AlertDialogTrigger>
@@ -129,7 +129,7 @@ const BillListItem = ({ bill, rawBill }: BillListItemProps) => {
         </ItemActions>
       </ItemFooter>
     </Item>
-  );
-};
+  )
+}
 
-export default BillListItem;
+export default BillListItem

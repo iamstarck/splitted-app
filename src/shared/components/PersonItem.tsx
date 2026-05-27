@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Item, ItemActions } from "@/components/ui/item";
-import AvatarInitials from "@/shared/components/AvatarInitials";
-import { XIcon } from "lucide-react";
-import type { PersonProps } from "../../features/bill/types/bill";
+import { Button } from "@/components/ui/button"
+import { Item, ItemActions } from "@/components/ui/item"
+import AvatarInitials from "@/shared/components/AvatarInitials"
+import { XIcon } from "lucide-react"
+import type { PersonProps } from "../../features/bill/types/bill"
 
 type PersonItemProps = {
-  person: PersonProps;
-  onAction?: (personId: string) => void;
-};
+  person: PersonProps
+  onAction?: (personId: string) => void
+}
 
 const PersonItem = ({ person, onAction }: PersonItemProps) => {
   return (
@@ -30,7 +30,7 @@ const PersonItem = ({ person, onAction }: PersonItemProps) => {
         </ItemActions>
       )}
     </Item>
-  );
-};
+  )
+}
 
-export default PersonItem;
+export default PersonItem

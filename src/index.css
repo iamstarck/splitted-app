@@ -101,19 +101,21 @@
   --radius: 1rem;
   --shadow-light: #ffffff;
   --shadow-dark: #a3b1c6;
-  --shadow-2xs: 3px 3px 6px var(--shadow-dark),
-    -3px -3px 6px var(--shadow-light);
-  --shadow-xs: 3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
-  --shadow-sm: 6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
+  --shadow-2xs:
+    3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  --shadow-xs:
+    3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light);
+  --shadow-sm:
+    6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
   --shadow: 6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
-  --shadow-md: 6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
-  --shadow-lg: 6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
-  --shadow-xl: 6px 6px 12px var(--shadow-dark),
-    -6px -6px 12px var(--shadow-light);
-  --shadow-2xl: inset 4px 4px 8px var(--shadow-dark),
+  --shadow-md:
+    6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  --shadow-lg:
+    6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  --shadow-xl:
+    6px 6px 12px var(--shadow-dark), -6px -6px 12px var(--shadow-light);
+  --shadow-2xl:
+    inset 4px 4px 8px var(--shadow-dark),
     inset -4px -4px 8px var(--shadow-light);
   --tracking-normal: 0em;
   --spacing: 0.25rem;
@@ -159,19 +161,21 @@
   --radius: 1rem;
   --shadow-light: rgba(255, 255, 255, 0.03);
   --shadow-dark: rgba(0, 0, 0, 0.6);
-  --shadow-2xs: 3px 3px 8px var(--shadow-dark),
-    -3px -3px 8px var(--shadow-light);
-  --shadow-xs: 3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
-  --shadow-sm: 6px 6px 18px var(--shadow-dark),
-    -6px -6px 18px var(--shadow-light);
+  --shadow-2xs:
+    3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
+  --shadow-xs:
+    3px 3px 8px var(--shadow-dark), -3px -3px 8px var(--shadow-light);
+  --shadow-sm:
+    6px 6px 18px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
   --shadow: 6px 6px 18px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
-  --shadow-md: 6px 6px 18px var(--shadow-dark),
-    -6px -6px 18px var(--shadow-light);
-  --shadow-lg: 6px 6px 18px var(--shadow-dark),
-    -6px -6px 18px var(--shadow-light);
-  --shadow-xl: 6px 6px 18px var(--shadow-dark),
-    -6px -6px 18px var(--shadow-light);
-  --shadow-2xl: inset 4px 4px 10px rgba(0, 0, 0, 0.6),
+  --shadow-md:
+    6px 6px 18px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
+  --shadow-lg:
+    6px 6px 18px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
+  --shadow-xl:
+    6px 6px 18px var(--shadow-dark), -6px -6px 18px var(--shadow-light);
+  --shadow-2xl:
+    inset 4px 4px 10px rgba(0, 0, 0, 0.6),
     inset -4px -4px 10px rgba(255, 255, 255, 0.02);
   --tracking-normal: 0em;
   --spacing: 0.25rem;

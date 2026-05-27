@@ -1,16 +1,16 @@
-import type { ReactNode } from "react";
-import { motion } from "motion/react";
+import type { ReactNode } from "react"
+import { motion } from "motion/react"
 
 interface EmptyListPlaceholderProps {
-  message: string;
-  subMessage?: string;
-  icon: ReactNode;
+  message: string
+  subMessage?: string
+  icon: ReactNode
 }
 
 const EmptyListPlaceholder = ({
   message,
   subMessage,
-  icon: Icon,
+  icon: Icon
 }: EmptyListPlaceholderProps) => {
   return (
     <motion.div
@@ -30,7 +30,7 @@ const EmptyListPlaceholder = ({
         {subMessage && <p>{subMessage}</p>}
       </div>
     </motion.div>
-  );
-};
+  )
+}
 
-export default EmptyListPlaceholder;
+export default EmptyListPlaceholder

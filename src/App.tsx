@@ -1,23 +1,23 @@
-import { useLocation, useRoutes } from "react-router-dom";
-import { ThemeProvider } from "./components/common/theme-provider";
-import HomePage from "./pages/HomePage";
-import ProfilePage from "./pages/ProfilePage";
-import NewBillPage from "./pages/NewBillPage";
-import { Toaster } from "./components/ui/sonner";
-import { useLayoutEffect, type ReactNode } from "react";
-import BillDetailPage from "./pages/BillDetailPage";
-import EditBillPage from "./pages/EditBillPage";
-import FriendListPage from "./pages/FriendListPage";
+import { useLocation, useRoutes } from "react-router-dom"
+import { ThemeProvider } from "./components/common/theme-provider"
+import HomePage from "./pages/HomePage"
+import ProfilePage from "./pages/ProfilePage"
+import NewBillPage from "./pages/NewBillPage"
+import { Toaster } from "./components/ui/sonner"
+import { useLayoutEffect, type ReactNode } from "react"
+import BillDetailPage from "./pages/BillDetailPage"
+import EditBillPage from "./pages/EditBillPage"
+import FriendListPage from "./pages/FriendListPage"
 
 const Wrapper = ({ children }: { children: ReactNode }) => {
-  const location = useLocation();
+  const location = useLocation()
 
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
-  }, [location.pathname]);
+    window.scrollTo(0, 0)
+  }, [location.pathname])
 
-  return children;
-};
+  return children
+}
 
 const Routes = () => {
   const element = useRoutes([
@@ -27,11 +27,11 @@ const Routes = () => {
     { path: "/friends", element: <FriendListPage /> },
     { path: "/new", element: <NewBillPage /> },
     { path: "/detail/:billId", element: <BillDetailPage /> },
-    { path: "/edit/:billId", element: <EditBillPage /> },
-  ]);
+    { path: "/edit/:billId", element: <EditBillPage /> }
+  ])
 
-  return element;
-};
+  return element
+}
 
 const App = () => {
   return (
@@ -41,7 +41,7 @@ const App = () => {
         <Toaster />
       </Wrapper>
     </ThemeProvider>
-  );
-};
+  )
+}
 
-export default App;
+export default App

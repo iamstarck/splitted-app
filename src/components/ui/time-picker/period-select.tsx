@@ -1,21 +1,21 @@
-"use client";
+"use client"
 
-import * as React from "react";
+import * as React from "react"
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import { Period, display12HourValue, setDateByType } from "./time-picker-utils";
+  SelectValue
+} from "@/components/ui/select"
+import { Period, display12HourValue, setDateByType } from "./time-picker-utils"
 
 interface PeriodSelectorProps {
-  period: Period;
-  date: Date | undefined;
-  setDate: (date: Date | undefined) => void;
-  onRightFocus?: () => void;
-  onLeftFocus?: () => void;
+  period: Period
+  date: Date | undefined
+  setDate: (date: Date | undefined) => void
+  onRightFocus?: () => void
+  onLeftFocus?: () => void
 }
 
 export const TimePeriodSelect = React.forwardRef<
@@ -23,31 +23,31 @@ export const TimePeriodSelect = React.forwardRef<
   PeriodSelectorProps
 >(({ period, date, setDate, onLeftFocus, onRightFocus }, ref) => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLButtonElement>) => {
-    if (e.key === "ArrowRight") onRightFocus?.();
-    if (e.key === "ArrowLeft") onLeftFocus?.();
-  };
+    if (e.key === "ArrowRight") onRightFocus?.()
+    if (e.key === "ArrowLeft") onLeftFocus?.()
+  }
 
   const handleValueChange = (value: Period) => {
-    if (!date) return;
+    if (!date) return
 
     /**
      * trigger an update whenever the user switches between AM and PM;
      * otherwise user must manually change the hour each time
      */
     if (date) {
-      const tempDate = new Date(date);
-      const hours = display12HourValue(date.getHours());
+      const tempDate = new Date(date)
+      const hours = display12HourValue(date.getHours())
 
       const updated = setDateByType(
         tempDate,
         hours.toString(),
         "12hours",
-        value,
-      );
+        value
+      )
 
-      setDate(updated);
+      setDate(updated)
     }
-  };
+  }
 
   return (
     <div className="flex h-10 items-center w-full">
@@ -68,7 +68,7 @@ export const TimePeriodSelect = React.forwardRef<
         </SelectContent>
       </Select>
     </div>
-  );
-});
+  )
+})
 
-TimePeriodSelect.displayName = "TimePeriodSelect";
+TimePeriodSelect.displayName = "TimePeriodSelect"

@@ -1,6 +1,6 @@
-import type { ReactNode } from "react";
+import type { ReactNode } from "react"
 
 export interface ButtonWithIconProps {
-  text: string;
-  icon: ReactNode;
+  text: string
+  icon: ReactNode
 }

@@ -1,6 +1,6 @@
-import { ModeToggle } from "@/components/common/ModeToggle";
-import { Button } from "@/components/ui/button";
-import { ItemGroup } from "@/components/ui/item";
+import { ModeToggle } from "@/components/common/ModeToggle"
+import { Button } from "@/components/ui/button"
+import { ItemGroup } from "@/components/ui/item"
 import {
   Pagination,
   PaginationContent,
@@ -8,44 +8,44 @@ import {
   PaginationItem,
   PaginationLink,
   PaginationNext,
-  PaginationPrevious,
-} from "@/components/ui/pagination";
-import BillListItem from "@/features/home/components/BillListItem";
-import HomeMenuButton from "@/features/home/components/HomeMenuButton";
-import ProfileName from "@/features/home/components/ProfileName";
-import { usePagination } from "@/features/home/utils/usePagination";
-import { buildBillListItem } from "@/features/bill/lib/bill.calculation";
-import ProfileAvatar from "@/features/profile/components/ProfileAvatar";
-import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder";
-import Footer from "@/shared/components/Footer";
-import { useBills } from "@/stores/selectors/bill.selectors";
+  PaginationPrevious
+} from "@/components/ui/pagination"
+import BillListItem from "@/features/home/components/BillListItem"
+import HomeMenuButton from "@/features/home/components/HomeMenuButton"
+import ProfileName from "@/features/home/components/ProfileName"
+import { usePagination } from "@/features/home/utils/usePagination"
+import { buildBillListItem } from "@/features/bill/lib/bill.calculation"
+import ProfileAvatar from "@/features/profile/components/ProfileAvatar"
+import EmptyListPlaceholder from "@/shared/components/EmptyListPlaceholder"
+import Footer from "@/shared/components/Footer"
+import { useBills } from "@/stores/selectors/bill.selectors"
 import {
   CameraIcon,
   ListIcon,
   PlusIcon,
   Users2Icon,
-  UsersIcon,
-} from "lucide-react";
-import { useMemo } from "react";
-import { Link } from "react-router-dom";
-import AppLogo from "@/assets/splittedLogo.svg?react";
-import PageTransition from "@/shared/animations/PageTransition";
-import { motion } from "framer-motion";
-import HelpGuide from "@/shared/components/HelpGuide";
+  UsersIcon
+} from "lucide-react"
+import { useMemo } from "react"
+import { Link } from "react-router-dom"
+import AppLogo from "@/assets/splittedLogo.svg?react"
+import PageTransition from "@/shared/animations/PageTransition"
+import { motion } from "framer-motion"
+import HelpGuide from "@/shared/components/HelpGuide"
 import {
   StaggerContainer,
-  StaggerItem,
-} from "@/shared/animations/StaggerAnimation";
+  StaggerItem
+} from "@/shared/animations/StaggerAnimation"
 
 const HomePage = () => {
-  const billsRaw = useBills();
+  const billsRaw = useBills()
   const bills = useMemo(() => {
     return billsRaw
       .map(buildBillListItem)
-      .sort((a, b) => b.date.getTime() - a.date.getTime());
-  }, [billsRaw]);
+      .sort((a, b) => b.date.getTime() - a.date.getTime())
+  }, [billsRaw])
 
-  const { page, setPage, totalPages, paginatedData } = usePagination(bills, 5);
+  const { page, setPage, totalPages, paginatedData } = usePagination(bills, 5)
 
   return (
     <PageTransition>
@@ -80,7 +80,7 @@ const HomePage = () => {
                   transition={{
                     delay: 0.15,
                     duration: 0.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: [0.22, 1, 0.36, 1]
                   }}
                 >
                   <HomeMenuButton
@@ -97,7 +97,7 @@ const HomePage = () => {
                   transition={{
                     delay: 0.15,
                     duration: 0.5,
-                    ease: [0.22, 1, 0.36, 1],
+                    ease: [0.22, 1, 0.36, 1]
                   }}
                 >
                   <Button
@@ -117,7 +117,7 @@ const HomePage = () => {
                 transition={{
                   delay: 0.2,
                   duration: 0.6,
-                  ease: [0.22, 1, 0.36, 1],
+                  ease: [0.22, 1, 0.36, 1]
                 }}
               >
                 <Button size={"lg"} className="w-full" asChild>
@@ -145,12 +145,12 @@ const HomePage = () => {
                 {bills.length > 0 ? (
                   <div className="space-y-4 w-full px-6">
                     <StaggerContainer className="space-y-4">
-                      {paginatedData.map((bill) => (
+                      {paginatedData.map(bill => (
                         <StaggerItem key={bill.id}>
                           <ItemGroup>
                             <BillListItem
                               bill={bill}
-                              rawBill={billsRaw.find((b) => b.id === bill.id)!}
+                              rawBill={billsRaw.find(b => b.id === bill.id)!}
                             />
                           </ItemGroup>
                         </StaggerItem>
@@ -162,7 +162,7 @@ const HomePage = () => {
                         <PaginationContent>
                           <PaginationItem>
                             <PaginationPrevious
-                              onClick={() => page > 1 && setPage((p) => p - 1)}
+                              onClick={() => page > 1 && setPage(p => p - 1)}
                               className={
                                 page === 1
                                   ? "hover:cursor-default hover:bg-background dark:hover:bg-background dark:hover:text-foreground hover:text-foreground opacity-50"
@@ -172,12 +172,11 @@ const HomePage = () => {
                           </PaginationItem>
 
                           {Array.from({ length: totalPages }).map((_, i) => {
-                            const pageNumber = i + 1;
+                            const pageNumber = i + 1
                             const isNearCurrent =
                               pageNumber === 1 ||
                               pageNumber === totalPages ||
-                              (pageNumber >= page - 1 &&
-                                pageNumber <= page + 1);
+                              (pageNumber >= page - 1 && pageNumber <= page + 1)
 
                             if (isNearCurrent) {
                               return (
@@ -194,7 +193,7 @@ const HomePage = () => {
                                     {pageNumber}
                                   </PaginationLink>
                                 </PaginationItem>
-                              );
+                              )
                             }
 
                             if (
@@ -205,14 +204,14 @@ const HomePage = () => {
                                 <PaginationItem key={pageNumber}>
                                   <PaginationEllipsis />
                                 </PaginationItem>
-                              );
+                              )
                             }
                           })}
 
                           <PaginationItem>
                             <PaginationNext
                               onClick={() =>
-                                page < totalPages && setPage((p) => p + 1)
+                                page < totalPages && setPage(p => p + 1)
                               }
                               className={
                                 page === totalPages
@@ -240,7 +239,7 @@ const HomePage = () => {
         </div>
       </div>
     </PageTransition>
-  );
-};
+  )
+}
 
-export default HomePage;
+export default HomePage
