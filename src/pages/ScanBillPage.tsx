@@ -35,10 +35,12 @@ const ScanBillPage = () => {
   const [isProcessing, setIsProcessing] = useState(false)
   const handleDone = useCallback(() => setIsProcessing(false), [])
 
-  const { data: parsed, progress, loadingMessage, status } = useOCR(
-    image,
-    handleDone
-  )
+  const {
+    data: parsed,
+    progress,
+    loadingMessage,
+    status
+  } = useOCR(image, handleDone)
 
   const processImage = async (raw: string) => {
     setIsProcessing(true)
