@@ -82,9 +82,11 @@ export const useOCR = (image: string | null, onDone?: () => void) => {
             if (active) onDone?.()
           }, 800)
         }
-      } catch (err: any) {
+      } catch (err) {
         console.error("[useOCR] Error:", err)
-        if (err.message === "OCR Timeout" && attempt < 2) {
+        const errorMessage = err instanceof Error ? err.message : String(err)
+
+        if (errorMessage === "OCR Timeout" && attempt < 2) {
           if (active) setLoadingMessage("Timeout. Mengulangi proses OCR...")
           // Retry
           if (active) run(attempt + 1)
@@ -94,7 +96,7 @@ export const useOCR = (image: string | null, onDone?: () => void) => {
         if (active) {
           setStatus("error")
           setLoadingMessage(
-            err.message || "Terjadi kesalahan pada Mindee Server."
+            errorMessage || "Terjadi kesalahan pada Mindee Server."
           )
           onDone?.() // Call onDone even on error to stop loading
         }

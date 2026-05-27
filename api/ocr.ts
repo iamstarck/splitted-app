@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as mindee from "mindee"
 
 export const config = {
@@ -124,10 +125,12 @@ export default async function handler(req: any, res: any) {
       total: Number(totalAmount) || 0,
       tax: Number(totalTax) || 0
     })
-  } catch (error: any) {
-    console.error("[OCR] Error:", error.message || error)
+  } catch (error) {
+    const errorMessage = error instanceof Error ? error.message : String(error)
+    console.error("[OCR] Error:", errorMessage)
+
     return res.status(500).json({
-      error: error.message || "Terjadi kesalahan pada server OCR"
+      error: errorMessage || "Terjadi kesalahan pada server OCR"
     })
   }
 }

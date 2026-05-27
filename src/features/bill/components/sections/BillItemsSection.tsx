@@ -1,15 +1,12 @@
-import { Button } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { InputGroup, InputGroupInput } from "@/components/ui/input-group"
-import { ItemGroup } from "@/components/ui/item"
-import BillItem from "../BillItem"
-import { CoffeeIcon, PlusIcon } from "lucide-react"
-import { CURRENCIES, type currencyId } from "../../types/bill"
 import { useSelectBillItems } from "@/stores/selectors/bill.selectors"
 import { useDataStore } from "@/stores/useDataStore"
 import { useState } from "react"
-import { Controller, type UseFormReturn } from "react-hook-form"
-import type { BillMetaFormValues } from "../../lib/billMeta-validation"
+import { Controller, UseFormReturn } from "react-hook-form"
+import { CURRENCIES, currencyId } from "../../types/bill"
+import { BillMetaFormValues } from "../../lib/billMeta-validation"
+import { CoffeeIcon, PlusIcon } from "lucide-react"
+import { Input } from "@/components/ui/input"
+import { InputGroup, InputGroupInput } from "@/components/ui/input-group"
 import {
   Select,
   SelectContent,
@@ -17,6 +14,9 @@ import {
   SelectTrigger,
   SelectValue
 } from "@/components/ui/select"
+import { Button } from "@/components/ui/button"
+import { ItemGroup } from "@/components/ui/item"
+import BillItem from "../BillItem"
 
 const BillItemsSection = ({
   form,
@@ -33,13 +33,14 @@ const BillItemsSection = ({
   const [displayPrice, setDisplayPrice] = useState("")
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let val = e.target.value
+    const val = e.target.value
 
     if (currency === "Rp") {
       const numericString = val.replace(/\D/g, "")
       if (!numericString) {
         setDisplayPrice("")
         setPrice(null)
+
         return
       }
       const num = Number(numericString)
@@ -59,6 +60,7 @@ const BillItemsSection = ({
       if (numericValue.endsWith(".")) {
         setDisplayPrice(numericValue)
         setPrice(Number(numericValue))
+
         return
       }
 

@@ -129,7 +129,7 @@ const isNoiseLine = (line: string): boolean => {
   // Separator lines (====, ----,  ****)
   if (/^[=\-*]{3,}/.test(line)) return true
   // Date patterns like 14-01-2022 or 2022/01/14 or 16.06.18
-  if (/\b\d{1,2}[-\/\.]\d{1,2}[-\/\.]\d{2,4}\b/.test(line)) return true
+  if (/\b\d{1,2}[-\\/\\.]\d{1,2}[-\\/\\.]\d{2,4}\b/.test(line)) return true
   // Time patterns like 08:02:00 or 10:27am
   if (/\b\d{2}:\d{2}(:\d{2})?\s*(am|pm)?\b/i.test(line)) return true
   // Phone number patterns like (0341) or 021-7999034
@@ -230,7 +230,7 @@ const cleanItemName = (line: string): string => {
       // Remove standalone single digits (qty column remnants)
       .replace(/\b\d{1,2}\b/g, "")
       // Keep only meaningful characters
-      .replace(/[^a-zA-Z0-9\s\-\/&'.]/g, " ")
+      .replace(/[^a-zA-Z0-9\s\-\\/&'.]/g, " ")
       .replace(/\s+/g, " ")
       .trim()
   )

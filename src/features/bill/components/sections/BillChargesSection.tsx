@@ -8,9 +8,8 @@ const BillChargesSection = () => {
   const bill = useCurrentBill()
   const updateCharges = useDataStore(state => state.updatePeopleCharges)
 
-  if (!bill) return null
-
-  const { taxPercent, servicePercent } = bill.charges
+  const taxPercent = bill?.charges.taxPercent ?? 0
+  const servicePercent = bill?.charges.servicePercent ?? 0
 
   const [displayTax, setDisplayTax] = useState(
     taxPercent === 0 ? "" : taxPercent.toString()
@@ -18,6 +17,8 @@ const BillChargesSection = () => {
   const [displayService, setDisplayService] = useState(
     servicePercent === 0 ? "" : servicePercent.toString()
   )
+
+  if (!bill) return null
 
   const handleTaxChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const validChars = e.target.value.replace(/[^0-9.]/g, "")
