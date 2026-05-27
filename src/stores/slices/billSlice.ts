@@ -22,7 +22,7 @@ export interface BillSlice {
   addPersonToBill: (name: string) => void
   removePersonFromBill: (personId: string) => void
 
-  addItemToBill: (name: string, amount: number) => void
+  addItemToBill: (name: string, price: number, amount: number) => void
   removeItemFromBill: (itemId: string) => void
 
   assignItemToPeople: (itemId: string, personIds: string[]) => void
@@ -76,12 +76,12 @@ export const createBillSlice: StateCreator<DataStore, [], [], BillSlice> = (
       }
     }),
 
-  addItemToBill: (name, price) =>
+  addItemToBill: (name, price, amount) =>
     set(state => {
       if (!state.currentBill) return state
 
       return {
-        currentBill: addItemToBill(state.currentBill, name, price)
+        currentBill: addItemToBill(state.currentBill, name, price, amount)
       }
     }),
 

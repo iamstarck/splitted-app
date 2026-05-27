@@ -31,6 +31,7 @@ const BillItemsSection = ({
   const [name, setName] = useState("")
   const [price, setPrice] = useState<number | null>(null)
   const [displayPrice, setDisplayPrice] = useState("")
+  const [amount, setAmount] = useState<number>(1)
 
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
@@ -60,7 +61,6 @@ const BillItemsSection = ({
       if (numericValue.endsWith(".")) {
         setDisplayPrice(numericValue)
         setPrice(Number(numericValue))
-
         return
       }
 
@@ -78,12 +78,13 @@ const BillItemsSection = ({
   }
 
   const handleAddItem = () => {
-    if (!name.trim() || price === 0 || price === null) return
+    if (!name.trim() || price === null || price <= 0 || amount <= 0) return
 
-    addItem(name, price)
+    addItem(name, price, amount)
     setName("")
     setPrice(null)
     setDisplayPrice("")
+    setAmount(1)
   }
 
   return (
@@ -138,7 +139,7 @@ const BillItemsSection = ({
 
             <InputGroupInput
               type="text"
-              placeholder="0"
+              placeholder="Price"
               value={displayPrice}
               onChange={handlePriceChange}
               onKeyDown={e => {
@@ -149,6 +150,21 @@ const BillItemsSection = ({
               }}
             />
           </InputGroup>
+
+          <Input
+            type="number"
+            placeholder="Qty"
+            className="w-20"
+            min={1}
+            value={amount}
+            onChange={e =>
+              setAmount(Math.max(1, parseInt(e.target.value) || 0))
+            }
+            onKeyDown={e => {
+              if (e.key === "Enter") handleAddItem()
+            }}
+          />
+
           <Button type="button" onClick={handleAddItem}>
             <PlusIcon />
           </Button>

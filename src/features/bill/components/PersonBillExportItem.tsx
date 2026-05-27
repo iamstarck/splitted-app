@@ -1,11 +1,12 @@
 import { MinusIcon } from "lucide-react"
-import { AmountPerPerson, currencyId, ItemProps } from "../types/bill"
+import { AmountPerPerson, currencyId } from "../types/bill"
 import { formatter } from "@/shared/utils/utils"
+import { ItemBreakdown } from "../lib/bill.calculation"
 
 type PersonBillExportItemProps = {
   person: AmountPerPerson
   currency?: currencyId
-  items: ItemProps[]
+  items: ItemBreakdown[]
 }
 
 const PersonBillExportItem = ({
@@ -37,7 +38,13 @@ const PersonBillExportItem = ({
         </p>
         <ol className="list-decimal list-inside">
           {items.map(item => (
-            <li key={item.id}>{item.name}</li>
+            <li key={item.id}>
+              <span>{item.name}</span>
+              <span className="float-right">
+                {currency}
+                {formatter.format(item.splitPrice.toNumber())}
+              </span>
+            </li>
           ))}
         </ol>
       </div>

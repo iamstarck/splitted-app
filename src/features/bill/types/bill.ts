@@ -16,6 +16,7 @@ export type ItemProps = {
   id: string
   name: string
   price: number
+  amount: number
   assignedPersonIds: string[]
 }
 

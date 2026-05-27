@@ -31,7 +31,8 @@ export const removePersonFromBill = (
 export const addItemToBill = (
   bill: BillProps,
   itemName: string,
-  itemPrice: number
+  itemPrice: number,
+  itemAmount: number
 ): BillProps => {
   return {
     ...bill,
@@ -41,6 +42,7 @@ export const addItemToBill = (
         id: generateId(),
         name: itemName,
         price: itemPrice,
+        amount: itemAmount,
         assignedPersonIds: []
       }
     ]

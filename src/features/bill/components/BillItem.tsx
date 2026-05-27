@@ -1,4 +1,10 @@
-import { Button } from "@/components/ui/button"
+import { useDataStore } from "@/stores/useDataStore"
+import { currencyId, ItemProps } from "../types/bill"
+import {
+  useSelectItemPricePerPerson,
+  useSelectPeople
+} from "@/stores/selectors/bill.selectors"
+import Decimal from "decimal.js"
 import {
   Item,
   ItemActions,
@@ -6,16 +12,11 @@ import {
   ItemHeader,
   ItemTitle
 } from "@/components/ui/item"
+import { formatter } from "@/shared/utils/utils"
+import { Button } from "@/components/ui/button"
+import { XIcon } from "lucide-react"
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group"
 import AvatarInitials from "@/shared/components/AvatarInitials"
-import { XIcon } from "lucide-react"
-import type { currencyId, ItemProps } from "../types/bill"
-import { useDataStore } from "@/stores/useDataStore"
-import { formatter } from "@/shared/utils/utils"
-import {
-  useSelectItemPricePerPerson,
-  useSelectPeople
-} from "@/stores/selectors/bill.selectors"
 
 interface BillItemProps {
   currency?: currencyId
@@ -29,13 +30,22 @@ const BillItem = ({ currency, item }: BillItemProps) => {
   const people = useSelectPeople() ?? []
   const pricePerPerson = useSelectItemPricePerPerson(item.id)
 
+  const itemTotal = new Decimal(item.price || 0)
+    .mul(item.amount || 1)
+    .toNumber()
+
   return (
     <Item variant={"muted"}>
       <ItemHeader className="items-start">
         <div>
           <ItemTitle>{item.name}</ItemTitle>
-          <p className="font-semibold text-lg text-accent-foreground">
-            {currency} {formatter.format(item.price)}
+          <p className="text-lg text-accent-foreground">
+            {currency}
+            {formatter.format(item.price || 0)} x {item.amount || 1} ={" "}
+            <span className="font-semibold text-lg">
+              {currency}
+              {formatter.format(itemTotal)}
+            </span>
           </p>
         </div>
         <ItemActions>

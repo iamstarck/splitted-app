@@ -1,6 +1,10 @@
 import Decimal from "decimal.js"
 import { BillProps, ItemProps } from "../types/bill"
 
+export type ItemBreakdown = ItemProps & {
+  splitPrice: Decimal
+}
+
 type BillSummary = {
   subtotal: Decimal
   charges: Decimal
@@ -11,14 +15,17 @@ type BillSummary = {
     subtotal: Decimal
     total: Decimal
   }[]
-  groupedByPerson: Record<string, ItemProps[]>
+  groupedByPerson: Record<string, ItemBreakdown[]>
   allAssigned: boolean
   isBalanced: boolean
   hasUnassignedPeople: boolean
 }
 
 const calculateSubtotal = (bill: BillProps) => {
-  return bill.items.reduce((sum, item) => sum.plus(item.price), new Decimal(0))
+  return bill.items.reduce(
+    (sum, item) => sum.plus(new Decimal(item.price || 0).mul(item.amount || 1)),
+    new Decimal(0)
+  )
 }
 
 const calculateCharges = (bill: BillProps, subtotal: Decimal) => {
@@ -27,22 +34,6 @@ const calculateCharges = (bill: BillProps, subtotal: Decimal) => {
   const percentTotal = new Decimal(taxPercent).plus(servicePercent).div(100)
 
   return subtotal.mul(percentTotal)
-}
-
-const groupItems = (bill: BillProps) => {
-  const map: Record<string, ItemProps[]> = {}
-
-  bill.people.forEach(person => {
-    map[person.id] = []
-  })
-
-  bill.items.forEach(item => {
-    item.assignedPersonIds.forEach(personId => {
-      if (map[personId]) map[personId].push(item)
-    })
-  })
-
-  return map
 }
 
 const isAllItemsAssigned = (bill: BillProps) =>
@@ -57,7 +48,10 @@ export const buildBillSummary = (bill: BillProps): BillSummary => {
   const charges = calculateCharges(bill, subtotal)
   const totalRounded = subtotal.plus(charges)
 
-  const groupedByPerson = groupItems(bill)
+  const groupedByPerson: Record<string, ItemBreakdown[]> = {}
+  bill.people.forEach(person => {
+    groupedByPerson[person.id] = []
+  })
 
   const subtotalMap: Record<string, Decimal> = {}
   bill.people.forEach(p => {
@@ -68,10 +62,15 @@ export const buildBillSummary = (bill: BillProps): BillSummary => {
     const totalAssignee = item.assignedPersonIds.length
     if (totalAssignee === 0) return
 
-    const splitPrice = new Decimal(item.price).div(totalAssignee)
+    const itemTotal = new Decimal(item.price || 0).mul(item.amount || 1)
+    const splitPrice = itemTotal.div(totalAssignee)
     item.assignedPersonIds.forEach(personId => {
       if (subtotalMap[personId]) {
         subtotalMap[personId] = subtotalMap[personId].plus(splitPrice)
+        groupedByPerson[personId].push({
+          ...item,
+          splitPrice
+        })
       }
     })
   })
