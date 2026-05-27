@@ -1,5 +1,5 @@
 import Decimal from "decimal.js"
-import type { BillProps, ItemProps } from "../types/bill"
+import { BillProps, ItemProps } from "../types/bill"
 
 type BillSummary = {
   subtotal: Decimal
@@ -38,7 +38,7 @@ const groupItems = (bill: BillProps) => {
 
   bill.items.forEach(item => {
     item.assignedPersonIds.forEach(personId => {
-      map[personId].push(item)
+      if (map[personId]) map[personId].push(item)
     })
   })
 
@@ -55,50 +55,51 @@ const isSplitBalanced = (total: Decimal, assignedTotal: Decimal) => {
 export const buildBillSummary = (bill: BillProps): BillSummary => {
   const subtotal = calculateSubtotal(bill)
   const charges = calculateCharges(bill, subtotal)
-  const total = subtotal.plus(charges)
+  const totalRounded = subtotal.plus(charges)
 
   const groupedByPerson = groupItems(bill)
 
-  const basePerPerson = bill.people.map(person => {
-    const personSubtotal = bill.items.reduce((sum, item) => {
-      if (!item.assignedPersonIds.includes(person.id)) return sum
+  const subtotalMap: Record<string, Decimal> = {}
+  bill.people.forEach(p => {
+    subtotalMap[p.id] = new Decimal(0)
+  })
 
-      const split = new Decimal(item.price).div(item.assignedPersonIds.length)
+  bill.items.forEach(item => {
+    const totalAssignee = item.assignedPersonIds.length
+    if (totalAssignee === 0) return
 
-      return sum.plus(split)
-    }, new Decimal(0))
+    const splitPrice = new Decimal(item.price).div(totalAssignee)
+    item.assignedPersonIds.forEach(personId => {
+      if (subtotalMap[personId]) {
+        subtotalMap[personId] = subtotalMap[personId].plus(splitPrice)
+      }
+    })
+  })
+
+  const perPerson = bill.people.map(person => {
+    const personSubtotal = subtotalMap[person.id]
+
+    if (subtotal.isZero()) {
+      return {
+        personId: person.id,
+        name: person.name,
+        subtotal: new Decimal(0),
+        total: new Decimal(0)
+      }
+    }
+
+    const ratio = personSubtotal.div(subtotal)
+    const rawChargeShare = charges.mul(ratio)
+
+    const rawTotal = personSubtotal.plus(rawChargeShare)
 
     return {
       personId: person.id,
       name: person.name,
-      subtotal: personSubtotal,
-      total: personSubtotal
+      subtotal: personSubtotal.toDecimalPlaces(2),
+      total: rawTotal.toDecimalPlaces(2)
     }
   })
-
-  const perPerson = basePerPerson.map(p => {
-    if (subtotal.equals(0)) {
-      return {
-        ...p,
-        subtotal: p.subtotal.toDecimalPlaces(2),
-        total: p.total.toDecimalPlaces(2)
-      }
-    }
-
-    const ratio = p.subtotal.div(subtotal)
-    const rawChargeShare = charges.mul(ratio)
-
-    const roundedSubtotal = p.subtotal.toDecimalPlaces(2)
-    const roundedChargesShare = rawChargeShare.toDecimalPlaces(2)
-
-    return {
-      ...p,
-      subtotal: roundedSubtotal,
-      total: p.subtotal.plus(roundedChargesShare)
-    }
-  })
-
-  const totalRounded = total.toDecimalPlaces(2)
 
   const assignedTotal = perPerson.reduce(
     (sum, p) => sum.plus(p.total),
@@ -108,10 +109,8 @@ export const buildBillSummary = (bill: BillProps): BillSummary => {
   const diff = totalRounded.minus(assignedTotal)
 
   if (!diff.isZero() && perPerson.length > 0) {
-    perPerson[0] = {
-      ...perPerson[0],
-      total: perPerson[0].total.plus(diff)
-    }
+    const firstActivePerson = perPerson.find(p => p.total.gt(0)) || perPerson[0]
+    firstActivePerson.total = firstActivePerson.total.plus(diff)
   }
 
   const finalAssignedTotal = perPerson.reduce(
