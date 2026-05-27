@@ -77,6 +77,7 @@ const ScanBillPage = () => {
       newBill.items = parsed.items.map(item => ({
         id: generateId(),
         name: item.name,
+        amount: item.quantity,
         price: item.price,
         assignedPersonIds: []
       }))
