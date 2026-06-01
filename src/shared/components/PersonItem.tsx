@@ -3,6 +3,17 @@ import { Item, ItemActions } from "@/components/ui/item"
 import AvatarInitials from "@/shared/components/AvatarInitials"
 import { XIcon } from "lucide-react"
 import type { PersonProps } from "../../features/bill/types/bill"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger
+} from "@/components/ui/alert-dialog"
 
 type PersonItemProps = {
   person: PersonProps
@@ -19,14 +30,30 @@ const PersonItem = ({ person, onAction }: PersonItemProps) => {
       </div>
       {onAction && (
         <ItemActions>
-          <Button
-            type="button"
-            variant={"ghost"}
-            size={"sm"}
-            onClick={() => onAction(person.id)}
-          >
-            <XIcon />
-          </Button>
+          <AlertDialog>
+            <AlertDialogTrigger asChild>
+              <Button type="button" variant={"ghost"} size={"sm"}>
+                <XIcon />
+              </Button>
+            </AlertDialogTrigger>
+            <AlertDialogContent>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Unfriend your buddy?</AlertDialogTitle>
+                <AlertDialogDescription className="w-full border text-wrap">
+                  Make sure it's just business and nothing personal.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                <AlertDialogAction
+                  variant={"destructive"}
+                  onClick={() => onAction(person.id)}
+                >
+                  Delete
+                </AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+          </AlertDialog>
         </ItemActions>
       )}
     </Item>

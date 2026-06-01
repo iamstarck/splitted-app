@@ -33,7 +33,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
         </div>
         <div>
           <h2 className="text-xl font-semibold">Note</h2>
-          <p className="whitespace-pre-line">{bill.note}</p>
+          <p className="whitespace-pre-line">{bill.note?.trim() || "-"}</p>
         </div>
       </div>
 
