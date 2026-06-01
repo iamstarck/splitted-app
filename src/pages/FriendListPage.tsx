@@ -17,7 +17,7 @@ import {
   StaggerContainer,
   StaggerItem
 } from "@/shared/animations/StaggerAnimation"
-import { motion } from "motion/react"
+import { m } from "motion/react"
 import { toast } from "sonner"
 
 const FriendListPage = () => {
@@ -47,7 +47,7 @@ const FriendListPage = () => {
                 </div>
               </div>
 
-              <motion.h1
+              <m.h1
                 className="text-4xl font-bold flex items-center gap-4"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -57,10 +57,10 @@ const FriendListPage = () => {
                 }}
               >
                 <UsersIcon size={"36px"} /> Friends
-              </motion.h1>
+              </m.h1>
             </header>
 
-            <motion.main
+            <m.main
               className="flex flex-col items-center p-6 w-full gap-8"
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
@@ -92,7 +92,7 @@ const FriendListPage = () => {
                   />
                 )}
               </div>
-            </motion.main>
+            </m.main>
           </div>
 
           <Footer />

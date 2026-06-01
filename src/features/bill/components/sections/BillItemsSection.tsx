@@ -1,6 +1,6 @@
 import { useSelectBillItems } from "@/stores/selectors/bill.selectors"
 import { useDataStore } from "@/stores/useDataStore"
-import { useState } from "react"
+import { useMemo, useState } from "react"
 import { Controller, UseFormReturn } from "react-hook-form"
 import { CURRENCIES, currencyId } from "../../types/bill"
 import { BillMetaFormValues } from "../../lib/billMeta-validation"
@@ -33,6 +33,10 @@ const BillItemsSection = ({
   const [displayPrice, setDisplayPrice] = useState("")
   const [amount, setAmount] = useState<number>(1)
 
+  const numberFormatter = useMemo(() => {
+    return new Intl.NumberFormat(currency === "Rp" ? "id-ID" : "en-US")
+  }, [currency])
+
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
 
@@ -45,7 +49,7 @@ const BillItemsSection = ({
         return
       }
       const num = Number(numericString)
-      setDisplayPrice(new Intl.NumberFormat("id-ID").format(num))
+      setDisplayPrice(numberFormatter.format(num))
       setPrice(num)
     } else {
       const validChars = val.replace(/[^0-9.]/g, "")
@@ -66,9 +70,8 @@ const BillItemsSection = ({
 
       const num = Number(numericValue)
       const integerPart = parts[0]
-      const formattedInteger = new Intl.NumberFormat("en-US").format(
-        Number(integerPart)
-      )
+      const formattedInteger = numberFormatter.format(Number(integerPart))
+
       const display =
         parts.length > 1 ? `${formattedInteger}.${parts[1]}` : formattedInteger
 

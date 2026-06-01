@@ -26,7 +26,7 @@ import {
 import BackButton from "@/shared/components/BackButton"
 import HelpGuide from "@/shared/components/HelpGuide"
 import { ModeToggle } from "@/components/common/ModeToggle"
-import { motion } from "framer-motion"
+import { m } from "motion/react"
 import BillMetaSection from "./sections/BillMetaSection"
 import BillPeopleSection from "./sections/BillPeopleSection"
 import BillItemsSection from "./sections/BillItemsSection"
@@ -210,7 +210,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
             </div>
           </header>
 
-          <motion.main
+          <m.main
             className="flex flex-col justify-center items-center p-6 w-full"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -303,7 +303,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
                 </div>
               )}
             </form>
-          </motion.main>
+          </m.main>
 
           <Footer />
         </div>
@@ -330,7 +330,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
               <div className="flex justify-center rounded-lg overflow-hidden mb-6">
                 {shareLoading && (
                   <div className="flex items-center justify-center h-48 text-sm text-muted-foreground">
-                    Creating preview...
+                    Creating preview&hellip;
                   </div>
                 )}
 
@@ -355,7 +355,7 @@ const BillForm = ({ mode, title, description }: BillFormProps) => {
                   onClick={handleShareDownload}
                   disabled={shareLoading || !shareImageUrl}
                 >
-                  <Share2Icon className="mr-2 h-4 w-4" />
+                  <Share2Icon className="mr-2 size-4" />
                   Share / Save Image
                 </Button>
                 <Button

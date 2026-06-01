@@ -21,7 +21,7 @@ import {
   StaggerContainer,
   StaggerItem
 } from "@/shared/animations/StaggerAnimation"
-import { motion, AnimatePresence } from "framer-motion"
+import { m, AnimatePresence } from "motion/react"
 import { toast } from "sonner"
 
 const BillPeopleSection = () => {
@@ -240,7 +240,7 @@ const BillPeopleSection = () => {
         {/* Show "Add & Save to Friends" button when a new name is typed */}
         <AnimatePresence>
           {isNewPerson && (
-            <motion.div
+            <m.div
               initial={{ opacity: 0, height: 0 }}
               animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
@@ -253,10 +253,10 @@ const BillPeopleSection = () => {
                 className="w-full text-sm gap-1.5"
                 onClick={handleAddPersonAndFriend}
               >
-                <UserPlusIcon className="h-3.5 w-3.5" />
+                <UserPlusIcon className="size-3.5" />
                 Add "{name.trim()}" & Save to friend list
               </Button>
-            </motion.div>
+            </m.div>
           )}
         </AnimatePresence>
 

@@ -30,7 +30,7 @@ import { useMemo } from "react"
 import { Link } from "react-router-dom"
 import AppLogo from "@/assets/splittedLogo.svg?react"
 import PageTransition from "@/shared/animations/PageTransition"
-import { motion } from "framer-motion"
+import { m } from "motion/react"
 import HelpGuide from "@/shared/components/HelpGuide"
 import {
   StaggerContainer,
@@ -54,14 +54,14 @@ const HomePage = () => {
           <div className="w-full">
             <header className="flex items-start p-6 max-w-2xl justify-between w-full">
               <div>
-                <motion.div
+                <m.div
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 >
                   <AppLogo className="h-14 w-fit fill-primary" />
                   <ProfileName />
-                </motion.div>
+                </m.div>
               </div>
 
               <div className="flex items-center gap-4 max-md:gap-2">
@@ -73,7 +73,7 @@ const HomePage = () => {
 
             <main className="flex flex-col justify-center items-center p-6 w-full gap-6">
               <div className="flex gap-4">
-                <motion.div
+                <m.div
                   id="tour-friends-list"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -88,9 +88,9 @@ const HomePage = () => {
                     icon={<UsersIcon />}
                     pageRef="friends"
                   />
-                </motion.div>
+                </m.div>
 
-                <motion.div
+                <m.div
                   id="tour-friends-group"
                   initial={{ opacity: 0, y: 16 }}
                   animate={{ opacity: 1, y: 0 }}
@@ -107,10 +107,10 @@ const HomePage = () => {
                     <Users2Icon />
                     Groups
                   </Button>
-                </motion.div>
+                </m.div>
               </div>
 
-              <motion.div
+              <m.div
                 className="grid grid-cols-2 gap-4 w-full"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -139,7 +139,7 @@ const HomePage = () => {
                   <CameraIcon />
                   Scan Bill
                 </Button>
-              </motion.div>
+              </m.div>
 
               <div className="flex flex-col items-center justify-center gap-6 text-center w-full">
                 {bills.length > 0 ? (

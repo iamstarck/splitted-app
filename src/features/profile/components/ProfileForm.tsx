@@ -35,7 +35,7 @@ const ProfileForm = () => {
                 placeholder="Enter your name"
                 {...register("profileName")}
               />
-              <Button type="submit">Submit</Button>
+              <Button type="submit">Save changes</Button>
             </div>
             {errors.profileName && (
               <FieldError className="inline-flex items-center gap-1 text-destructive">

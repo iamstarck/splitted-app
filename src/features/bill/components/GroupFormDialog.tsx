@@ -64,10 +64,10 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[425px]">
+      <DialogContent className="sm:max-w-106.25">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            <UsersIcon className="h-5 w-5" /> Edit People & Group
+            <UsersIcon className="size-5" /> Edit People & Group
           </DialogTitle>
           <DialogDescription>
             Create a new group to easily add multiple friends to a bill at once.
@@ -118,7 +118,7 @@ const GroupFormDialog: React.FC<GroupFormDialogProps> = ({
                           ${isSelected ? "bg-primary border-primary text-primary-foreground" : "border-input"}
                         `}
                         >
-                          {isSelected && <CheckIcon className="h-3 w-3" />}
+                          {isSelected && <CheckIcon className="size-3" />}
                         </div>
                         <span className="text-sm font-medium flex-1 truncate">
                           {friend.name}

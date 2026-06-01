@@ -5,11 +5,11 @@ import {
 } from "../lib/friend-validation"
 import { zodResolver } from "@hookform/resolvers/zod"
 
-export const useFriendForm = () => {
-  const defaultValues: FriendNameFormValues = {
-    friendName: ""
-  }
+const defaultValues: FriendNameFormValues = {
+  friendName: ""
+}
 
+export const useFriendForm = () => {
   const form = useForm<FriendNameFormValues>({
     resolver: zodResolver(friendNameSchema),
     defaultValues
