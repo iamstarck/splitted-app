@@ -18,12 +18,19 @@ import {
   StaggerItem
 } from "@/shared/animations/StaggerAnimation"
 import { motion } from "motion/react"
+import { toast } from "sonner"
 
 const FriendListPage = () => {
   const navigate = useNavigate()
 
   const friendList = useSelectFriend()
-  const deleteFriend = useDataStore(state => state.removeFriend)
+
+  const removeFriend = useDataStore(state => state.removeFriend)
+
+  const handleRemoveFriend = (id: string) => {
+    removeFriend(id)
+    toast.success("Friend deleted successfully!", { position: "top-center" })
+  }
 
   return (
     <PageTransition>
@@ -70,7 +77,7 @@ const FriendListPage = () => {
                           <ItemGroup>
                             <PersonItem
                               person={friend}
-                              onAction={deleteFriend}
+                              onAction={handleRemoveFriend}
                             />
                           </ItemGroup>
                         </StaggerItem>
