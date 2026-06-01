@@ -72,6 +72,7 @@ const CameraView = ({
       {/* Tab switcher */}
       <div className="flex rounded-xl bg-muted p-1 gap-1">
         <button
+          type="button"
           id="scan-tab-camera"
           onClick={() => onModeChange("camera")}
           className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
@@ -85,6 +86,7 @@ const CameraView = ({
         </button>
         <button
           id="scan-tab-upload"
+          type="button"
           onClick={() => onModeChange("upload")}
           className={`flex-1 flex items-center justify-center gap-2 py-2 px-3 rounded-lg text-sm font-medium transition-all ${
             mode === "upload"
@@ -99,7 +101,7 @@ const CameraView = ({
 
       {/* Camera mode */}
       {mode === "camera" && (
-        <Card className="p-0 w-full aspect-[3/4] md:aspect-video overflow-hidden border-2">
+        <Card className="p-0 w-full aspect-3/4 md:aspect-video overflow-hidden border-2">
           <CardContent
             className={`p-0 h-full w-full relative ${isProcessing ? "pointer-events-none" : ""}`}
           >
@@ -107,6 +109,7 @@ const CameraView = ({
             {(cameraState === "idle" || cameraState === "error") && (
               <button
                 id="scan-open-camera-btn"
+                type="button"
                 onClick={onStartCamera}
                 disabled={isProcessing}
                 className="flex flex-col items-center justify-center h-full w-full gap-3 cursor-pointer hover:bg-muted/50 transition-colors px-6"
@@ -144,7 +147,7 @@ const CameraView = ({
             {cameraState === "starting" && (
               <div className="flex flex-col items-center justify-center h-full gap-3">
                 <Spinner className="size-8" />
-                <p className="text-base">Opening camera...</p>
+                <p className="text-base">Opening camera&hellip;</p>
               </div>
             )}
 
@@ -221,12 +224,13 @@ const CameraView = ({
 
       {/* Upload mode */}
       {mode === "upload" && (
-        <Card className="p-0 w-full aspect-[3/4] md:aspect-video overflow-hidden border-2">
+        <Card className="p-0 w-full aspect-3/4 md:aspect-video overflow-hidden border-2">
           <CardContent
             className={`p-0 h-full w-full relative ${isProcessing ? "pointer-events-none" : ""}`}
           >
             <button
               id="scan-upload-area"
+              type="button"
               onClick={() => fileInputRef.current?.click()}
               disabled={isProcessing}
               className="flex flex-col items-center justify-center h-full w-full gap-3 cursor-pointer hover:bg-muted/50 transition-colors"

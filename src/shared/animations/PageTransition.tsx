@@ -1,4 +1,4 @@
-import { motion } from "motion/react"
+import { m } from "motion/react"
 import type { ReactNode } from "react"
 
 const pageVariants = {
@@ -18,7 +18,7 @@ type PageTransitionProps = {
 }
 
 const PageTransition = ({ children, className }: PageTransitionProps) => (
-  <motion.div
+  <m.div
     variants={pageVariants}
     initial="initial"
     animate="animate"
@@ -27,7 +27,7 @@ const PageTransition = ({ children, className }: PageTransitionProps) => (
     className={className}
   >
     {children}
-  </motion.div>
+  </m.div>
 )
 
 export default PageTransition

@@ -24,7 +24,7 @@ const PersonItem = ({ person, onAction }: PersonItemProps) => {
   return (
     <Item variant={"muted"} className="justify-between py-1">
       <div className="flex items-center gap-2">
-        <AvatarInitials name={person.name} className="w-10 h-10" />
+        <AvatarInitials name={person.name} className="size-10" />
 
         <p>{person.name}</p>
       </div>

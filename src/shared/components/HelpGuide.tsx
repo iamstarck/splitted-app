@@ -202,7 +202,7 @@ const HelpGuide = () => {
       className="relative shrink-0"
       aria-label="Interactive Tour Guide"
     >
-      <HelpCircleIcon className="h-4 w-4" />
+      <HelpCircleIcon className="size-4" />
     </Button>
   )
 }

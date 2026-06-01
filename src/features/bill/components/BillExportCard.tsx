@@ -119,6 +119,7 @@ const BillExportCard = ({ bill, currency }: BillExportCardProps) => {
         <a
           href="https://splitted.vercel.app/"
           target="_blank"
+          rel="noreferrer"
           className="inline-flex items-center gap-1"
         >
           <LinkIcon size={15} />

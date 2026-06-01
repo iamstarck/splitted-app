@@ -33,7 +33,7 @@ const EditBillPage = () => {
   }, [billId, bills, navigate, setCurrentBillById])
 
   if (!currentBill || currentBill.id !== billId) {
-    return <p>Loading bill data...</p>
+    return <p>Loading bill data&hellip;</p>
   }
   return (
     <BillForm

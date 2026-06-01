@@ -13,7 +13,7 @@ import { useDataStore } from "@/stores/useDataStore"
 import { initialBill } from "@/features/bill/types/bill"
 import { generateId } from "@/shared/utils/utils"
 import PageTransition from "@/shared/animations/PageTransition"
-import { motion } from "motion/react"
+import { m } from "motion/react"
 
 const ScanBillPage = () => {
   const navigate = useNavigate()
@@ -143,7 +143,7 @@ const ScanBillPage = () => {
             />
 
             {parsed && parsed.items.length > 0 && (
-              <motion.div
+              <m.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
@@ -176,7 +176,7 @@ const ScanBillPage = () => {
                 >
                   Edit & Lanjut Assign
                 </Button>
-              </motion.div>
+              </m.div>
             )}
 
             {status === "done" && parsed && parsed.items.length === 0 && (

@@ -18,9 +18,12 @@ export const getInitials = (name: string) => {
     return "XX"
   }
 
-  const partsWithLetters = parts
-    .map(p => p.replace(/[^a-zA-Z]/g, ""))
-    .filter(p => p.length > 0)
+  const partsWithLetters = parts.reduce<string[]>((acc, p) => {
+    const letters = p.replace(/[^a-zA-Z]/g, "")
+    if (letters.length > 0) acc.push(letters)
+
+    return acc
+  }, [])
 
   if (partsWithLetters.length >= 2) {
     return (partsWithLetters[0][0] + partsWithLetters[1][0]).toUpperCase()

@@ -8,7 +8,7 @@ import ProfileAvatar from "@/features/profile/components/ProfileAvatar"
 import { useSelectProfile } from "@/stores/selectors/profile.selectors"
 import { useNavigate } from "react-router-dom"
 import PageTransition from "@/shared/animations/PageTransition"
-import { motion } from "motion/react"
+import { m } from "motion/react"
 
 const ProfilePage = () => {
   const navigate = useNavigate()
@@ -30,7 +30,7 @@ const ProfilePage = () => {
                 </div>
               </div>
 
-              <motion.h1
+              <m.h1
                 className="text-4xl font-bold flex items-center gap-4"
                 initial={{ opacity: 0, x: -16 }}
                 animate={{ opacity: 1, x: 0 }}
@@ -40,10 +40,10 @@ const ProfilePage = () => {
                 }}
               >
                 <UserIcon size={"36px"} /> Your Profile
-              </motion.h1>
+              </m.h1>
             </header>
 
-            <motion.main
+            <m.main
               className="flex flex-col items-center p-6 w-full gap-8"
               initial={{ opacity: 0, y: 4 }}
               animate={{ opacity: 1, y: 0 }}
@@ -60,7 +60,7 @@ const ProfilePage = () => {
                   <ProfileForm />
                 </div>
               </div>
-            </motion.main>
+            </m.main>
           </div>
 
           <Footer />

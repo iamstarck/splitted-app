@@ -5,11 +5,11 @@ import {
 } from "../lib/profile-validation"
 import { useForm } from "react-hook-form"
 
-export const useProfileForm = () => {
-  const defaultValues: ProfileNameFormValues = {
-    profileName: ""
-  }
+const defaultValues: ProfileNameFormValues = {
+  profileName: ""
+}
 
+export const useProfileForm = () => {
   const form = useForm<ProfileNameFormValues>({
     resolver: zodResolver(profileNameSchema),
     defaultValues

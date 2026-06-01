@@ -33,7 +33,7 @@ import {
 import { toast } from "sonner"
 import { downloadBill } from "@/shared/utils/billActions"
 import PageTransition from "@/shared/animations/PageTransition"
-import { motion } from "motion/react"
+import { m } from "motion/react"
 
 const BillDetailPage = () => {
   const { billId } = useParams()
@@ -129,7 +129,7 @@ const BillDetailPage = () => {
             </div>
           </header>
 
-          <motion.main
+          <m.main
             className="flex flex-col justify-start items-center p-6 w-full min-h-screen"
             initial={{ opacity: 0, y: 4 }}
             animate={{ opacity: 1, y: 0 }}
@@ -137,7 +137,7 @@ const BillDetailPage = () => {
           >
             <div className="space-y-6 w-full">
               {!bill || !summary ? (
-                <p>Loading bill data...</p>
+                <p>Loading bill data&hellip;</p>
               ) : (
                 <>
                   <div>
@@ -188,7 +188,7 @@ const BillDetailPage = () => {
                 </>
               )}
             </div>
-          </motion.main>
+          </m.main>
 
           <Footer />
         </div>
