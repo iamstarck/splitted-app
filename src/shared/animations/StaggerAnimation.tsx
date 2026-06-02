@@ -1,4 +1,4 @@
-import { domAnimation, LazyMotion, m, Variants } from "motion/react"
+import { m, Variants } from "motion/react"
 import { ReactNode } from "react"
 
 type StaggerContainerProps = {
@@ -21,24 +21,22 @@ export const StaggerContainer = ({
   className,
   staggerDelay = 0.03
 }: StaggerContainerProps) => (
-  <LazyMotion features={domAnimation}>
-    <m.div
-      variants={{
-        initial: {},
-        animate: {
-          transition: {
-            staggerChildren: staggerDelay,
-            delayChildren: 0.02
-          }
+  <m.div
+    variants={{
+      initial: {},
+      animate: {
+        transition: {
+          staggerChildren: staggerDelay,
+          delayChildren: 0.02
         }
-      }}
-      initial="initial"
-      animate="animate"
-      className={className}
-    >
-      {children}
-    </m.div>
-  </LazyMotion>
+      }
+    }}
+    initial="initial"
+    animate="animate"
+    className={className}
+  >
+    {children}
+  </m.div>
 )
 
 export const StaggerItem = ({
